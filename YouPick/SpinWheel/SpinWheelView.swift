@@ -11,6 +11,8 @@ import SwiftFortuneWheel
 
 class SpinWheelView: UIView {
     
+    var slices = [Slice]()
+    
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -67,9 +69,7 @@ class SpinWheelView: UIView {
         button.layer.cornerRadius = 20
         return button
     }()
-    
-    var slices = [Slice]()
-    
+
     func setupSlices() {
         let domainModel = RestaurantsModelController.shared.domainModel
         var spinWheelModel = [SpinWheelViewModel]()
@@ -110,18 +110,6 @@ class SpinWheelView: UIView {
         addSubview(pinImageView)
         addSubview(centerCircleImageView)
         addSubview(spinButton)
-        addSubview(searchBar)
-        addSubview(searchButton)
-        
-        searchBar.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor).isActive = true
-        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        searchButton.topAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
-        searchButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        searchButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        searchButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         spinWheel.translatesAutoresizingMaskIntoConstraints = false
         spinWheel.widthAnchor.constraint(equalToConstant: 300).isActive = true
