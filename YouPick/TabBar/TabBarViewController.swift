@@ -10,6 +10,8 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
+    let viewModel = TabBarViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchBusinesses()
@@ -27,12 +29,10 @@ class TabBarViewController: UITabBarController {
     }
     
     private func fetchBusinesses() {
-        NetworkManager.shared.fetchBusinesses(limit: 10, location: "Las Vegas", completion: { restaurantAPI in
-            let domainModel = restaurantAPI.map { RestaurantsDomainModel($0)}
-            RestaurantsModelController.shared.domainModel = domainModel
-            DispatchQueue.main.async {
-                self.setupTabBar()
-            }
+        NetworkManager.shared.fetchBusinesses(limit: "10", location: "Las Vegas", completion: { [weak self] restaurantAPI in
+            self?.viewModel.setupModelData(restaurantAPI, completion: {
+                self?.setupTabBar()
+            })
         })
     }
 }

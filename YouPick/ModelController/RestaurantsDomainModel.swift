@@ -13,15 +13,15 @@ struct RestaurantsDomainModel {
     var image: UIImage?
     var url: URL?
     var rating: Double?
-    var city : String?
-    var state: String?
+    var color: UIColor?
+    var textColor: UIColor?
     
-    init(_ restaurantModel: RestaurantModel) {
+    init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor, textColor: UIColor) {
         self.name = restaurantModel.name
         self.image = nil
         self.url = restaurantModel.image_url
         self.rating = restaurantModel.rating
-        self.state = restaurantModel.location?.state
-        self.city = restaurantModel.location?.city
+        self.color = backgroundColor
+        self.textColor = textColor
     }
 }

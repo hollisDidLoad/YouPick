@@ -18,10 +18,4 @@ struct RestaurantModel: Codable {
     var name: String?
     var image_url: URL?
     var rating: Double?
-    var location: LocationModel?
-}
-
-struct LocationModel: Codable {
-    let city: String?
-    let state: String?
 }

@@ -16,7 +16,7 @@ class NetworkManager {
     let apiKey = API_KEY().key
     
     func fetchBusinesses(
-        limit: Int,
+        limit: String,
         location: String,
         attributes: String = "hot_and_new",
         completion: @escaping ([RestaurantModel]) -> Void

@@ -11,8 +11,7 @@ import UIKit
 class SpinWheelViewController: UITabBarController {
     
     let contentView = SpinWheelView()
-    let viewModel = SpinWheelViewModel()
-    
+
     override func loadView() {
         view = contentView
     }

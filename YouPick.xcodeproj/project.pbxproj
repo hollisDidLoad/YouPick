@@ -13,8 +13,7 @@
 		5820AADB28FA1F8000B12A4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD928FA1F8000B12A4A /* LaunchScreen.storyboard */; };
 		5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */; };
 		5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */; };
-		5820AAE928FA201E00B12A4A /* SpinWheelVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE828FA201E00B12A4A /* SpinWheelVIew.swift */; };
-		5820AAEB28FA202B00B12A4A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAEA28FA202B00B12A4A /* SpinWheelViewModel.swift */; };
+		5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE828FA201E00B12A4A /* SpinWheelView.swift */; };
 		5820AAF028FA20C300B12A4A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAEF28FA20C300B12A4A /* MapViewController.swift */; };
 		5820AAF228FA20C800B12A4A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAF128FA20C800B12A4A /* MapView.swift */; };
 		5820AAF428FA20CF00B12A4A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAF328FA20CF00B12A4A /* MapViewModel.swift */; };
@@ -23,8 +22,9 @@
 		5820AAFB28FA216C00B12A4A /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFA28FA216C00B12A4A /* API_KEY.swift */; };
 		5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFD28FA218D00B12A4A /* RestaurantsModelController.swift */; };
 		5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */; };
-		5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */; };
+		5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */; };
 		5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */; };
+		585FA04228FA8F8100CEC6D2 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */; };
 		ED8B355510FD60477A1F6CFF /* Pods_YouPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +38,7 @@
 		5820AADC28FA1F8000B12A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewController.swift; sourceTree = "<group>"; };
-		5820AAE828FA201E00B12A4A /* SpinWheelVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelVIew.swift; sourceTree = "<group>"; };
-		5820AAEA28FA202B00B12A4A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
+		5820AAE828FA201E00B12A4A /* SpinWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelView.swift; sourceTree = "<group>"; };
 		5820AAEF28FA20C300B12A4A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5820AAF128FA20C800B12A4A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5820AAF328FA20CF00B12A4A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -48,8 +47,9 @@
 		5820AAFA28FA216C00B12A4A /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		5820AAFD28FA218D00B12A4A /* RestaurantsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsModelController.swift; sourceTree = "<group>"; };
 		5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsDomainModel.swift; sourceTree = "<group>"; };
-		5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelModel.swift; sourceTree = "<group>"; };
+		5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
 		5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpinWheel+WheelConfigurations.swift"; sourceTree = "<group>"; };
+		585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		ADB72269E9521D11FDC3BA81 /* Pods-YouPick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.release.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.release.xcconfig"; sourceTree = "<group>"; };
 		EF37FA68CB602230A9294416 /* Pods-YouPick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.debug.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */,
+				585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -129,9 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */,
-				5820AAEA28FA202B00B12A4A /* SpinWheelViewModel.swift */,
-				5820AAE828FA201E00B12A4A /* SpinWheelVIew.swift */,
-				5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */,
+				5820AAE828FA201E00B12A4A /* SpinWheelView.swift */,
+				5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */,
 				5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */,
 			);
 			path = SpinWheel;
@@ -289,15 +289,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5820AAEB28FA202B00B12A4A /* SpinWheelViewModel.swift in Sources */,
 				5820AAFB28FA216C00B12A4A /* API_KEY.swift in Sources */,
 				5820AAF428FA20CF00B12A4A /* MapViewModel.swift in Sources */,
-				5820AAE928FA201E00B12A4A /* SpinWheelVIew.swift in Sources */,
+				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
-				5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */,
+				5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */,
 				5820AAF728FA213000B12A4A /* NetworkManager.swift in Sources */,
 				5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */,
 				5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */,
+				585FA04228FA8F8100CEC6D2 /* TabBarViewModel.swift in Sources */,
 				5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
