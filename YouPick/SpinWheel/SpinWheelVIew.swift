@@ -68,31 +68,41 @@ class SpinWheelView: UIView {
         return button
     }()
     
-    lazy var slices: [Slice] = {
-        var slices = [Slice]()
+    var slices = [Slice]()
+    
+    func setupSlices() {
         let domainModel = RestaurantsModelController.shared.domainModel
+        var spinWheelModel = [SpinWheelModel]()
+        print(domainModel)
         for model in domainModel {
             guard let name = model.name else { return }
-            let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: .black))]
-            let sliceSetup =
-            [
-                Slice(contents: sliceContent, backgroundColor: .orange),
-                Slice(contents: sliceContent, backgroundColor: .blue),
-                Slice(contents: sliceContent, backgroundColor: .red),
-                Slice(contents: sliceContent, backgroundColor: .green),
-                Slice(contents: sliceContent, backgroundColor: .yellow),
-                Slice(contents: sliceContent, backgroundColor: .purple),
-                Slice(contents: sliceContent, backgroundColor: .white),
-                Slice(contents: sliceContent, backgroundColor: .systemPink),
-                Slice(contents: sliceContent, backgroundColor: .cyan),
-                Slice(contents: sliceContent, backgroundColor: .systemIndigo)
+            spinWheelModel = [
+                SpinWheelModel(name: name, color: .orange, textColor: .black),
+                SpinWheelModel(name: name, color: .blue, textColor: .black),
+                SpinWheelModel(name: name, color: .red, textColor: .black),
+                SpinWheelModel(name: name, color: .green, textColor: .black),
+                SpinWheelModel(name: name, color: .yellow, textColor: .black),
+                SpinWheelModel(name: name, color: .purple, textColor: .black),
+                SpinWheelModel(name: name, color: .white, textColor: .black),
+                SpinWheelModel(name: name, color: .systemPink, textColor: .black),
+                SpinWheelModel(name: name, color: .cyan, textColor: .black),
+                SpinWheelModel(name: name, color: .systemIndigo, textColor: .black),
             ]
-            slices = sliceSetup
         }
-        return slices
-    }()
+            for model in spinWheelModel {
+                guard let name = model.name else { return }
+                let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: model.textColor))]
+                let sliceSetup =
+                [
+                    Slice(contents: sliceContent, backgroundColor: .orange),
+
+                ]
+                slices = sliceSetup
+        }
+    }
     
     lazy var spinWheel: SwiftFortuneWheel = {
+        setupSlices()
         let spinWheel = SwiftFortuneWheel(frame: .zero, slices: slices, configuration: .wheelConfiguration)
         return spinWheel
     }()

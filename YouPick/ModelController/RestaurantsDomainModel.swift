@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 struct RestaurantsDomainModel {
-    let name: String?
-    let image: UIImage?
+    var name: String?
+    var image: UIImage?
     var url: URL?
-    let rating: Double?
-    let city : String?
-    let state: String?
+    var rating: Double?
+    var city : String?
+    var state: String?
     
     init(_ restaurantModel: RestaurantModel) {
         self.name = restaurantModel.name
