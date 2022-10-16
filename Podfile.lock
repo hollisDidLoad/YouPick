@@ -1,16 +1,20 @@
 PODS:
+  - lottie-ios (3.5.0)
   - SwiftFortuneWheel (1.4.2)
 
 DEPENDENCIES:
+  - lottie-ios
   - SwiftFortuneWheel
 
 SPEC REPOS:
   trunk:
+    - lottie-ios
     - SwiftFortuneWheel
 
 SPEC CHECKSUMS:
+  lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
   SwiftFortuneWheel: 87add210412a73b430bf637c974cfe0cffeba1b0
 
-PODFILE CHECKSUM: 1a5328d7ecdc080214cd494ad4bcdba6baff699d
+PODFILE CHECKSUM: 35d9f6aa42ff1b003030a4faad98e456f6952ff4
 
 COCOAPODS: 1.11.3

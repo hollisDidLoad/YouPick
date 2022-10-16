@@ -16,7 +16,7 @@ struct RestaurantsDomainModel {
     var color: UIColor?
     var textColor: UIColor?
     
-    init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor, textColor: UIColor) {
+    init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor?, textColor: UIColor?) {
         self.name = restaurantModel.name
         self.image = nil
         self.url = restaurantModel.image_url
@@ -24,4 +24,6 @@ struct RestaurantsDomainModel {
         self.color = backgroundColor
         self.textColor = textColor
     }
+    
+    init(_ restaurantModel: RestaurantModel) {}
 }

@@ -12,9 +12,9 @@ class TabBarViewModel {
     
     func setupModelData(_ APIModel: [RestaurantModel], completion: @escaping () -> Void) {
         var domainModel = [RestaurantsDomainModel]()
-        var backgroundColors: [UIColor] =
+        let backgroundColors: [UIColor] =
         [.systemOrange, .systemBlue, .systemRed, .systemTeal, .systemPink,.systemGreen,.systemPurple,.systemIndigo,.white,.systemMint]
-        var textColors: [UIColor] = [.black, .white, .black, .black, .white, .black, .black, .white, .black, .white]
+        let textColors: [UIColor] = [.black, .white, .black, .black, .white, .black, .black, .white, .black, .white]
         for (index, apiModel) in APIModel.enumerated() {
             let model = RestaurantsDomainModel(apiModel, backgroundColor: backgroundColors[index], textColor: textColors[index])
             domainModel.append(model)

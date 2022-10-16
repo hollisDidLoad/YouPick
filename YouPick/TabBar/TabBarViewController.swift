@@ -14,6 +14,7 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         fetchBusinesses()
     }
     
@@ -29,10 +30,19 @@ class TabBarViewController: UITabBarController {
     }
     
     private func fetchBusinesses() {
+        let loadingScreenVC = LoadingScreenViewController()
+        DispatchQueue.main.async {
+            loadingScreenVC.modalPresentationStyle = .fullScreen
+            self.present(loadingScreenVC, animated: false)
+        }
         NetworkManager.shared.fetchBusinesses(limit: "10", location: "Las Vegas", completion: { [weak self] restaurantAPI in
             self?.viewModel.setupModelData(restaurantAPI, completion: {
+                
                 self?.setupTabBar()
             })
         })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
+            loadingScreenVC.dismiss(animated: true)
+        }
     }
 }

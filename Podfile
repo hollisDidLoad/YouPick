@@ -8,5 +8,6 @@ target 'YouPick' do
   # Pods for YouPick
 
 pod 'SwiftFortuneWheel'
+pod 'lottie-ios'
 
 end

@@ -24,6 +24,9 @@
 		5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */; };
 		5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */; };
 		5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */; };
+		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
+		584CD66428FB95E0003CC71E /* foodchoices.json in Resources */ = {isa = PBXBuildFile; fileRef = 584CD66328FB95E0003CC71E /* foodchoices.json */; };
+		584CD66628FB99D5003CC71E /* LoadingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD66528FB99D5003CC71E /* LoadingScreenView.swift */; };
 		585FA04228FA8F8100CEC6D2 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */; };
 		ED8B355510FD60477A1F6CFF /* Pods_YouPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,9 @@
 		5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsDomainModel.swift; sourceTree = "<group>"; };
 		5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
 		5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpinWheel+WheelConfigurations.swift"; sourceTree = "<group>"; };
+		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
+		584CD66328FB95E0003CC71E /* foodchoices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = foodchoices.json; sourceTree = "<group>"; };
+		584CD66528FB99D5003CC71E /* LoadingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenView.swift; sourceTree = "<group>"; };
 		585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		ADB72269E9521D11FDC3BA81 /* Pods-YouPick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.release.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.release.xcconfig"; sourceTree = "<group>"; };
 		EF37FA68CB602230A9294416 /* Pods-YouPick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.debug.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,7 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				5820AAE228FA1FC400B12A4A /* Resources */,
+				584CD65E28FB92FA003CC71E /* Media */,
 				5820AADC28FA1F8000B12A4A /* Info.plist */,
+				584CD65D28FB8599003CC71E /* LoadingScreen */,
 				5820AB0128FA21A900B12A4A /* ModelController */,
 				5820AAFC28FA217B00B12A4A /* Networking */,
 				5820AAF528FA212300B12A4A /* Map */,
@@ -111,7 +119,6 @@
 			children = (
 				5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */,
 				5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */,
-				5820AAD728FA1F8000B12A4A /* Assets.xcassets */,
 				5820AAD928FA1F8000B12A4A /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
@@ -164,6 +171,24 @@
 				5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */,
 			);
 			path = ModelController;
+			sourceTree = "<group>";
+		};
+		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */,
+				584CD66528FB99D5003CC71E /* LoadingScreenView.swift */,
+			);
+			path = LoadingScreen;
+			sourceTree = "<group>";
+		};
+		584CD65E28FB92FA003CC71E /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				5820AAD728FA1F8000B12A4A /* Assets.xcassets */,
+				584CD66328FB95E0003CC71E /* foodchoices.json */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		641C1D589884C1253836F2EF /* Pods */ = {
@@ -236,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5820AADB28FA1F8000B12A4A /* LaunchScreen.storyboard in Resources */,
+				584CD66428FB95E0003CC71E /* foodchoices.json in Resources */,
 				5820AAD828FA1F8000B12A4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +320,7 @@
 				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
 				5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */,
+				584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */,
 				5820AAF728FA213000B12A4A /* NetworkManager.swift in Sources */,
 				5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */,
 				5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */,
@@ -301,6 +328,7 @@
 				5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
+				584CD66628FB99D5003CC71E /* LoadingScreenView.swift in Sources */,
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,
 				5820AAF228FA20C800B12A4A /* MapView.swift in Sources */,
 				5820AAF028FA20C300B12A4A /* MapViewController.swift in Sources */,
@@ -449,8 +477,7 @@
 				INFOPLIST_FILE = YouPick/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,8 +504,7 @@
 				INFOPLIST_FILE = YouPick/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

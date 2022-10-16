@@ -22,7 +22,7 @@ public extension SFWConfiguration {
         
         let wheelPreferences = SFWConfiguration.WheelPreferences(circlePreferences: circlePreferences,
                                                                  slicePreferences: slicePreferences,
-                                                                 startPosition: .left)
+                                                                 startPosition: .right)
 
         let configuration = SFWConfiguration(wheelPreferences: wheelPreferences, spinButtonPreferences: spin)
 

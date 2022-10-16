@@ -12,6 +12,7 @@ import SwiftFortuneWheel
 class SpinWheelView: UIView {
     
     var slices = [Slice]()
+    let domainModel = RestaurantsModelController.shared.domainModel
     
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -20,12 +21,23 @@ class SpinWheelView: UIView {
         return bar
     }()
     
+    let selectionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.textAlignment = .center
+        label.textColor = .systemGreen
+        label.layer.masksToBounds = true
+        label.numberOfLines = 0
+        return label
+    }()
+    
     let searchButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Search", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
         button.titleLabel?.textAlignment = .center
         button.layer.borderWidth = 0.4
         button.layer.borderColor = UIColor.systemGray4.cgColor
@@ -71,12 +83,12 @@ class SpinWheelView: UIView {
     }()
 
     func setupSlices() {
-        let domainModel = RestaurantsModelController.shared.domainModel
         var spinWheelModel = [SpinWheelViewModel]()
+        
         for model in domainModel {
             guard let name = model.name, let backgroundColor = model.color, let textColor = model.textColor else { return }
-            let spinWheel = SpinWheelViewModel(name: name, color: backgroundColor, textColor: textColor)
-            spinWheelModel.append(spinWheel)
+            let spinWheelData = SpinWheelViewModel(name: name, color: backgroundColor, textColor: textColor)
+            spinWheelModel.append(spinWheelData)
         }
         
         for model in spinWheelModel {
@@ -90,6 +102,8 @@ class SpinWheelView: UIView {
     lazy var spinWheel: SwiftFortuneWheel = {
         setupSlices()
         let spinWheel = SwiftFortuneWheel(frame: .zero, slices: slices, configuration: .wheelConfiguration)
+        spinWheel.pinImageViewCollisionEffect = CollisionEffect(force: 8, angle:20)
+        spinWheel.pinImage = "darkBlueRightPinImage"
         return spinWheel
     }()
     
@@ -104,6 +118,9 @@ class SpinWheelView: UIView {
     }
     
     func setupConstraints() {
+        addSubview(searchBar)
+        addSubview(searchButton)
+        addSubview(selectionLabel)
         addSubview(standImageView)
         addSubview(spinWheel)
         addSubview(spinnerFrameImageView)
@@ -111,11 +128,26 @@ class SpinWheelView: UIView {
         addSubview(centerCircleImageView)
         addSubview(spinButton)
         
+        searchBar.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searchBar.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        searchButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        searchButton.topAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
+        searchButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        searchButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
+        
+        selectionLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
+        selectionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        selectionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        selectionLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
         spinWheel.translatesAutoresizingMaskIntoConstraints = false
-        spinWheel.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        spinWheel.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        spinWheel.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        spinWheel.heightAnchor.constraint(equalToConstant: 350).isActive = true
         spinWheel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        spinWheel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor,constant: 150).isActive = true
+        spinWheel.topAnchor.constraint(equalTo: selectionLabel.bottomAnchor,constant: 10).isActive = true
         
         spinnerFrameImageView.topAnchor.constraint(equalTo: spinWheel.topAnchor).isActive = true
         spinnerFrameImageView.leadingAnchor.constraint(equalTo: spinWheel.leadingAnchor).isActive = true
@@ -123,7 +155,7 @@ class SpinWheelView: UIView {
         spinnerFrameImageView.bottomAnchor.constraint(equalTo: spinWheel.bottomAnchor).isActive = true
         
         pinImageView.leadingAnchor.constraint(equalTo: spinnerFrameImageView.trailingAnchor,constant: -45).isActive = true
-        pinImageView.topAnchor.constraint(equalTo: spinWheel.topAnchor,constant: 123).isActive = true
+        pinImageView.topAnchor.constraint(equalTo: spinWheel.topAnchor,constant: 150).isActive = true
         pinImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         pinImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -146,5 +178,21 @@ class SpinWheelView: UIView {
     func searchResult() -> String {
         guard let text = searchBar.text, !text.isEmpty else { return "" }
         return text
+    }
+    
+    func configureSelectionLabel(with text: String) {
+        self.selectionLabel.text = "\(text)!"
+    }
+    
+    func wheelSpinningButtonConfiguration() {
+        self.spinButton.isEnabled = false
+        self.spinButton.setTitle("Wheel is spinning!", for: .normal)
+        self.spinButton.backgroundColor = .systemGray
+    }
+    
+    func wheelStoppedSpinningButtonConfiguration() {
+        self.spinButton.isEnabled = true
+        self.spinButton.setTitle("Tap to spin again!", for: .normal)
+        self.spinButton.backgroundColor = .systemTeal
     }
 }
