@@ -30,7 +30,11 @@ class NetworkManager {
         ] as [String : Any]
         
         var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        urlComponent?.queryItems = queryItems.map {URLQueryItem(name: $0.key, value: $0.value as? String)}
+        urlComponent?.queryItems = queryItems.map
+        {
+            URLQueryItem(name: $0.key, value: $0.value as? String)
+            
+        }
         guard let finalUrl = urlComponent?.url else { return }
         var request = URLRequest(url: finalUrl)
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")

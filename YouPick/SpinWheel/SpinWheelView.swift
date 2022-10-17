@@ -11,25 +11,11 @@ import SwiftFortuneWheel
 
 class SpinWheelView: UIView {
     
-    var slices = [Slice]()
-    let domainModel = RestaurantsModelController.shared.domainModel
-    
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
         bar.placeholder = "Search Location Here..."
         return bar
-    }()
-    
-    let selectionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.textAlignment = .center
-        label.textColor = .systemGreen
-        label.layer.masksToBounds = true
-        label.numberOfLines = 0
-        return label
     }()
     
     let searchButton: UIButton = {
@@ -42,6 +28,17 @@ class SpinWheelView: UIView {
         button.layer.borderWidth = 0.4
         button.layer.borderColor = UIColor.systemGray4.cgColor
         return button
+    }()
+    
+    let selectionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.textAlignment = .center
+        label.textColor = .systemGreen
+        label.layer.masksToBounds = true
+        label.numberOfLines = 0
+        return label
     }()
     
     let spinnerFrameImageView: UIImageView = {
@@ -81,19 +78,28 @@ class SpinWheelView: UIView {
         button.layer.cornerRadius = 20
         return button
     }()
-
+    
+    var slices = [Slice]()
+    var domainModel = RestaurantsModelController.shared.domainModel
+    var spinWheelModel = [SpinWheelViewModel]()
+    
     func setupSlices() {
-        var spinWheelModel = [SpinWheelViewModel]()
-        
         for model in domainModel {
-            guard let name = model.name, let backgroundColor = model.color, let textColor = model.textColor else { return }
-            let spinWheelData = SpinWheelViewModel(name: name, color: backgroundColor, textColor: textColor)
+            guard
+                let name = model.name,
+                let backgroundColor = model.color,
+                let textColor = model.textColor
+            else { return }
+            let spinWheelData = SpinWheelViewModel(
+                name: name,
+                color: backgroundColor,
+                textColor: textColor)
             spinWheelModel.append(spinWheelData)
         }
         
         for model in spinWheelModel {
-            guard let name = model.name else { return }
-            let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: model.textColor))]
+            guard let name = model.name, let textColor = model.textColor else { return }
+            let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.color)
             slices.append(sliceSetup)
         }
@@ -101,11 +107,21 @@ class SpinWheelView: UIView {
     
     lazy var spinWheel: SwiftFortuneWheel = {
         setupSlices()
-        let spinWheel = SwiftFortuneWheel(frame: .zero, slices: slices, configuration: .wheelConfiguration)
-        spinWheel.pinImageViewCollisionEffect = CollisionEffect(force: 8, angle:20)
-        spinWheel.pinImage = "darkBlueRightPinImage"
+        let spinWheel = SwiftFortuneWheel(
+            frame: .zero,
+            slices: slices,
+            configuration: .wheelConfiguration)
         return spinWheel
     }()
+    
+    func removeViews() {
+        standImageView.removeFromSuperview()
+        spinWheel.removeFromSuperview()
+        spinnerFrameImageView.removeFromSuperview()
+        pinImageView.removeFromSuperview()
+        centerCircleImageView.removeFromSuperview()
+        spinButton.removeFromSuperview()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

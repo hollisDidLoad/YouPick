@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
     
@@ -18,14 +19,17 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         setupCurrentLocation()
     }
     
     func setupCurrentLocation() {
+        LocationManager.shared.getCurrentLocation(completion: { [weak self] location in
+            DispatchQueue.main.async {
+                let pin = MKPointAnnotation()
+                pin.coordinate = location.coordinate
+                self?.contentView.mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.7, longitudeDelta: 0.7)), animated: true)
+                self?.contentView.mapView.addAnnotation(pin)
+            }
+        })
     }
 }

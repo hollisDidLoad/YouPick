@@ -16,23 +16,33 @@ public extension SFWConfiguration {
         
         let sliceColorType = SFWConfiguration.ColorType.customPatternColors(colors: nil, defaultColor: .white)
         
-        let slicePreferences = SFWConfiguration.SlicePreferences(backgroundColorType: sliceColorType, strokeWidth: 0, strokeColor: .white)
-
-        let circlePreferences = SFWConfiguration.CirclePreferences(strokeWidth: 1, strokeColor: UIColor.init(red: 32/255, green: 93/255, blue: 97/255, alpha: 1))
+        let slicePreferences = SFWConfiguration.SlicePreferences(
+            backgroundColorType: sliceColorType,
+            strokeWidth: 0,
+            strokeColor: .white)
         
-        let wheelPreferences = SFWConfiguration.WheelPreferences(circlePreferences: circlePreferences,
-                                                                 slicePreferences: slicePreferences,
-                                                                 startPosition: .right)
-
+        let circlePreferences = SFWConfiguration.CirclePreferences(
+            strokeWidth: 1,
+            strokeColor: UIColor.init(
+                red: 32/255,
+                green: 93/255,
+                blue: 97/255,
+                alpha: 1))
+        
+        let wheelPreferences = SFWConfiguration.WheelPreferences(
+            circlePreferences: circlePreferences,
+            slicePreferences: slicePreferences,
+            startPosition: .right)
+        
         let configuration = SFWConfiguration(wheelPreferences: wheelPreferences, spinButtonPreferences: spin)
-
+        
         return configuration
     }
 }
 
 public extension TextPreferences {
     static func wheelTextConfiguration(textColor: UIColor) -> TextPreferences {
-
+        
         let textColorType = SFWConfiguration.ColorType.customPatternColors(colors: nil, defaultColor: textColor)
         
         var font = UIFont.systemFont(ofSize: 9, weight: .semibold)
@@ -42,10 +52,11 @@ public extension TextPreferences {
             font = customFont
             horizontalOffset = -2
         }
-    
-        var textPreferences = TextPreferences(textColorType: textColorType,
-                                                 font: font,
-                                                 verticalOffset: 5)
+        
+        var textPreferences = TextPreferences(
+            textColorType: textColorType,
+            font: font,
+            verticalOffset: 5)
         
         textPreferences.horizontalOffset = horizontalOffset
         textPreferences.orientation = .vertical

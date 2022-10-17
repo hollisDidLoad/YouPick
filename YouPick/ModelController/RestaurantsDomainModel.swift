@@ -15,6 +15,7 @@ struct RestaurantsDomainModel {
     var rating: Double?
     var color: UIColor?
     var textColor: UIColor?
+    var restaurantModel: RestaurantModel?
     
     init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor?, textColor: UIColor?) {
         self.name = restaurantModel.name
@@ -25,5 +26,7 @@ struct RestaurantsDomainModel {
         self.textColor = textColor
     }
     
-    init(_ restaurantModel: RestaurantModel) {}
+    init(_ restaurantModel: RestaurantModel) {
+        self.restaurantModel = restaurantModel
+    }
 }

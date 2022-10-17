@@ -15,7 +15,9 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        fetchBusinesses()
+        DispatchQueue.main.async {
+            self.fetchCurrentLocation()
+        }
     }
     
     private func setupTabBar() {
@@ -23,10 +25,28 @@ class TabBarViewController: UITabBarController {
         let mapVC = MapViewController()
         
         tabBar.backgroundColor = .systemGray6
-        spinWheelVC.tabBarItem = UITabBarItem(title: "Spinner", image: UIImage(named: "spinner"), tag: 1)
-        mapVC.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), tag: 1)
+        spinWheelVC.tabBarItem = UITabBarItem(
+            title: "Spinner",
+            image: UIImage(named: "spinner"),
+            tag: 1)
+        mapVC.tabBarItem = UITabBarItem(
+            title: "Map",
+            image: UIImage(systemName: "map"),
+            tag: 1)
         
         setViewControllers([spinWheelVC, mapVC], animated: true)
+    }
+    
+    var locationName = String()
+    
+    func fetchCurrentLocation() {
+        LocationManager.shared.getCurrentLocation(completion: { location in
+            LocationManager.shared.getLocationName(with: location, completion: { [weak self] name in
+                guard let name = name else { return }
+                self?.locationName = name
+                self?.fetchBusinesses()
+            })
+        })
     }
     
     private func fetchBusinesses() {
@@ -35,12 +55,16 @@ class TabBarViewController: UITabBarController {
             loadingScreenVC.modalPresentationStyle = .fullScreen
             self.present(loadingScreenVC, animated: false)
         }
-        NetworkManager.shared.fetchBusinesses(limit: "10", location: "Las Vegas", completion: { [weak self] restaurantAPI in
-            self?.viewModel.setupModelData(restaurantAPI, completion: {
-                
-                self?.setupTabBar()
+        
+        NetworkManager.shared.fetchBusinesses(
+            limit: "10",
+            location: locationName,
+            completion: { [weak self] restaurantAPI in
+                self?.viewModel.setupModelData(restaurantAPI, completion: {
+                    self?.setupTabBar()
+                })
             })
-        })
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
             loadingScreenVC.dismiss(animated: true)
         }

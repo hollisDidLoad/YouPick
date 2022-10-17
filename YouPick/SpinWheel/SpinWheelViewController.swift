@@ -19,14 +19,21 @@ class SpinWheelViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.searchBar.delegate = self
-        contentView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-        contentView.spinButton.addTarget(self, action: #selector(spinButtonTapped), for: .touchUpInside)
+        contentView.searchButton.addTarget(
+            self,
+            action: #selector(searchButtonTapped),
+            for: .touchUpInside)
+        contentView.spinButton.addTarget(
+            self,
+            action: #selector(spinButtonTapped),
+            for: .touchUpInside)
     }
-
+    
     
     @objc
     private func searchButtonTapped() {
         fetchBusinesses()
+        print(RestaurantsModelController.shared.domainModel)
         contentView.searchBar.resignFirstResponder()
     }
     
@@ -48,15 +55,22 @@ class SpinWheelViewController: UITabBarController {
     }
     
     func fetchBusinesses() {
-        NetworkManager.shared.fetchBusinesses(limit: "10", location: contentView.searchResult(), completion: { restaurantAPI in
-            RestaurantsModelController.shared.domainModel = restaurantAPI.map {RestaurantsDomainModel($0)}
-        })
+        NetworkManager.shared.fetchBusinesses(
+            limit: "10",
+            location: contentView.searchResult(),
+            completion: { [weak self] restaurantAPI in
+                print(restaurantAPI)
+                RestaurantsModelController.shared.domainModel.removeAll()
+                RestaurantsModelController.shared.domainModel = restaurantAPI.map {RestaurantsDomainModel($0)}
+                self?.contentView.domainModel = RestaurantsModelController.shared.domainModel
+            })
     }
 }
 
 extension SpinWheelViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         fetchBusinesses()
+        contentView.removeViews()
         searchBar.resignFirstResponder()
     }
 }
