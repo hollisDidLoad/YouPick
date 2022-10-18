@@ -41,11 +41,11 @@ class LoadingScreenView: UIView {
         animationView.animationSpeed = 0.8
     }
     
-    func setUpConstraints() {
+    private func setUpConstraints() {
         addSubview(animationView)
         addSubview(logoImageView)
         
-        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 30).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 50).isActive = true
         logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 30).isActive = true
         logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         logoImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true

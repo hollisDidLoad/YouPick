@@ -11,8 +11,7 @@ import Lottie
 
 class LoadingScreenViewController: UIViewController {
     
-    let contentview = LoadingScreenView()
-    var animationView: LottieAnimationView?
+    private let contentview = LoadingScreenView()
     
     override func loadView() {
         view = contentview

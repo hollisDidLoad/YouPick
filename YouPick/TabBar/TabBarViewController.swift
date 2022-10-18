@@ -10,14 +10,27 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-    let viewModel = TabBarViewModel()
+    private let viewModel = TabBarViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        DispatchQueue.main.async {
-            self.fetchCurrentLocation()
-        }
+        
+        viewModel.fetchCurrentLocation(completion: { [weak self] in
+            self?.fetchBusinesses()
+        })
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setUpTabBarHeight()
+    }
+    
+    private func setUpTabBarHeight() {
+        var tabFrame = self.tabBar.frame
+        tabFrame.size.height = 90
+        tabFrame.origin.y = self.view.frame.size.height - 90
+        self.tabBar.frame = tabFrame
     }
     
     private func setupTabBar() {
@@ -37,32 +50,18 @@ class TabBarViewController: UITabBarController {
         setViewControllers([spinWheelVC, mapVC], animated: true)
     }
     
-    var locationName = String()
-    
-    func fetchCurrentLocation() {
-        LocationManager.shared.getCurrentLocation(completion: { location in
-            LocationManager.shared.getLocationName(with: location, completion: { [weak self] name in
-                guard let name = name else { return }
-                self?.locationName = name
-                self?.fetchBusinesses()
-            })
-        })
-    }
-    
     private func fetchBusinesses() {
         let loadingScreenVC = LoadingScreenViewController()
-        DispatchQueue.main.async {
-            loadingScreenVC.modalPresentationStyle = .fullScreen
-            self.present(loadingScreenVC, animated: false)
-        }
+        loadingScreenVC.modalPresentationStyle = .fullScreen
+        self.present(loadingScreenVC, animated: false)
         
-        NetworkManager.shared.fetchBusinesses(
-            limit: "10",
-            location: locationName,
-            completion: { [weak self] restaurantAPI in
-                self?.viewModel.setupModelData(restaurantAPI, completion: {
-                    self?.setupTabBar()
-                })
+        viewModel.fetchBusinesses(
+            with: viewModel.locationName,
+            completion: { restaurantAPI in
+                RestaurantsModelController.shared.setupModelData(
+                    with: restaurantAPI, completion: {
+                        self.setupTabBar()
+                    })
             })
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {

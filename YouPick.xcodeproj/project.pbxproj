@@ -23,13 +23,17 @@
 		5820AAFB28FA216C00B12A4A /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFA28FA216C00B12A4A /* API_KEY.swift */; };
 		5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFD28FA218D00B12A4A /* RestaurantsModelController.swift */; };
 		5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */; };
-		5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */; };
+		5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */; };
 		5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */; };
+		583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */; };
 		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
-		584CD66428FB95E0003CC71E /* foodchoices.json in Resources */ = {isa = PBXBuildFile; fileRef = 584CD66328FB95E0003CC71E /* foodchoices.json */; };
-		585FA04228FA8F8100CEC6D2 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */; };
+		58B33EB328FE24B700D8502A /* SpinWheelColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */; };
+		58B33EB528FE2E4A00D8502A /* WebPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */; };
+		58B33EB728FE2E8900D8502A /* WebPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB628FE2E8900D8502A /* WebPageView.swift */; };
+		58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */; };
+		58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */; };
 		58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */; };
-		58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */; };
+		58FA8ED328FCA1DD00ED2784 /* LocationManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */; };
 		ED8B355510FD60477A1F6CFF /* Pods_YouPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,13 +57,17 @@
 		5820AAFA28FA216C00B12A4A /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		5820AAFD28FA218D00B12A4A /* RestaurantsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsModelController.swift; sourceTree = "<group>"; };
 		5820AAFF28FA219C00B12A4A /* RestaurantsDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsDomainModel.swift; sourceTree = "<group>"; };
-		5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
+		5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelModel.swift; sourceTree = "<group>"; };
 		5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpinWheel+WheelConfigurations.swift"; sourceTree = "<group>"; };
+		583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCurrentLocationPinCustomization.swift; sourceTree = "<group>"; };
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
-		584CD66328FB95E0003CC71E /* foodchoices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = foodchoices.json; sourceTree = "<group>"; };
-		585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelColorModel.swift; sourceTree = "<group>"; };
+		58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageViewController.swift; sourceTree = "<group>"; };
+		58B33EB628FE2E8900D8502A /* WebPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageView.swift; sourceTree = "<group>"; };
+		58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
+		58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenView.swift; sourceTree = "<group>"; };
-		58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewController.swift; sourceTree = "<group>"; };
 		ADB72269E9521D11FDC3BA81 /* Pods-YouPick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.release.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.release.xcconfig"; sourceTree = "<group>"; };
 		EF37FA68CB602230A9294416 /* Pods-YouPick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.debug.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,14 +115,15 @@
 			children = (
 				5820AAE228FA1FC400B12A4A /* Resources */,
 				584CD65E28FB92FA003CC71E /* Media */,
-				5820AADC28FA1F8000B12A4A /* Info.plist */,
-				58FA8ED428FCC02E00ED2784 /* LocationManager */,
-				584CD65D28FB8599003CC71E /* LoadingScreen */,
 				5820AB0128FA21A900B12A4A /* ModelController */,
 				5820AAFC28FA217B00B12A4A /* Networking */,
-				5820AAF528FA212300B12A4A /* Map */,
-				5820AAEE28FA20B400B12A4A /* SpinWheel */,
+				58FA8ED428FCC02E00ED2784 /* LocationManager */,
 				5820AAE528FA1FF700B12A4A /* TabBar */,
+				584CD65D28FB8599003CC71E /* LoadingScreen */,
+				5820AAEE28FA20B400B12A4A /* SpinWheel */,
+				5820AAF528FA212300B12A4A /* Map */,
+				58B33EB828FE3F4200D8502A /* WebPage */,
+				5820AADC28FA1F8000B12A4A /* Info.plist */,
 			);
 			path = YouPick;
 			sourceTree = "<group>";
@@ -133,7 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */,
-				585FA04128FA8F8100CEC6D2 /* TabBarViewModel.swift */,
+				58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -141,9 +150,11 @@
 		5820AAEE28FA20B400B12A4A /* SpinWheel */ = {
 			isa = PBXGroup;
 			children = (
-				5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */,
 				5820AAE828FA201E00B12A4A /* SpinWheelView.swift */,
-				5820AB0228FA21E500B12A4A /* SpinWheelViewModel.swift */,
+				5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */,
+				5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */,
+				58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */,
+				58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */,
 				5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */,
 			);
 			path = SpinWheel;
@@ -155,6 +166,7 @@
 				5820AAEF28FA20C300B12A4A /* MapViewController.swift */,
 				5820AAF128FA20C800B12A4A /* MapView.swift */,
 				5820AAF328FA20CF00B12A4A /* MapViewModel.swift */,
+				583424C528FF4C09006683D5 /* PinCustomization */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -178,6 +190,14 @@
 			path = ModelController;
 			sourceTree = "<group>";
 		};
+		583424C528FF4C09006683D5 /* PinCustomization */ = {
+			isa = PBXGroup;
+			children = (
+				583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */,
+			);
+			path = PinCustomization;
+			sourceTree = "<group>";
+		};
 		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,16 +211,24 @@
 			isa = PBXGroup;
 			children = (
 				5820AAD728FA1F8000B12A4A /* Assets.xcassets */,
-				584CD66328FB95E0003CC71E /* foodchoices.json */,
 				5804CF4A28FCE62E00257BE5 /* food.json */,
 			);
 			path = Media;
 			sourceTree = "<group>";
 		};
+		58B33EB828FE3F4200D8502A /* WebPage */ = {
+			isa = PBXGroup;
+			children = (
+				58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */,
+				58B33EB628FE2E8900D8502A /* WebPageView.swift */,
+			);
+			path = WebPage;
+			sourceTree = "<group>";
+		};
 		58FA8ED428FCC02E00ED2784 /* LocationManager */ = {
 			isa = PBXGroup;
 			children = (
-				58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */,
+				58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */,
 			);
 			path = LocationManager;
 			sourceTree = "<group>";
@@ -276,7 +304,6 @@
 			files = (
 				5820AADB28FA1F8000B12A4A /* LaunchScreen.storyboard in Resources */,
 				5804CF4B28FCE62E00257BE5 /* food.json in Resources */,
-				584CD66428FB95E0003CC71E /* foodchoices.json in Resources */,
 				5820AAD828FA1F8000B12A4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,17 +359,22 @@
 			files = (
 				5820AAFB28FA216C00B12A4A /* API_KEY.swift in Sources */,
 				5820AAF428FA20CF00B12A4A /* MapViewModel.swift in Sources */,
+				58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */,
 				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
-				5820AB0328FA21E500B12A4A /* SpinWheelViewModel.swift in Sources */,
+				5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */,
 				58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */,
 				584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */,
+				58B33EB328FE24B700D8502A /* SpinWheelColorModel.swift in Sources */,
 				5820AAF728FA213000B12A4A /* NetworkManager.swift in Sources */,
+				58B33EB528FE2E4A00D8502A /* WebPageViewController.swift in Sources */,
+				58B33EB728FE2E8900D8502A /* WebPageView.swift in Sources */,
 				5820AB0028FA219C00B12A4A /* RestaurantsDomainModel.swift in Sources */,
+				583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */,
 				5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */,
-				585FA04228FA8F8100CEC6D2 /* TabBarViewModel.swift in Sources */,
 				5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */,
-				58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */,
+				58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */,
+				58FA8ED328FCA1DD00ED2784 /* LocationManagerViewController.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,
@@ -491,9 +523,12 @@
 				DEVELOPMENT_TEAM = QL47NM3BF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPick/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow usage of location to run the app properly.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,9 +553,12 @@
 				DEVELOPMENT_TEAM = QL47NM3BF5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPick/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow usage of location to run the app properly.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

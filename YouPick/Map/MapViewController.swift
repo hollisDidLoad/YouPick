@@ -9,27 +9,48 @@ import Foundation
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
-    let contentView = MapView()
+    private let contentView = MapView()
+    private let viewModel = MapViewModel()
     
     override func loadView() {
         view = contentView
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCurrentLocation()
+        contentView.currentLocationButton.addTarget(self, action: #selector(currentLocationButtonTapped), for: .touchUpInside)
     }
     
-    func setupCurrentLocation() {
-        LocationManager.shared.getCurrentLocation(completion: { [weak self] location in
-            DispatchQueue.main.async {
-                let pin = MKPointAnnotation()
-                pin.coordinate = location.coordinate
-                self?.contentView.mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.7, longitudeDelta: 0.7)), animated: true)
-                self?.contentView.mapView.addAnnotation(pin)
-            }
-        })
+    @objc
+    private func currentLocationButtonTapped() {
+        viewModel.currentLocationButtonTriggered(contentView.mapView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        contentView.mapView.delegate = self
+        viewModel.setUpCurrentLocationPin(contentView.mapView)
+        viewModel.setUpRestaurantPins(contentView.mapView)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.clearPins(contentView.mapView)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        if let annotation = annotation as? CurrentLocationPinCustomization {
+            annotationView?.markerTintColor = annotation.pinTintColor
+        }
+        
+        return annotationView
     }
 }

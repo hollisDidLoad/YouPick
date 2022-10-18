@@ -11,6 +11,10 @@ import SwiftFortuneWheel
 
 class SpinWheelView: UIView {
     
+    var slices = [Slice]()
+    var domainModel = RestaurantsModelController.shared.domainModel
+    private var spinWheelModel = [SpinWheelModel]()
+    
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +34,7 @@ class SpinWheelView: UIView {
         return button
     }()
     
-    let selectionLabel: UILabel = {
+    private let winnerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
@@ -41,28 +45,28 @@ class SpinWheelView: UIView {
         return label
     }()
     
-    let spinnerFrameImageView: UIImageView = {
+    private let spinnerFrameImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "circleGradient")
         return imageView
     }()
     
-    let centerCircleImageView: UIImageView = {
+    private let centerCircleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "darkBlueCenterImage")
         return imageView
     }()
     
-    let pinImageView: UIImageView = {
+    private let pinImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "darkBlueRightPinImage")
         return imageView
     }()
     
-    let standImageView: UIImageView = {
+    private let standImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "bottomImage")
@@ -79,23 +83,9 @@ class SpinWheelView: UIView {
         return button
     }()
     
-    var slices = [Slice]()
-    var domainModel = RestaurantsModelController.shared.domainModel
-    var spinWheelModel = [SpinWheelViewModel]()
-    
-    func setupSlices() {
-        for model in domainModel {
-            guard
-                let name = model.name,
-                let backgroundColor = model.color,
-                let textColor = model.textColor
-            else { return }
-            let spinWheelData = SpinWheelViewModel(
-                name: name,
-                color: backgroundColor,
-                textColor: textColor)
-            spinWheelModel.append(spinWheelData)
-        }
+    private func setupSlices() {
+        let spinWheelData = domainModel.map {SpinWheelModel($0)}
+        self.spinWheelModel = spinWheelData
         
         for model in spinWheelModel {
             guard let name = model.name, let textColor = model.textColor else { return }
@@ -114,13 +104,36 @@ class SpinWheelView: UIView {
         return spinWheel
     }()
     
-    func removeViews() {
-        standImageView.removeFromSuperview()
-        spinWheel.removeFromSuperview()
-        spinnerFrameImageView.removeFromSuperview()
-        pinImageView.removeFromSuperview()
-        centerCircleImageView.removeFromSuperview()
-        spinButton.removeFromSuperview()
+    func setupUpdatedSlices() {
+        slices.removeAll()
+        spinWheelModel.removeAll()
+        let updatedSpinWheelData = domainModel.map {SpinWheelModel($0)}
+        self.spinWheelModel = updatedSpinWheelData
+        
+        for model in spinWheelModel {
+            guard let name = model.name, let textColor = model.textColor else { return }
+            let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
+            let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.color)
+            slices.append(sliceSetup)
+        }
+    }
+    
+    lazy var updatedSpinWheel: SwiftFortuneWheel = {
+        setupUpdatedSlices()
+        let spinWheel = SwiftFortuneWheel(
+            frame: .zero,
+            slices: slices,
+            configuration: .wheelConfiguration)
+        return spinWheel
+    }()
+    
+    private func updateSpinWheel(completion: @escaping (SwiftFortuneWheel) -> Void) {
+        setupUpdatedSlices()
+        let updatedSpinWheel = SwiftFortuneWheel(
+            frame: .zero,
+            slices: slices,
+            configuration: .wheelConfiguration)
+        completion(updatedSpinWheel)
     }
     
     override init(frame: CGRect) {
@@ -133,10 +146,10 @@ class SpinWheelView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         addSubview(searchBar)
         addSubview(searchButton)
-        addSubview(selectionLabel)
+        addSubview(winnerLabel)
         addSubview(standImageView)
         addSubview(spinWheel)
         addSubview(spinnerFrameImageView)
@@ -154,16 +167,16 @@ class SpinWheelView: UIView {
         searchButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         searchButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
         
-        selectionLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
-        selectionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        selectionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        selectionLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        winnerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
+        winnerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        winnerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        winnerLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         spinWheel.translatesAutoresizingMaskIntoConstraints = false
         spinWheel.widthAnchor.constraint(equalToConstant: 350).isActive = true
         spinWheel.heightAnchor.constraint(equalToConstant: 350).isActive = true
         spinWheel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        spinWheel.topAnchor.constraint(equalTo: selectionLabel.bottomAnchor,constant: 10).isActive = true
+        spinWheel.topAnchor.constraint(equalTo: winnerLabel.bottomAnchor,constant: 10).isActive = true
         
         spinnerFrameImageView.topAnchor.constraint(equalTo: spinWheel.topAnchor).isActive = true
         spinnerFrameImageView.leadingAnchor.constraint(equalTo: spinWheel.leadingAnchor).isActive = true
@@ -192,23 +205,63 @@ class SpinWheelView: UIView {
     }
     
     func searchResult() -> String {
-        guard let text = searchBar.text, !text.isEmpty else { return "" }
+            guard let text = searchBar.text, !text.isEmpty else { return "" }
         return text
     }
     
-    func configureSelectionLabel(with text: String) {
-        self.selectionLabel.text = "\(text)!"
+    func configureWinnerLabel(with text: String) {
+        self.winnerLabel.text = "\(text)!"
     }
     
-    func wheelSpinningButtonConfiguration() {
+    func wheelSpinningConfigurations(with tabBarController: UITabBarController?) {
         self.spinButton.isEnabled = false
         self.spinButton.setTitle("Wheel is spinning!", for: .normal)
         self.spinButton.backgroundColor = .systemGray
+        self.searchBar.isUserInteractionEnabled = false
+        self.searchButton.isEnabled = false
+        if let items = tabBarController?.tabBar.items {
+            items[1].isEnabled = false
+        }
     }
     
-    func wheelStoppedSpinningButtonConfiguration() {
+    func wheelStoppedSpinningConfigurations(with tabBarController: UITabBarController?, completion: @escaping () -> Void) {
         self.spinButton.isEnabled = true
         self.spinButton.setTitle("Tap to spin again!", for: .normal)
         self.spinButton.backgroundColor = .systemTeal
+        self.searchBar.isUserInteractionEnabled = true
+        self.searchButton.isEnabled = true
+        if let items = tabBarController?.tabBar.items {
+            items[1].isEnabled = true
+        }
+        completion()
+    }
+    
+    func removeSpinWheel() {
+        slices.removeAll()
+        spinWheelModel.removeAll()
+        searchBar.removeFromSuperview()
+        searchButton.removeFromSuperview()
+        standImageView.removeFromSuperview()
+        spinWheel.removeFromSuperview()
+        spinnerFrameImageView.removeFromSuperview()
+        pinImageView.removeFromSuperview()
+        centerCircleImageView.removeFromSuperview()
+        spinButton.removeFromSuperview()
+    }
+    
+    func addUpdatedSpinWheel() {
+        updateSpinWheel(completion: { updatedSpinWheel in
+            self.spinWheel = updatedSpinWheel
+        })
+        addSubview(searchBar)
+        addSubview(searchButton)
+        addSubview(winnerLabel)
+        addSubview(standImageView)
+        addSubview(spinWheel)
+        addSubview(spinnerFrameImageView)
+        addSubview(pinImageView)
+        addSubview(centerCircleImageView)
+        addSubview(spinButton)
+        setupConstraints()
     }
 }
