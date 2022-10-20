@@ -12,43 +12,39 @@ import UIKit
 class LocationsManagerViewController: UIViewController {
     
     static let shared = LocationsManagerViewController()
-    let viewModel = LocationsViewModel()
     
-    let locationManager = CLLocationManager()
-    var completion: ((CLLocation) -> Void)?
-    var currentLocation = CLLocation()
-    var locationName = String()
+    let viewModel = LocationsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        authorizeLocation { [weak self] in
+        requestCurrentLocation { [weak self] in
             self?.viewModel.presentTabBarVC(completion: { tabBarVC in
                 self?.present(tabBarVC, animated: true)
             })
         }
     }
     
-    func authorizeLocation(completion: @escaping () -> Void) {
-        self.getCurrentLocation( completion: { [weak self] currentLocation in
-            self?.viewModel.getLocationName(
+    func requestCurrentLocation(completion: @escaping () -> Void) {
+        self.fetchCurrentLocation(completion: { [weak self] currentLocation in
+            self?.viewModel.fetchLocation(
                 with: currentLocation,
-                completion: { [weak self] location in
-                    guard let location = location else { return }
-                    self?.locationName = location
+                completion: { [weak self] currentLocation in
+                    guard let currentLocation = currentLocation else { return }
+                    self?.viewModel.locationName = currentLocation
                     completion()
                 })
         })
     }
     
-    func getCurrentLocation(completion: @escaping (CLLocation) -> Void) {
+    func fetchCurrentLocation(completion: @escaping (CLLocation) -> Void) {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
-                self.completion = completion
-                self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                self.locationManager.requestWhenInUseAuthorization()
-                self.locationManager.delegate = self
-                self.locationManager.startUpdatingLocation()
+                self.viewModel.locationCompletion = completion
+                self.viewModel.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                self.viewModel.locationManager.requestWhenInUseAuthorization()
+                self.viewModel.locationManager.delegate = self
+                self.viewModel.locationManager.startUpdatingLocation()
             }
         }
     }
@@ -58,8 +54,8 @@ extension LocationsManagerViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        self.currentLocation = location
-        completion?(location)
+        self.viewModel.currentLocation = location
+        viewModel.locationCompletion?(self.viewModel.currentLocation)
         manager.stopUpdatingLocation()
     }
     

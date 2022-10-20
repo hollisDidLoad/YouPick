@@ -13,8 +13,10 @@ class LocationsViewModel {
     
     let locationManager = CLLocationManager()
     var locationCompletion: ((CLLocation) -> Void)?
+    var currentLocation = CLLocation()
+    var locationName = String()
     
-    func getLocationName(with location: CLLocation, completion: @escaping (String?) -> Void) {
+    func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { placeMarks, error in
             if let error = error {

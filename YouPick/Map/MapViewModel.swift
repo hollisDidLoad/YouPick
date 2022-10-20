@@ -63,7 +63,7 @@ class MapViewModel {
     }
     
     func setUpCurrentLocationPin(_ mapView: MKMapView) {
-        let currentLocation = LocationsManagerViewController.shared.currentLocation
+        let currentLocation = LocationsManagerViewController.shared.viewModel.currentLocation
         currentLocationPin.pinTintColor = .systemTeal
         self.currentLocationPin.coordinate = currentLocation.coordinate
         currentLocationPin.title = "Current Location"
@@ -71,7 +71,7 @@ class MapViewModel {
     }
     
     func currentLocationButtonTriggered(_ mapView: MKMapView) {
-        let currentLocation = LocationsManagerViewController.shared.currentLocation
+        let currentLocation = LocationsManagerViewController.shared.viewModel.currentLocation
         let center = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
