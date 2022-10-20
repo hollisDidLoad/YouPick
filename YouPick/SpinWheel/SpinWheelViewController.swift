@@ -72,29 +72,26 @@ class SpinWheelViewController: UIViewController {
     }
     
     private func fetchBusinesses() {
-        viewModel.fetchBusinesses(
-            with: viewModel.maxSearchAmount,
-            with: contentView.searchResult(), errorCompletion: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { alertController in
-                        self?.present(alertController, animated: true)
-                    })
-                }
-            },
-            completion: { [weak self] restaurantAPI in
-                if restaurantAPI.count != 0 {
-                    RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
-                        self?.contentView.domainModel = RestaurantsModelController.shared.domainModel
-                        self?.displayUpdatedData()
-                    })
-                } else {
-                    self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { [weak self] alertController in
-                        self?.present(alertController, animated: true)
-                    })
-                }
-            })
+        viewModel.fetchBusinesses(with: viewModel.maxSearchAmount, with: contentView.searchResult(), successfulFetchCompletion: { [weak self] restaurantAPI in
+            if restaurantAPI.count != 0 {
+                RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
+                    self?.contentView.domainModel = RestaurantsModelController.shared.domainModel
+                    self?.displayUpdatedData()
+                })
+            } else {
+                self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { [weak self] alertController in
+                    self?.present(alertController, animated: true)
+                })
+            }
+        }, errorCompletion: { [weak self] in
+            DispatchQueue.main.async {
+                self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { alertController in
+                    self?.present(alertController, animated: true)
+                })
+            }
+        })
     }
-    
+
     private func displayUpdatedData() {
         DispatchQueue.main.async {
             self.contentView.removeSpinWheel()

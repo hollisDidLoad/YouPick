@@ -11,14 +11,14 @@ import Lottie
 
 class LoadingScreenViewController: UIViewController {
     
-    private let contentview = LoadingScreenView()
+    private let contentView = LoadingScreenView()
     
     override func loadView() {
-        view = contentview
+        view = contentView
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        contentview.animateLoadingScreen()
+        contentView.animateLoadingScreen()
     }
 }

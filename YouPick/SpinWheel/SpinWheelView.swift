@@ -84,7 +84,7 @@ class SpinWheelView: UIView {
     }()
     
     private func setupSlices() {
-        let spinWheelData = domainModel.map {SpinWheelModel($0)}
+        let spinWheelData = domainModel.map { SpinWheelModel($0) }
         self.spinWheelModel = spinWheelData
         
         for model in spinWheelModel {

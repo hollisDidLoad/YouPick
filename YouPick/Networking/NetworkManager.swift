@@ -19,8 +19,7 @@ class NetworkManager {
         limit: String,
         location: String,
         attributes: String = "hot_and_new",
-        errorCompletion: @escaping (() -> Void),
-        completion: @escaping ([RestaurantModel]) -> Void
+        completion: @escaping (Result<[RestaurantModel], Error>) -> Void
     ) {
         guard let url = baseUrl?.appending(path: endPoint) else { return }
         
@@ -50,9 +49,9 @@ class NetworkManager {
             if let data = data {
                 do {
                     let jsonData = try JSONDecoder().decode(RestaurantsAPIModel.self, from: data).restaurants
-                    completion(jsonData)
-                } catch {
-                    errorCompletion()
+                    completion(.success(jsonData))
+                } catch let jsonError {
+                    completion(.failure(jsonError))
                 }
             }
         }).resume()

@@ -9,12 +9,10 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationsViewModel {
+class LocationViewModel {
     
     let locationManager = CLLocationManager()
-    var locationCompletion: ((CLLocation) -> Void)?
-    var currentLocation = CLLocation()
-    var locationName = String()
+    var setCurrentLocation: ((CLLocation) -> Void)?
     
     func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
@@ -24,15 +22,16 @@ class LocationsViewModel {
                 return
             }
             
-            var location = String()
+            var locationName = String()
             
             guard let place = placeMarks?.first else { return }
-            if let locationName = place.locality {
-                location += locationName
+            if let location = place.locality {
+                locationName = location
             }
-            completion(location)
+            completion(locationName)
         }
     }
+    
     func presentTabBarVC(completion: @escaping (UIViewController) -> Void) {
         let tabBarVC = TabBarViewController()
         tabBarVC.modalPresentationStyle = .fullScreen

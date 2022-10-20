@@ -15,19 +15,22 @@ class SpinWheelViewModel {
     func fetchBusinesses( 
         with maxSearch: String,
         with searchResult: String,
-        errorCompletion: @escaping (() -> Void),
-        completion: @escaping ([RestaurantModel]) -> Void
+        successfulFetchCompletion: @escaping ([RestaurantModel]) -> Void,
+        errorCompletion: @escaping (() -> Void)
     ) {
         NetworkManager.shared.fetchBusinesses(
             limit: maxSearch,
             location: searchResult,
-            errorCompletion: {
-                errorCompletion()
-            }, completion: { restaurantAPI in
-                RestaurantsModelController.shared.domainModel.removeAll()
-                RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
-                    completion(restaurantAPI)
-                })
+            completion: { fetchResult in
+                switch fetchResult {
+                case .success(let restaurantAPI):
+                    RestaurantsModelController.shared.domainModel.removeAll()
+                    RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
+                        successfulFetchCompletion(restaurantAPI)
+                    })
+                case .failure:
+                    errorCompletion()
+                }
             })
     }
     

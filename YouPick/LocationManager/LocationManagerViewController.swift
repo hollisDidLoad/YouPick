@@ -1,5 +1,5 @@
 //
-//  LocationsManager.swift
+//  LocationManager.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 10/16/22.
@@ -9,11 +9,14 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationsManagerViewController: UIViewController {
+class LocationManagerViewController: UIViewController {
     
-    static let shared = LocationsManagerViewController()
+    static let shared = LocationManagerViewController()
     
-    let viewModel = LocationsViewModel()
+    private let viewModel = LocationViewModel()
+    
+    var currentLocation = CLLocation()
+    var locationName = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,23 +27,23 @@ class LocationsManagerViewController: UIViewController {
             })
         }
     }
-    
+
     func requestCurrentLocation(completion: @escaping () -> Void) {
-        self.fetchCurrentLocation(completion: { [weak self] currentLocation in
+        self.fetchCurrentLocation(locationCompletion: { [weak self] currentLocation in
             self?.viewModel.fetchLocation(
                 with: currentLocation,
-                completion: { [weak self] currentLocation in
-                    guard let currentLocation = currentLocation else { return }
-                    self?.viewModel.locationName = currentLocation
+                completion: { [weak self] locationName in
+                    guard let locationName = locationName else { return }
+                    self?.locationName = locationName
                     completion()
                 })
         })
     }
     
-    func fetchCurrentLocation(completion: @escaping (CLLocation) -> Void) {
+    func fetchCurrentLocation(locationCompletion: @escaping (CLLocation) -> Void) {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.locationCompletion = completion
+                self.viewModel.setCurrentLocation = locationCompletion
                 self.viewModel.locationManager.desiredAccuracy = kCLLocationAccuracyBest
                 self.viewModel.locationManager.requestWhenInUseAuthorization()
                 self.viewModel.locationManager.delegate = self
@@ -50,12 +53,12 @@ class LocationsManagerViewController: UIViewController {
     }
 }
 
-extension LocationsManagerViewController: CLLocationManagerDelegate {
+extension LocationManagerViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-        self.viewModel.currentLocation = location
-        viewModel.locationCompletion?(self.viewModel.currentLocation)
+        guard let currentLocation = locations.first else { return }
+        self.currentLocation = currentLocation
+        viewModel.setCurrentLocation?(self.currentLocation)
         manager.stopUpdatingLocation()
     }
     
