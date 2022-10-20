@@ -13,7 +13,7 @@ class TabBarViewModel {
     var locationName = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-        LocationManagerViewController.shared.setUpLocation {
+        LocationManagerViewController.shared.authorizeLocation {
             [weak self] in
             self?.locationName = LocationManagerViewController.shared.locationName
             DispatchQueue.main.async {

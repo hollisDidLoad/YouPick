@@ -15,7 +15,6 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         viewModel.fetchCurrentLocation(completion: { [weak self] in
             self?.fetchBusinesses()
         })
@@ -23,6 +22,7 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        UITabBar.appearance().unselectedItemTintColor = .darkGray
         setUpTabBarHeight()
     }
     

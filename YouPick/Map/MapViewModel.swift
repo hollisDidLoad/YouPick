@@ -24,7 +24,7 @@ class MapViewModel {
     
     func setUpRestaurantPins(_ mapView: MKMapView) {
         var locationData = [[String: Any]]()
-        var domainModel = RestaurantsModelController.shared.domainModel
+        let domainModel = RestaurantsModelController.shared.domainModel
         self.domainModel = domainModel
         for model in domainModel {
             guard
@@ -41,7 +41,6 @@ class MapViewModel {
         }
         
         for data in locationData {
-            
             DispatchQueue.main.async {
                 guard
                     let name = data["name"] as? String,
@@ -77,5 +76,13 @@ class MapViewModel {
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
         mapView.setRegion(region, animated: true)
+    }
+    
+    func setUpWebPage(with title: String?, completion: @escaping (UIViewController) -> Void) {
+        let webVC = WebPageViewController()
+        guard let index = domainModel.firstIndex(where: { $0.name == title }) else { return }
+        guard let url = domainModel[index].url else { return }
+        webVC.setUpUrl(with: url)
+        completion(webVC)
     }
 }

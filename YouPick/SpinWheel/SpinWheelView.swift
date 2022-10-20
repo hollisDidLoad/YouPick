@@ -160,7 +160,7 @@ class SpinWheelView: UIView {
         searchBar.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        searchBar.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -100).isActive = true
         
         searchButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         searchButton.topAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true

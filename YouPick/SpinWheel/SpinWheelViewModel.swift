@@ -12,7 +12,7 @@ class SpinWheelViewModel {
     
     var maxSearchAmount = "10"
     
-    func fetchBusinesses(
+    func fetchBusinesses( 
         with maxSearch: String,
         with searchResult: String,
         errorCompletion: @escaping (() -> Void),

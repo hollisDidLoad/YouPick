@@ -11,6 +11,8 @@ import MapKit
 
 class MapView: UIView {
     
+    let webButton = UIButton(type: .infoDark)
+    
     let currentLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +42,7 @@ class MapView: UIView {
         addSubview(mapView)
         addSubview(currentLocationButton)
         
-        currentLocationButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -40).isActive = true
+        currentLocationButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
         currentLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20).isActive = true
         currentLocationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         currentLocationButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
