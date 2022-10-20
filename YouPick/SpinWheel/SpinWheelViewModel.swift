@@ -25,7 +25,7 @@ class SpinWheelViewModel {
                 errorCompletion()
             }, completion: { restaurantAPI in
                 RestaurantsModelController.shared.domainModel.removeAll()
-                RestaurantsModelController.shared.setupModelData(with: restaurantAPI, completion: {
+                RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
                     completion(restaurantAPI)
                 })
             })

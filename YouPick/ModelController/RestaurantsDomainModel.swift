@@ -11,7 +11,7 @@ import UIKit
 struct RestaurantsDomainModel {
     var name: String?
     var url: URL?
-    var color: UIColor?
+    var backgroundColor: UIColor?
     var textColor: UIColor?
     var longitude: Double?
     var latitude: Double?
@@ -20,7 +20,7 @@ struct RestaurantsDomainModel {
     init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor?, textColor: UIColor?) {
         self.name = restaurantModel.name
         self.url = restaurantModel.url
-        self.color = backgroundColor
+        self.backgroundColor = backgroundColor
         self.textColor = textColor
         self.longitude = restaurantModel.coordinates?.longitude
         self.latitude = restaurantModel.coordinates?.latitude

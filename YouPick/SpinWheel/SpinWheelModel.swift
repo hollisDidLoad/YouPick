@@ -17,7 +17,7 @@ struct SpinWheelModel {
     init(_ domainModel: RestaurantsDomainModel) {
         self.name = domainModel.name
         self.url = domainModel.url
-        self.color = domainModel.color
+        self.color = domainModel.backgroundColor
         self.textColor = domainModel.textColor
     }
 }

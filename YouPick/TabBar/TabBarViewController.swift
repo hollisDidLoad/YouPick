@@ -58,7 +58,7 @@ class TabBarViewController: UITabBarController {
         viewModel.fetchBusinesses(
             with: viewModel.locationName,
             completion: { restaurantAPI in
-                RestaurantsModelController.shared.setupModelData(
+                RestaurantsModelController.shared.setUpModelData(
                     with: restaurantAPI, completion: {
                         self.setupTabBar()
                     })

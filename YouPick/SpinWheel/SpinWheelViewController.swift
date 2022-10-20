@@ -83,7 +83,7 @@ class SpinWheelViewController: UIViewController {
             },
             completion: { [weak self] restaurantAPI in
                 if restaurantAPI.count != 0 {
-                    RestaurantsModelController.shared.setupModelData(with: restaurantAPI, completion: {
+                    RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
                         self?.contentView.domainModel = RestaurantsModelController.shared.domainModel
                         self?.displayUpdatedData()
                     })
