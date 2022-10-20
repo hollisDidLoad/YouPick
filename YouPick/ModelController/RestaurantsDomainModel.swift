@@ -9,15 +9,16 @@ import Foundation
 import UIKit
 
 struct RestaurantsDomainModel {
-    var name: String?
-    var url: URL?
-    var backgroundColor: UIColor?
-    var textColor: UIColor?
-    var longitude: Double?
-    var latitude: Double?
-    var restaurantModel: RestaurantModel?
+    let name: String?
+    let url: URL?
+    let backgroundColor: UIColor?
+    let textColor: UIColor?
+    let longitude: Double?
+    let latitude: Double?
+    let restaurantModel: RestaurantModel?
     
     init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor?, textColor: UIColor?) {
+        self.restaurantModel = restaurantModel
         self.name = restaurantModel.name
         self.url = restaurantModel.url
         self.backgroundColor = backgroundColor
