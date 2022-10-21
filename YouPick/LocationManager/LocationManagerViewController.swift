@@ -22,9 +22,9 @@ class LocationManagerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         requestCurrentLocation { [weak self] in
-            self?.viewModel.presentTabBarVC(completion: { tabBarVC in
-                self?.present(tabBarVC, animated: true)
-            })
+            let tabBarVC = TabBarViewController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            self?.present(tabBarVC, animated: false)
         }
     }
 

@@ -31,10 +31,4 @@ class LocationViewModel {
             completion(locationName)
         }
     }
-    
-    func presentTabBarVC(completion: @escaping (UIViewController) -> Void) {
-        let tabBarVC = TabBarViewController()
-        tabBarVC.modalPresentationStyle = .fullScreen
-        completion(tabBarVC)
-    }
 }
