@@ -31,34 +31,62 @@ class SpinWheelViewController: UIViewController {
             self,
             action: #selector(spinButtonTapped),
             for: .touchUpInside)
-        
     }
     
     @objc
     private func searchButtonTapped() {
-        fetchBusinesses()
+        fetchSearchedLocationBusinesses()
         self.contentView.searchBar.resignFirstResponder()
     }
     
     @objc
     private func spinButtonTapped() {
         let finalIndex = self.Index
-        self.contentView.wheelSpinningConfigurations(with: self.tabBarController)
-        startRotation(with: finalIndex, completion: { [weak self] finishedSpinning in
-            guard let finalIndexName = self?.contentView.domainModel[finalIndex].name else { return }
-            if finishedSpinning {
-                self?.contentView.configureWinnerLabel(with: finalIndexName)
-                self?.contentView.wheelStoppedSpinningConfigurations(with: self?.tabBarController, completion: {
-                    guard let url = self?.contentView.domainModel[finalIndex].url else { return }
-                    self?.presentWebPage(with: url)
-                })
-            }
+        spinButtonTappedConfigurations(finalIndex)
+    }
+    
+    func spinButtonTappedConfigurations(_ index: Int) {
+        self.contentView.wheelStartedSpinningConfigurations(disable: self.tabBarController)
+        startSpinWheelRotation(endOn: index, completion: { [weak self] finishedSpinning in
+            guard let finalIndexName = self?.viewModel.domainModel[index].name else { return }
+            self?.wheelFinishesSpinningConfigurations(finalIndexName, index)
         })
     }
     
-    private func startRotation(with finalIndex: Int, completion: @escaping (Bool) -> Void) {
+    private func fetchSearchedLocationBusinesses() {
+        viewModel.fetchBusinesses(
+            limit: viewModel.maxSearchLimit,
+            with: contentView.searchResult(),
+            completion: { [weak self] fetchResults in
+                switch fetchResults {
+                case .success(let restaurantAPI):
+                    if restaurantAPI.count != 0 {
+                        self?.updateSpinWheel(with: restaurantAPI)
+                    } else {
+                        self?.sendErrorAlert()
+                    }
+                case .failure(_):
+                    self?.sendErrorAlert()
+                }
+            })
+    }
+}
+
+extension SpinWheelViewController {
+    
+    //MARK: - Spin Wheel Tapped Configurations
+    
+    private func startSpinWheelRotation(endOn finalIndex: Int, completion: @escaping (Bool) -> Void) {
         contentView.spinWheel.startRotationAnimation(finishIndex: finalIndex, { finishedSpinning in
             completion(finishedSpinning)
+        })
+    }
+    
+    private func wheelFinishesSpinningConfigurations(_ finalIndexName: String,_ index: Int) {
+        self.contentView.configureWinnerLabel(with: finalIndexName)
+        self.contentView.wheelStoppedSpinningConfigurations(enable: self.tabBarController, completion: {
+            guard let url = self.viewModel.domainModel[index].url else { return }
+            self.presentWebPage(with: url)
         })
     }
     
@@ -71,39 +99,30 @@ class SpinWheelViewController: UIViewController {
         }
     }
     
-    private func fetchBusinesses() {
-        viewModel.fetchBusinesses(with: viewModel.maxSearchAmount, with: contentView.searchResult(), successfulFetchCompletion: { [weak self] restaurantAPI in
-            if restaurantAPI.count != 0 {
-                RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
-                    self?.contentView.domainModel = RestaurantsModelController.shared.domainModel
-                    self?.displayUpdatedData()
-                })
-            } else {
-                self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { [weak self] alertController in
-                    self?.present(alertController, animated: true)
-                })
-            }
-        }, errorCompletion: { [weak self] in
+    //MARK: - User Search Confirguations
+    
+    func sendErrorAlert() {
+        self.contentView.responseToFailedSearch(completion: { [weak self] alertController in
+            self?.present(alertController, animated: true)
+        })
+    }
+    
+    func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {
+        self.viewModel.updateSpinWheel(with: restaurantAPI, completion: { [weak self] domainModel in
+            guard let domainModel = domainModel else { return }
+            self?.contentView.domainModel = domainModel
             DispatchQueue.main.async {
-                self?.viewModel.responseToFailedSearch(with: self?.contentView.searchResult(), completion: { alertController in
-                    self?.present(alertController, animated: true)
-                })
+                self?.contentView.displayUpdatedData()
             }
         })
     }
-
-    private func displayUpdatedData() {
-        DispatchQueue.main.async {
-            self.contentView.removeSpinWheel()
-            self.contentView.setupUpdatedSlices()
-            self.contentView.addUpdatedSpinWheel()
-        }
-    }
 }
+
+//MARK: - Search Bar Delegate
 
 extension SpinWheelViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        fetchBusinesses()
+        fetchSearchedLocationBusinesses()
         searchBar.resignFirstResponder()
     }
 }

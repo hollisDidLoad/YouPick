@@ -10,13 +10,13 @@ import UIKit
 
 class SpinWheelViewModel {
     
-    var maxSearchAmount = "10"
+    var maxSearchLimit = "10"
+    var domainModel = RestaurantsModelController.shared.domainModel
     
     func fetchBusinesses( 
-        with maxSearch: String,
+        limit maxSearch: String,
         with searchResult: String,
-        successfulFetchCompletion: @escaping ([RestaurantModel]) -> Void,
-        errorCompletion: @escaping (() -> Void)
+        completion: @escaping (Result<[RestaurantModel], Error>) -> Void
     ) {
         NetworkManager.shared.fetchBusinesses(
             limit: maxSearch,
@@ -26,18 +26,20 @@ class SpinWheelViewModel {
                 case .success(let restaurantAPI):
                     RestaurantsModelController.shared.domainModel.removeAll()
                     RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
-                        successfulFetchCompletion(restaurantAPI)
+                        completion(.success(restaurantAPI))
                     })
-                case .failure:
-                    errorCompletion()
+                case .failure(let error):
+                    completion(.failure(error))
                 }
             })
     }
     
-    func responseToFailedSearch(with text: String?, completion: @escaping (UIAlertController) -> Void) {
-        guard let results = text else { return }
-        let alertController = UIAlertController(title: "Oops!", message:  "Sorry, no results available for: \(results)\nPlease try a different location.", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        completion(alertController)
+    func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([RestaurantsDomainModel]?) -> Void) {
+        RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
+            let domainModel = RestaurantsModelController.shared.domainModel
+            DispatchQueue.main.async {
+                completion(domainModel)
+            }
+        })
     }
 }
