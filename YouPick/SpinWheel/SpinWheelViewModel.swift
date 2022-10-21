@@ -35,7 +35,7 @@ class SpinWheelViewModel {
     }
     
     func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([RestaurantsDomainModel]?) -> Void) {
-        RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: {
+        RestaurantsModelController.shared.setUpModelData(with: restaurantAPI, completion: { 
             let domainModel = RestaurantsModelController.shared.domainModel
             DispatchQueue.main.async {
                 completion(domainModel)

@@ -48,8 +48,8 @@ class SpinWheelViewController: UIViewController {
     func spinButtonTappedConfigurations(_ index: Int) {
         self.contentView.wheelStartedSpinningConfigurations(disable: self.tabBarController)
         startSpinWheelRotation(endOn: index, completion: { [weak self] finishedSpinning in
-            guard let finalIndexName = self?.viewModel.domainModel[index].name else { return }
-            self?.wheelFinishesSpinningConfigurations(finalIndexName, index)
+            guard let finalIndexName = self?.contentView.domainModel[index].name else { return }
+            self?.wheelFinishedSpinningConfigurations(finalIndexName, index)
         })
     }
     
@@ -82,10 +82,10 @@ extension SpinWheelViewController {
         })
     }
     
-    private func wheelFinishesSpinningConfigurations(_ finalIndexName: String,_ index: Int) {
+    private func wheelFinishedSpinningConfigurations(_ finalIndexName: String,_ index: Int) {
         self.contentView.configureWinnerLabel(with: finalIndexName)
         self.contentView.wheelStoppedSpinningConfigurations(enable: self.tabBarController, completion: {
-            guard let url = self.viewModel.domainModel[index].url else { return }
+            guard let url = self.contentView.domainModel[index].url else { return }
             self.presentWebPage(with: url)
         })
     }
