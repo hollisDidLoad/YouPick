@@ -70,7 +70,7 @@ extension LocationManagerViewController: CLLocationManagerDelegate {
                 preferredStyle: .alert
             )
             alertController.addAction(UIAlertAction(
-                title: LocationDeniedModel().actionTitle,
+                title: LocationDeniedModel().buttonTitle,
                 style: .cancel,
                 handler: { _ in
                     exit(0)

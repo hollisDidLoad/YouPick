@@ -12,7 +12,7 @@ class SpinWheelViewController: UIViewController {
     
     private let contentView = SpinWheelView()
     private let viewModel = SpinWheelViewModel()
-    private var Index: Int {
+    private var spinIndex: Int {
         return Int.random(in: 0..<contentView.spinWheel.slices.count)
     }
     
@@ -41,17 +41,16 @@ class SpinWheelViewController: UIViewController {
     
     @objc
     private func spinButtonTapped() {
-        let finalIndex = self.Index
-        spinButtonTappedConfigurations(finalIndex)
+        let finalIndex = self.spinIndex
+        spinButtonTappedConfigurations(winner: finalIndex)
     }
     
-    func spinButtonTappedConfigurations(_ index: Int) {
-        self.contentView.wheelWillStartSpinningConfigurations(disable: self.tabBarController)
-        self.contentView.startSpinningRotation(endOn: index, completion: { [weak self] finalIndexName in
-            self?.contentView.wheelFinishedSpinningConfigurations(finalIndexName, index, tabBarController: self?.tabBarController)
-            self?.contentView.presentWebPage(with: index, completion: { webPageVC in
-                self?.present(webPageVC, animated: true)
-            })
+    func spinButtonTappedConfigurations(winner finalIndex: Int) {
+        self.contentView.wheelSpinConfigurations(
+            winner: finalIndex,
+            configure: self.tabBarController,
+            completion: { [weak self] webPageVC in
+            self?.present(webPageVC, animated: true)
         })
     }
     
@@ -74,16 +73,20 @@ class SpinWheelViewController: UIViewController {
     }
 }
 
+//MARK: - User Search Confirguations
+
 extension SpinWheelViewController {
-    //MARK: - User Search Confirguations
     
-    func sendErrorAlert() {
-        self.contentView.responseToFailedSearch(completion: { [weak self] alertController in
-            self?.present(alertController, animated: true)
-        })
+    private func sendErrorAlert() {
+        DispatchQueue.main.async {
+            self.contentView.receivedErrorOnSearch(
+                completion: { [weak self] alertController in
+                self?.present(alertController, animated: true)
+            })
+        }
     }
     
-    func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {
+    private func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {
         self.viewModel.updateSpinWheel(with: restaurantAPI, completion: { [weak self] domainModel in
             guard let domainModel = domainModel else { return }
             self?.contentView.domainModel = domainModel

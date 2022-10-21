@@ -26,6 +26,7 @@
 		5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */; };
 		5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */; };
 		583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */; };
+		58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58345BA8290311A900FFA8AB /* FailedSearchModel.swift */; };
 		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
 		585692032900A9F30021749B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585692022900A9F30021749B /* LocationViewModel.swift */; };
 		589891552901F8CF001744D9 /* LocationDeniedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589891542901F8CF001744D9 /* LocationDeniedModel.swift */; };
@@ -62,6 +63,7 @@
 		5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelModel.swift; sourceTree = "<group>"; };
 		5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpinWheel+WheelConfigurations.swift"; sourceTree = "<group>"; };
 		583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCurrentLocationPinCustomization.swift; sourceTree = "<group>"; };
+		58345BA8290311A900FFA8AB /* FailedSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedSearchModel.swift; sourceTree = "<group>"; };
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		585692022900A9F30021749B /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		589891542901F8CF001744D9 /* LocationDeniedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDeniedModel.swift; sourceTree = "<group>"; };
@@ -155,11 +157,10 @@
 			isa = PBXGroup;
 			children = (
 				5820AAE828FA201E00B12A4A /* SpinWheelView.swift */,
-				5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */,
 				5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */,
 				58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */,
-				58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */,
-				5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */,
+				58345BAA290312D500FFA8AB /* Models */,
+				58345BAB290312E900FFA8AB /* Wheel Configurations */,
 			);
 			path = SpinWheel;
 			sourceTree = "<group>";
@@ -200,6 +201,24 @@
 				583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */,
 			);
 			path = PinCustomization;
+			sourceTree = "<group>";
+		};
+		58345BAA290312D500FFA8AB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5820AB0228FA21E500B12A4A /* SpinWheelModel.swift */,
+				58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */,
+				58345BA8290311A900FFA8AB /* FailedSearchModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		58345BAB290312E900FFA8AB /* Wheel Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				5820AB0428FA289400B12A4A /* SpinWheel+WheelConfigurations.swift */,
+			);
+			path = "Wheel Configurations";
 			sourceTree = "<group>";
 		};
 		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
@@ -388,6 +407,7 @@
 				5820AAF028FA20C300B12A4A /* MapViewController.swift in Sources */,
 				589891552901F8CF001744D9 /* LocationDeniedModel.swift in Sources */,
 				5820AAF928FA214A00B12A4A /* RestaurantsAPIModel.swift in Sources */,
+				58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */,
 				585692032900A9F30021749B /* LocationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
