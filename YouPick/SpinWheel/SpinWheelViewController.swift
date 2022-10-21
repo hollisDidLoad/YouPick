@@ -46,10 +46,12 @@ class SpinWheelViewController: UIViewController {
     }
     
     func spinButtonTappedConfigurations(_ index: Int) {
-        self.contentView.wheelStartedSpinningConfigurations(disable: self.tabBarController)
-        startSpinWheelRotation(endOn: index, completion: { [weak self] finishedSpinning in
-            guard let finalIndexName = self?.contentView.domainModel[index].name else { return }
-            self?.wheelFinishedSpinningConfigurations(finalIndexName, index)
+        self.contentView.wheelWillStartSpinningConfigurations(disable: self.tabBarController)
+        self.contentView.startSpinningRotation(endOn: index, completion: { [weak self] finalIndexName in
+            self?.contentView.wheelFinishedSpinningConfigurations(finalIndexName, index, tabBarController: self?.tabBarController)
+            self?.contentView.presentWebPage(with: index, completion: { webPageVC in
+                self?.present(webPageVC, animated: true)
+            })
         })
     }
     
@@ -73,32 +75,6 @@ class SpinWheelViewController: UIViewController {
 }
 
 extension SpinWheelViewController {
-    
-    //MARK: - Spin Wheel Tapped Configurations
-    
-    private func startSpinWheelRotation(endOn finalIndex: Int, completion: @escaping (Bool) -> Void) {
-        contentView.spinWheel.startRotationAnimation(finishIndex: finalIndex, { finishedSpinning in
-            completion(finishedSpinning)
-        })
-    }
-    
-    private func wheelFinishedSpinningConfigurations(_ finalIndexName: String,_ index: Int) {
-        self.contentView.configureWinnerLabel(with: finalIndexName)
-        self.contentView.wheelStoppedSpinningConfigurations(enable: self.tabBarController, completion: {
-            guard let url = self.contentView.domainModel[index].url else { return }
-            self.presentWebPage(with: url)
-        })
-    }
-    
-    private func presentWebPage(with url: URL) {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            let selectedRestaurantVC = WebPageViewController()
-            selectedRestaurantVC.modalPresentationStyle = .formSheet
-            selectedRestaurantVC.setUpUrl(with: url)
-            self.present(selectedRestaurantVC, animated: true)
-        }
-    }
-    
     //MARK: - User Search Confirguations
     
     func sendErrorAlert() {
