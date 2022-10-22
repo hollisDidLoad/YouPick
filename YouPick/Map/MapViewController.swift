@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
     
     private let contentView = MapView()
     private let viewModel = MapViewModel()
@@ -19,7 +19,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidLoad() {
-        contentView.currentLocationButton.addTarget(self, action: #selector(currentLocationButtonTapped), for: .touchUpInside)
+        contentView.currentLocationButton.addTarget(
+            self,
+            action: #selector(currentLocationButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     @objc
@@ -38,50 +42,50 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         viewModel.clearPins(contentView.mapView)
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
-        loadData(mapView, viewFor: annotation, completion: { updatedAnnotationView in
-            annotationView = updatedAnnotationView
-            
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = self.contentView.webButton
-            
-            if annotationView == nil {
-                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-            } else {
-                annotationView?.annotation = annotation
-            }
-            
-            if let annotation = annotation as? CurrentLocationPinCustomization {
-                annotationView?.markerTintColor = annotation.pinTintColor
-            }
-        })
-        return annotationView
-    }
+}
+
+//MARK: - Map View Delegate
+
+extension MapViewController: MKMapViewDelegate {
     
-    func loadData(_ mapView: MKMapView, viewFor annotation: MKAnnotation, completion: @escaping (MKMarkerAnnotationView?) -> Void) {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
-        
-        annotationView?.canShowCallout = true
-        annotationView?.rightCalloutAccessoryView = contentView.webButton
-        
-        if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        if let annotation = annotation as? CurrentLocationPinCustomization {
-            annotationView?.markerTintColor = annotation.pinTintColor
-        }
-        completion(annotationView)
-    }
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(
+        _ mapView: MKMapView,
+        annotationView view: MKAnnotationView,
+        calloutAccessoryControlTapped control: UIControl
+    ) {
         let pin = view.annotation
         guard let title = pin?.title else { return }
         viewModel.setUpWebPage(with: title, completion: { [weak self] webVC in
             self?.present(webVC, animated: true)
         })
+    }
+    
+    func mapView(_ mapView: MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
+        
+        self.viewModel.loadAnnotationData(
+            with: mapView,
+            and: annotation,
+            completion: { updatedAnnotationView in
+                annotationView = updatedAnnotationView
+                
+                annotationView?.canShowCallout = true
+                annotationView?.rightCalloutAccessoryView = self.contentView.webButton
+                
+                if annotationView == nil {
+                    annotationView = MKMarkerAnnotationView(
+                        annotation: annotation,
+                        reuseIdentifier: "myAnnotation"
+                    )
+                } else {
+                    annotationView?.annotation = annotation
+                }
+                
+                if let annotation = annotation as? CurrentLocationPinCustomization {
+                    annotationView?.markerTintColor = annotation.pinTintColor
+                }
+            })
+        return annotationView
     }
 }

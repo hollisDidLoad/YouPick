@@ -10,10 +10,10 @@ import UIKit
 
 class TabBarViewModel {
     
-    var locationName = String()
+    private var locationName = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-        LocationManagerViewController.shared.requestCurrentLocation {
+        LocationManagerViewController.shared.fetchCurrentLocation {
             [weak self] in
             self?.locationName = LocationManagerViewController.shared.locationName
             DispatchQueue.main.async {
@@ -23,15 +23,16 @@ class TabBarViewModel {
     }
     
     func fetchBusinesses(
-        with location: String,
-        completion: @escaping ([RestaurantModel]) -> Void) {
+        completion: @escaping () -> Void) {
             NetworkManager.shared.fetchBusinesses(
                 limit: "10",
-                location: location,
+                location: self.locationName,
                 completion: { fetchResult in
                     switch fetchResult {
                     case .success(let restaurantAPI):
-                        completion(restaurantAPI)
+                        RestaurantsModelController.shared.setUpModelData(
+                            with: restaurantAPI)
+                            completion()
                     case .failure(_):
                         break
                     }

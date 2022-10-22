@@ -21,29 +21,28 @@ class LocationManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        requestCurrentLocation { [weak self] in
+        fetchCurrentLocation { [weak self] in
             let tabBarVC = TabBarViewController()
             tabBarVC.modalPresentationStyle = .fullScreen
             self?.present(tabBarVC, animated: false)
         }
     }
-
-    func requestCurrentLocation(completion: @escaping () -> Void) {
-        self.fetchCurrentLocation(locationCompletion: { [weak self] currentLocation in
-            self?.viewModel.fetchLocation(
-                with: currentLocation,
-                completion: { [weak self] locationName in
-                    guard let locationName = locationName else { return }
-                    self?.locationName = locationName
-                    completion()
-                })
-        })
+    
+    func fetchCurrentLocation(completion: @escaping () -> Void) {
+        self.requestCurrentLocation { [weak self] currentLocation in
+                self?.viewModel.fetchLocation(with: currentLocation,
+                    completion: { [weak self] locationName in
+                        guard let locationName = locationName else { return }
+                        self?.locationName = locationName
+                        completion()
+                    })
+            }
     }
     
-    func fetchCurrentLocation(locationCompletion: @escaping (CLLocation) -> Void) {
+    private func requestCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.setCurrentLocation = locationCompletion
+                self.viewModel.setCurrentLocation = completion
                 self.viewModel.locationManager.desiredAccuracy = kCLLocationAccuracyBest
                 self.viewModel.locationManager.requestWhenInUseAuthorization()
                 self.viewModel.locationManager.delegate = self
@@ -52,6 +51,9 @@ class LocationManagerViewController: UIViewController {
         }
     }
 }
+
+
+//MARK: - Location Manager Delegate
 
 extension LocationManagerViewController: CLLocationManagerDelegate {
     

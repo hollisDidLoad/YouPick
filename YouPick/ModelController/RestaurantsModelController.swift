@@ -14,23 +14,20 @@ class RestaurantsModelController {
     
     var domainModel = [RestaurantsDomainModel]()
     
-    func setUpModelData(with APIModel: [RestaurantModel], completion: @escaping () -> Void) {
-        
+    func setUpModelData(with restaurantModel: [RestaurantModel]) {
         var modelData = [RestaurantsDomainModel]()
         
         let wheelBackgroundColors = SpinWheelColorModel.shared.backgroundColors
         let wheelTextColors = SpinWheelColorModel.shared.textColors
         
-        for (index, model) in APIModel.enumerated() {
-            let data = RestaurantsDomainModel(model,
+        for (index, restaurantModelData) in restaurantModel.enumerated() {
+            let data = RestaurantsDomainModel(
+                restaurantModelData,
                 backgroundColor: wheelBackgroundColors[index],
-                textColor: wheelTextColors[index])
+                textColor: wheelTextColors[index]
+            )
             modelData.append(data)
         }
-        
-        RestaurantsModelController.shared.domainModel = modelData
-        DispatchQueue.main.async {
-            completion()
-        }
+        self.domainModel = modelData
     }
 }

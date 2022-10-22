@@ -11,13 +11,13 @@ import UIKit
 struct SpinWheelModel {
     var name: String?
     var url: URL?
-    var color: UIColor?
+    var backgroundColor: UIColor?
     var textColor: UIColor?
     
     init(_ domainModel: RestaurantsDomainModel) {
         self.name = domainModel.name
         self.url = domainModel.url
-        self.color = domainModel.backgroundColor
+        self.backgroundColor = domainModel.backgroundColor
         self.textColor = domainModel.textColor
     }
 }

@@ -46,7 +46,7 @@ class LoadingScreenView: UIView {
         addSubview(logoImageView)
         
         logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 60).isActive = true
-        logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 30).isActive = true
+        logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         logoImageView.heightAnchor.constraint(equalToConstant: 260).isActive = true
         

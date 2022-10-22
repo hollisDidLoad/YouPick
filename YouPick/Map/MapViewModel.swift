@@ -11,9 +11,9 @@ import MapKit
 
 class MapViewModel {
     
-    let currentLocationPin = CurrentLocationPinCustomization()
-    var domainModel = RestaurantsModelController.shared.domainModel
-    var restaurantPins = MKPointAnnotation()
+    private let currentLocationPin = CurrentLocationPinCustomization()
+    private var mapPinsModel = [MapPinsModel]()
+    private var restaurantPins = MKPointAnnotation()
     
     func clearPins(_ mapView: MKMapView) {
         let annotations = mapView.annotations
@@ -24,9 +24,11 @@ class MapViewModel {
     
     func setUpRestaurantPins(_ mapView: MKMapView) {
         var locationData = [[String: Any]]()
+        var mapPinsModel = [MapPinsModel]()
         let domainModel = RestaurantsModelController.shared.domainModel
-        self.domainModel = domainModel
-        for model in domainModel {
+        mapPinsModel = domainModel.map { MapPinsModel($0) }
+        self.mapPinsModel = mapPinsModel
+        for model in mapPinsModel {
             guard
                 let name = model.name,
                 let longitude = model.longitude,
@@ -47,16 +49,17 @@ class MapViewModel {
                     let latitude = data["latitude"] as? Double,
                     let longitude = data["longitude"] as? Double
                 else { return }
-                let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 let pin = MKPointAnnotation()
                 self.restaurantPins = pin
                 pin.title = name
-                pin.coordinate = location
+                pin.coordinate = coordinate
                 mapView.addAnnotation(pin)
                 let region = MKCoordinateRegion(
                     center: pin.coordinate,
                     latitudinalMeters: 10000,
-                    longitudinalMeters: 10000)
+                    longitudinalMeters: 10000
+                )
                 mapView.setRegion(region, animated: true)
             }
         }
@@ -72,17 +75,46 @@ class MapViewModel {
     
     func currentLocationButtonTriggered(_ mapView: MKMapView) {
         let currentLocation = LocationManagerViewController.shared.currentLocation
-        let center = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let center = CLLocationCoordinate2D(
+            latitude: currentLocation.coordinate.latitude,
+            longitude: currentLocation.coordinate.longitude
+        )
+        let region = MKCoordinateRegion(
+            center: center,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+            ))
         
         mapView.setRegion(region, animated: true)
     }
     
-    func setUpWebPage(with title: String?, completion: @escaping (UIViewController) -> Void) {
+    func setUpWebPage(with name: String?, completion: @escaping (UIViewController) -> Void) {
         let webVC = WebPageViewController()
-        guard let index = domainModel.firstIndex(where: { $0.name == title }) else { return }
-        guard let url = domainModel[index].url else { return }
+        guard let index = mapPinsModel.firstIndex(where: { $0.name == name })else { return }
+        guard let url = mapPinsModel[index].url else { return }
         webVC.setUpUrl(with: url)
         completion(webVC)
+    }
+    
+    
+    func loadAnnotationData(
+        with mapView: MKMapView,
+        and annotation: MKAnnotation,
+        completion: @escaping (MKMarkerAnnotationView?) -> Void
+    ) {
+        var annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(
+                annotation: annotation,
+                reuseIdentifier: "myAnnotation"
+            )
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        completion(annotationView)
     }
 }

@@ -13,10 +13,10 @@ class WebPageView: UIView {
     
     let webView: WKWebView = {
         let preferences = WKWebpagePreferences()
-        preferences.allowsContentJavaScript = true
         let webConfiguration = WKWebViewConfiguration()
-        webConfiguration.defaultWebpagePreferences = preferences
         let web = WKWebView(frame: .zero, configuration: webConfiguration)
+        preferences.allowsContentJavaScript = true
+        webConfiguration.defaultWebpagePreferences = preferences
         web.translatesAutoresizingMaskIntoConstraints = false
         return web
     }()

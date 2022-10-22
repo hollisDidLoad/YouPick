@@ -42,11 +42,11 @@ class SpinWheelViewController: UIViewController {
     @objc
     private func spinButtonTapped() {
         let finalIndex = self.spinIndex
-        spinButtonTappedConfigurations(winner: finalIndex)
+        setUpSpinButtonTappedConfigurations(winner: finalIndex)
     }
     
-    func spinButtonTappedConfigurations(winner finalIndex: Int) {
-        self.contentView.wheelSpinConfigurations(
+    func setUpSpinButtonTappedConfigurations(winner finalIndex: Int) {
+        self.contentView.setUpWheelSpinConfigurations(
             winner: finalIndex,
             configure: self.tabBarController,
             completion: { [weak self] webPageVC in
@@ -56,7 +56,6 @@ class SpinWheelViewController: UIViewController {
     
     private func fetchSearchedLocationBusinesses() {
         viewModel.fetchBusinesses(
-            limit: viewModel.maxSearchLimit,
             with: contentView.searchResult(),
             completion: { [weak self] fetchResults in
                 switch fetchResults {
@@ -78,18 +77,20 @@ class SpinWheelViewController: UIViewController {
 extension SpinWheelViewController {
     
     private func sendErrorAlert() {
-        DispatchQueue.main.async {
-            self.contentView.receivedErrorOnSearch(
-                completion: { [weak self] alertController in
-                self?.present(alertController, animated: true)
-            })
-        }
+        let alertController = UIAlertController(
+            title: FailedSearchModel().title,
+            message: FailedSearchModel().message(contentView.searchResult()),
+            preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(
+            title: FailedSearchModel().buttonTitle,
+            style: .cancel
+        ))
+        present(alertController, animated: true)
     }
     
     private func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {
         self.viewModel.updateSpinWheel(with: restaurantAPI, completion: { [weak self] domainModel in
-            guard let domainModel = domainModel else { return }
-            self?.contentView.domainModel = domainModel
+            self?.contentView.spinWheelModel = domainModel.map { SpinWheelModel($0) }
             DispatchQueue.main.async {
                 self?.contentView.displayUpdatedData()
             }

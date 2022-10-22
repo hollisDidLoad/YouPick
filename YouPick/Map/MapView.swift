@@ -16,7 +16,12 @@ class MapView: UIView {
     let currentLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
+        let largeConfig = UIImage.SymbolConfiguration(
+            pointSize: 50,
+            weight: .bold,
+            scale: .large
+        )
+        button.tintColor = .systemTeal
         let buttonImage = UIImage(systemName: "location.magnifyingglass", withConfiguration: largeConfig)
         button.setImage(buttonImage, for: .normal)
         return button

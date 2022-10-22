@@ -16,6 +16,7 @@ class LocationViewModel {
     
     func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
+        
         geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { placeMarks, error in
             if let error = error {
                 print(error)
@@ -28,6 +29,7 @@ class LocationViewModel {
             if let location = place.locality {
                 locationName = location
             }
+            
             completion(locationName)
         }
     }
