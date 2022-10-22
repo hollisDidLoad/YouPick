@@ -50,13 +50,14 @@ class SpinWheelViewController: UIViewController {
             winner: finalIndex,
             configure: self.tabBarController,
             completion: { [weak self] webPageVC in
-            self?.present(webPageVC, animated: true)
-        })
+                self?.present(webPageVC, animated: true)
+            })
     }
     
     private func fetchSearchedLocationBusinesses() {
+        guard let searchResult = contentView.searchResult(), !searchResult.isEmpty else { return }
         viewModel.fetchBusinesses(
-            with: contentView.searchResult(),
+            with: searchResult,
             completion: { [weak self] fetchResults in
                 switch fetchResults {
                 case .success(let restaurantAPI):
@@ -77,15 +78,18 @@ class SpinWheelViewController: UIViewController {
 extension SpinWheelViewController {
     
     private func sendErrorAlert() {
-        let alertController = UIAlertController(
-            title: FailedSearchModel().title,
-            message: FailedSearchModel().message(contentView.searchResult()),
-            preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(
-            title: FailedSearchModel().buttonTitle,
-            style: .cancel
-        ))
-        present(alertController, animated: true)
+        DispatchQueue.main.async {
+            guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
+            let alertController = UIAlertController(
+                title: FailedSearchModel().title,
+                message: FailedSearchModel().message(searchResult),
+                preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(
+                title: FailedSearchModel().buttonTitle,
+                style: .cancel
+            ))
+            self.present(alertController, animated: true)
+        }
     }
     
     private func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {

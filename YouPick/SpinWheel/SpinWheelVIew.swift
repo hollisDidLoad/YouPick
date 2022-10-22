@@ -83,7 +83,7 @@ class SpinWheelView: UIView {
     }()
     
     private func setUpSlices() {
-        var domainModel = RestaurantsModelController.shared.domainModel
+        let domainModel = RestaurantsModelController.shared.domainModel
         let spinWheelData = domainModel.map { SpinWheelModel($0 )}
         self.spinWheelModel = spinWheelData
         
@@ -208,8 +208,8 @@ class SpinWheelView: UIView {
         addUpdatedSpinWheel()
     }
     
-    func searchResult() -> String {
-            guard let text = searchBar.text, !text.isEmpty else { return "" }
+    func searchResult() -> String? {
+        guard let text = searchBar.text, !text.isEmpty else { return nil }
         return text
     }
     
@@ -283,10 +283,10 @@ class SpinWheelView: UIView {
         addSubview(spinButton)
         setupConstraints()
     }
-
+    
     private func presentWebPage(with index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-        let webPageVC = WebPageViewController()
+            let webPageVC = WebPageViewController()
             webPageVC.modalPresentationStyle = .formSheet
             guard let url = self.spinWheelModel[index].url else { return }
             webPageVC.setUpUrl(with: url)
