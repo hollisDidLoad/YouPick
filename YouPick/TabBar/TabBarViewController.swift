@@ -15,6 +15,7 @@ final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        UITabBar.appearance().barTintColor = .white
         viewModel.fetchCurrentLocation(completion: { [weak self] in
             self?.fetchBusinesses()
         })
