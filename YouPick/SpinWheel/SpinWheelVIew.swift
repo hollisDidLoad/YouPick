@@ -17,7 +17,7 @@ class SpinWheelView: UIView {
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.placeholder = "Search Location Here..."
+        bar.placeholder = "Search City Here..."
         return bar
     }()
     

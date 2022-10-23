@@ -27,7 +27,7 @@ class LocationViewModel {
             
             guard let place = placeMarks?.first else { return }
             if let location = place.locality {
-                locationName = location
+                    locationName = location
             }
             
             completion(locationName)

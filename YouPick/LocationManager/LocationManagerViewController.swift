@@ -12,7 +12,6 @@ import UIKit
 class LocationManagerViewController: UIViewController {
     
     static let shared = LocationManagerViewController()
-    
     private let viewModel = LocationViewModel()
     
     var currentLocation = CLLocation()
@@ -21,33 +20,27 @@ class LocationManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        fetchCurrentLocation { [weak self] in
-            let tabBarVC = TabBarViewController()
-            tabBarVC.modalPresentationStyle = .fullScreen
-            self?.present(tabBarVC, animated: false)
-        }
+        presentTabBarVC()
     }
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.requestCurrentLocation { [weak self] currentLocation in
-                self?.viewModel.fetchLocation(with: currentLocation,
-                    completion: { [weak self] locationName in
-                        guard let locationName = locationName else { return }
-                        self?.locationName = locationName
-                        completion()
-                    })
-            }
+            self?.viewModel.fetchLocation(with: currentLocation,
+                                          completion: { [weak self] locationName in
+                guard let locationName = locationName else { return }
+                self?.locationName = locationName
+                completion()
+            })
+        }
     }
     
     private func requestCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
         DispatchQueue.global().async {
-            if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.setCurrentLocation = completion
-                self.viewModel.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                self.viewModel.locationManager.requestWhenInUseAuthorization()
-                self.viewModel.locationManager.delegate = self
-                self.viewModel.locationManager.startUpdatingLocation()
-            }
+            self.viewModel.setCurrentLocation = completion
+            self.viewModel.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.viewModel.locationManager.requestWhenInUseAuthorization()
+            self.viewModel.locationManager.delegate = self
+            self.viewModel.locationManager.startUpdatingLocation()
         }
     }
 }
@@ -78,6 +71,14 @@ extension LocationManagerViewController: CLLocationManagerDelegate {
                     exit(0)
                 }))
             present(alertController, animated: true)
+        }
+    }
+    
+    func presentTabBarVC() {
+        let tabBarVC = TabBarViewController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        DispatchQueue.main.async {
+            self.present(tabBarVC, animated: false)
         }
     }
 }
