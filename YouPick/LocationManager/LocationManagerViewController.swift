@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationManagerViewController: UIViewController {
+class LocationManagerViewController: UIViewController { 
     
     static let shared = LocationManagerViewController()
     private let viewModel = LocationViewModel()
