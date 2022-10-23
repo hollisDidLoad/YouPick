@@ -21,17 +21,19 @@ class LocationManagerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         requestCurrentLocation({ [weak self] _ in
-            self?.presentTabBarVC()
+            let tabBarVC = TabBarViewController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            self?.present(tabBarVC, animated: false)
         })
     }
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-            self.requestCurrentLocation { [weak self] currentLocation in
-                self?.viewModel.fetchLocation(with: currentLocation, completion: { [weak self] locationName in
-                    guard let locationName = locationName else { return }
-                    self?.locationName = locationName
-                    completion()
-                })
+        self.requestCurrentLocation { [weak self] currentLocation in
+            self?.viewModel.fetchLocation(with: currentLocation, completion: { [weak self] locationName in
+                guard let locationName = locationName else { return }
+                self?.locationName = locationName
+                completion()
+            })
         }
     }
     
@@ -72,14 +74,6 @@ extension LocationManagerViewController: CLLocationManagerDelegate {
                     exit(0)
                 }))
             present(alertController, animated: true)
-        }
-    }
-    
-    func presentTabBarVC() {
-        DispatchQueue.main.async {
-            let tabBarVC = TabBarViewController()
-            tabBarVC.modalPresentationStyle = .fullScreen
-            self.present(tabBarVC, animated: false)
         }
     }
 }
