@@ -82,6 +82,8 @@ class SpinWheelView: UIView {
         return button
     }()
     
+    //MARK: - Start Up Slice Setup
+    
     private func setUpSlices() {
         let domainModel = RestaurantsModelController.shared.domainModel
         let spinWheelData = domainModel.map { SpinWheelModel($0 )}
@@ -103,6 +105,8 @@ class SpinWheelView: UIView {
             configuration: .wheelConfiguration)
         return spinWheel
     }()
+    
+    //MARK: - Updated Slice Setup
     
     func setUpUpdatedSlices() {
         slices.removeAll()
@@ -143,6 +147,7 @@ class SpinWheelView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //MARK: - Constraints
     
     private func setupConstraints() {
         addSubview(searchBar)
@@ -202,6 +207,8 @@ class SpinWheelView: UIView {
         spinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
+    //MARK: - Location Search Configuration
+    
     func displayUpdatedData() {
         removeSpinWheel()
         setUpUpdatedSlices()
@@ -212,6 +219,36 @@ class SpinWheelView: UIView {
         guard let text = searchBar.text, !text.isEmpty else { return nil }
         return text
     }
+    
+    
+    private func removeSpinWheel() {
+        searchBar.removeFromSuperview()
+        searchButton.removeFromSuperview()
+        standImageView.removeFromSuperview()
+        spinWheel.removeFromSuperview()
+        spinnerFrameImageView.removeFromSuperview()
+        pinImageView.removeFromSuperview()
+        centerCircleImageView.removeFromSuperview()
+        spinButton.removeFromSuperview()
+    }
+    
+    private func addUpdatedSpinWheel() {
+        updateSpinWheel(completion: { updatedSpinWheel in
+            self.spinWheel = updatedSpinWheel
+        })
+        addSubview(searchBar)
+        addSubview(searchButton)
+        addSubview(winnerLabel)
+        addSubview(standImageView)
+        addSubview(spinWheel)
+        addSubview(spinnerFrameImageView)
+        addSubview(pinImageView)
+        addSubview(centerCircleImageView)
+        addSubview(spinButton)
+        setupConstraints()
+    }
+    
+    //MARK: - Spin Button Tapped Configurations
     
     func configureWinnerLabel(with text: String) {
         self.winnerLabel.text = "\(text)!"
@@ -256,33 +293,7 @@ class SpinWheelView: UIView {
             items[1].isEnabled = true
         }
     }
-    
-    private func removeSpinWheel() {
-        searchBar.removeFromSuperview()
-        searchButton.removeFromSuperview()
-        standImageView.removeFromSuperview()
-        spinWheel.removeFromSuperview()
-        spinnerFrameImageView.removeFromSuperview()
-        pinImageView.removeFromSuperview()
-        centerCircleImageView.removeFromSuperview()
-        spinButton.removeFromSuperview()
-    }
-    
-    private func addUpdatedSpinWheel() {
-        updateSpinWheel(completion: { updatedSpinWheel in
-            self.spinWheel = updatedSpinWheel
-        })
-        addSubview(searchBar)
-        addSubview(searchButton)
-        addSubview(winnerLabel)
-        addSubview(standImageView)
-        addSubview(spinWheel)
-        addSubview(spinnerFrameImageView)
-        addSubview(pinImageView)
-        addSubview(centerCircleImageView)
-        addSubview(spinButton)
-        setupConstraints()
-    }
+ 
     
     private func presentWebPage(with index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
