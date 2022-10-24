@@ -35,12 +35,6 @@ class LoadingScreenView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func animateLoadingScreen() {
-        animationView.play()
-        animationView.loopMode = .loop
-        animationView.animationSpeed = 0.8
-    }
-    
     private func setUpConstraints() {
         addSubview(animationView)
         addSubview(logoImageView)

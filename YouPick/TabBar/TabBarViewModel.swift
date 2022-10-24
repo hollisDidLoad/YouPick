@@ -13,8 +13,8 @@ class TabBarViewModel {
     private var locationName = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-        LocationManagerViewController.shared.fetchCurrentLocation { [weak self] in
-            self?.locationName = LocationManagerViewController.shared.locationName
+        LocationManager.shared.fetchCurrentLocation { [weak self] in
+            self?.locationName = LocationManager.shared.locationName
             DispatchQueue.main.async {
                 completion()
             }
@@ -29,9 +29,8 @@ class TabBarViewModel {
                 completion: { fetchResult in
                     switch fetchResult {
                     case .success(let restaurantAPI):
-                        RestaurantsModelController.shared.setUpModelData(
-                            with: restaurantAPI)
-                            completion()
+                        RestaurantsModelController.shared.setUpModelData(with: restaurantAPI)
+                        completion()
                     case .failure(_):
                         break
                     }

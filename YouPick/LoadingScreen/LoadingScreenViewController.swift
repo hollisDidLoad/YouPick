@@ -19,6 +19,12 @@ class LoadingScreenViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        contentView.animateLoadingScreen()
+        animateLoadingScreen()
+    }
+    
+    private func animateLoadingScreen() {
+        contentView.animationView.play()
+        contentView.animationView.loopMode = .loop
+        contentView.animationView.animationSpeed = 0.8
     }
 }

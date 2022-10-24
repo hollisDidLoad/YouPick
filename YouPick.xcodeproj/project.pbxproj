@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5804CF4B28FCE62E00257BE5 /* food.json in Resources */ = {isa = PBXBuildFile; fileRef = 5804CF4A28FCE62E00257BE5 /* food.json */; };
 		5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */; };
 		5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */; };
-		5820AAD828FA1F8000B12A4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD728FA1F8000B12A4A /* Assets.xcassets */; };
-		5820AADB28FA1F8000B12A4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD928FA1F8000B12A4A /* LaunchScreen.storyboard */; };
 		5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */; };
 		5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */; };
 		5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE828FA201E00B12A4A /* SpinWheelView.swift */; };
@@ -28,16 +25,19 @@
 		583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */; };
 		58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58345BA8290311A900FFA8AB /* FailedSearchModel.swift */; };
 		5834A939290498760051E4E6 /* MapPinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834A938290498760051E4E6 /* MapPinsModel.swift */; };
+		58391CF72906143B00FA4CD6 /* FetchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58391CF62906143B00FA4CD6 /* FetchLocationView.swift */; };
+		58391CFD29061D0300FA4CD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD728FA1F8000B12A4A /* Assets.xcassets */; };
+		58391CFF29061E0700FA4CD6 /* food.json in Resources */ = {isa = PBXBuildFile; fileRef = 5804CF4A28FCE62E00257BE5 /* food.json */; };
 		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
-		585692032900A9F30021749B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585692022900A9F30021749B /* LocationViewModel.swift */; };
-		589891552901F8CF001744D9 /* LocationDeniedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589891542901F8CF001744D9 /* LocationDeniedModel.swift */; };
+		589891552901F8CF001744D9 /* FetchLocationDeniedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589891542901F8CF001744D9 /* FetchLocationDeniedModel.swift */; };
 		58B33EB328FE24B700D8502A /* SpinWheelColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */; };
 		58B33EB528FE2E4A00D8502A /* WebPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */; };
 		58B33EB728FE2E8900D8502A /* WebPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB628FE2E8900D8502A /* WebPageView.swift */; };
 		58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */; };
 		58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */; };
+		58C1671929060C8D00D8195E /* FetchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1671829060C8C00D8195E /* FetchLocationViewController.swift */; };
 		58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */; };
-		58FA8ED328FCA1DD00ED2784 /* LocationManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */; };
+		58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */; };
 		ED8B355510FD60477A1F6CFF /* Pods_YouPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,6 @@
 		5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5820AAD728FA1F8000B12A4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5820AADA28FA1F8000B12A4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5820AADC28FA1F8000B12A4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		5820AAE628FA201700B12A4A /* SpinWheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewController.swift; sourceTree = "<group>"; };
@@ -66,16 +65,17 @@
 		583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCurrentLocationPinCustomization.swift; sourceTree = "<group>"; };
 		58345BA8290311A900FFA8AB /* FailedSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedSearchModel.swift; sourceTree = "<group>"; };
 		5834A938290498760051E4E6 /* MapPinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinsModel.swift; sourceTree = "<group>"; };
+		58391CF62906143B00FA4CD6 /* FetchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationView.swift; sourceTree = "<group>"; };
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
-		585692022900A9F30021749B /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
-		589891542901F8CF001744D9 /* LocationDeniedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDeniedModel.swift; sourceTree = "<group>"; };
+		589891542901F8CF001744D9 /* FetchLocationDeniedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationDeniedModel.swift; sourceTree = "<group>"; };
 		58B33EB228FE24B700D8502A /* SpinWheelColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelColorModel.swift; sourceTree = "<group>"; };
 		58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageViewController.swift; sourceTree = "<group>"; };
 		58B33EB628FE2E8900D8502A /* WebPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageView.swift; sourceTree = "<group>"; };
 		58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
 		58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		58C1671829060C8C00D8195E /* FetchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationViewController.swift; sourceTree = "<group>"; };
 		58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenView.swift; sourceTree = "<group>"; };
-		58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewController.swift; sourceTree = "<group>"; };
+		58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		ADB72269E9521D11FDC3BA81 /* Pods-YouPick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.release.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.release.xcconfig"; sourceTree = "<group>"; };
 		EF37FA68CB602230A9294416 /* Pods-YouPick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.debug.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +132,7 @@
 				5820AAF528FA212300B12A4A /* Map */,
 				58B33EB828FE3F4200D8502A /* WebPage */,
 				5820AADC28FA1F8000B12A4A /* Info.plist */,
+				58391CF52906127F00FA4CD6 /* LocationViewController */,
 			);
 			path = YouPick;
 			sourceTree = "<group>";
@@ -141,7 +142,6 @@
 			children = (
 				5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */,
 				5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */,
-				5820AAD928FA1F8000B12A4A /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -224,6 +224,16 @@
 			path = "Wheel Configurations";
 			sourceTree = "<group>";
 		};
+		58391CF52906127F00FA4CD6 /* LocationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				58C1671829060C8C00D8195E /* FetchLocationViewController.swift */,
+				58391CF62906143B00FA4CD6 /* FetchLocationView.swift */,
+				589891542901F8CF001744D9 /* FetchLocationDeniedModel.swift */,
+			);
+			path = LocationViewController;
+			sourceTree = "<group>";
+		};
 		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,9 +264,7 @@
 		58FA8ED428FCC02E00ED2784 /* LocationManager */ = {
 			isa = PBXGroup;
 			children = (
-				58FA8ED228FCA1DD00ED2784 /* LocationManagerViewController.swift */,
-				585692022900A9F30021749B /* LocationViewModel.swift */,
-				589891542901F8CF001744D9 /* LocationDeniedModel.swift */,
+				58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */,
 			);
 			path = LocationManager;
 			sourceTree = "<group>";
@@ -280,8 +288,8 @@
 				8EC443A2161101BA32683A94 /* [CP] Check Pods Manifest.lock */,
 				5820AAC728FA1F7E00B12A4A /* Sources */,
 				5820AAC828FA1F7E00B12A4A /* Frameworks */,
-				5820AAC928FA1F7E00B12A4A /* Resources */,
 				409CF973FAE5A9C009CA3282 /* [CP] Embed Pods Frameworks */,
+				58391CFB29061CE300FA4CD6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -326,13 +334,12 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5820AAC928FA1F7E00B12A4A /* Resources */ = {
+		58391CFB29061CE300FA4CD6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5820AADB28FA1F8000B12A4A /* LaunchScreen.storyboard in Resources */,
-				5804CF4B28FCE62E00257BE5 /* food.json in Resources */,
-				5820AAD828FA1F8000B12A4A /* Assets.xcassets in Resources */,
+				58391CFF29061E0700FA4CD6 /* food.json in Resources */,
+				58391CFD29061D0300FA4CD6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +399,7 @@
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
 				5820AB0328FA21E500B12A4A /* SpinWheelModel.swift in Sources */,
 				5834A939290498760051E4E6 /* MapPinsModel.swift in Sources */,
+				58391CF72906143B00FA4CD6 /* FetchLocationView.swift in Sources */,
 				58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */,
 				584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */,
 				58B33EB328FE24B700D8502A /* SpinWheelColorModel.swift in Sources */,
@@ -402,32 +410,21 @@
 				583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */,
 				5820AB0528FA289400B12A4A /* SpinWheel+WheelConfigurations.swift in Sources */,
 				5820AAFE28FA218D00B12A4A /* RestaurantsModelController.swift in Sources */,
+				58C1671929060C8D00D8195E /* FetchLocationViewController.swift in Sources */,
 				58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */,
-				58FA8ED328FCA1DD00ED2784 /* LocationManagerViewController.swift in Sources */,
+				58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,
 				5820AAF228FA20C800B12A4A /* MapView.swift in Sources */,
 				5820AAF028FA20C300B12A4A /* MapViewController.swift in Sources */,
-				589891552901F8CF001744D9 /* LocationDeniedModel.swift in Sources */,
+				589891552901F8CF001744D9 /* FetchLocationDeniedModel.swift in Sources */,
 				5820AAF928FA214A00B12A4A /* RestaurantsAPIModel.swift in Sources */,
 				58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */,
-				585692032900A9F30021749B /* LocationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5820AAD928FA1F8000B12A4A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5820AADA28FA1F8000B12A4A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5820AADD28FA1F8000B12A4A /* Debug */ = {
@@ -562,7 +559,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -598,7 +595,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
