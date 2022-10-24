@@ -1,5 +1,5 @@
 //
-//  FetchLocationView.swift
+//  RequestLocationView.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 10/23/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FetchLocationView: UIView {
+class RequestLocationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,12 +21,12 @@ class FetchLocationView: UIView {
     
     func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
         let alertController = UIAlertController(
-            title: FetchLocationDeniedModel().title,
-            message: FetchLocationDeniedModel().message,
+            title: RequestLocationDeniedModel().title,
+            message: RequestLocationDeniedModel().message,
             preferredStyle: .alert
         )
         alertController.addAction(UIAlertAction(
-            title: FetchLocationDeniedModel().buttonTitle,
+            title: RequestLocationDeniedModel().buttonTitle,
             style: .cancel,
             handler: { _ in
                 if let bundleId = Bundle.main.bundleIdentifier,

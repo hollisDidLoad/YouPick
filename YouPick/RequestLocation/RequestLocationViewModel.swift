@@ -1,5 +1,5 @@
 //
-//  FetchLocationViewModel.swift
+//  RequestLocationViewModel.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 10/23/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FetchLocationViewModel {
+class RequestLocationViewModel {
     
     private var locationName = String()
     

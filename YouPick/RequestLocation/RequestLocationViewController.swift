@@ -1,5 +1,5 @@
 //
-//  FetchLocationViewController.swift
+//  RequestLocationViewController.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 10/23/22.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-class FetchLocationViewController: UIViewController {
+class RequestLocationViewController: UIViewController {
     
-    let contentView = FetchLocationView()
-    let viewModel = FetchLocationViewModel()
+    let contentView = RequestLocationView()
+    let viewModel = RequestLocationViewModel()
     
     override func loadView() {
         view = contentView
@@ -25,7 +25,7 @@ class FetchLocationViewController: UIViewController {
     
 }
 
-extension FetchLocationViewController: LocationManagerDelegate {
+extension RequestLocationViewController: LocationManagerDelegate {
     func didUpdateStatus(_ allowed: Bool) {
         if allowed {
             let tabBarVC = TabBarViewController()
