@@ -11,16 +11,18 @@ import UIKit
 class FetchLocationViewController: UIViewController {
     
     let contentView = FetchLocationView()
+    let viewModel = FetchLocationViewModel()
     
     override func loadView() {
         view = contentView
-            }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.delegate = self
-        LocationManager.shared.requestCurrentLocation({ _ in})
+        LocationManager.shared.requestCurrentLocation({_ in})
     }
+    
 }
 
 extension FetchLocationViewController: LocationManagerDelegate {

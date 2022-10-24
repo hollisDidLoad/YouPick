@@ -25,6 +25,7 @@
 		583424C428FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */; };
 		58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58345BA8290311A900FFA8AB /* FailedSearchModel.swift */; };
 		5834A939290498760051E4E6 /* MapPinsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834A938290498760051E4E6 /* MapPinsModel.swift */; };
+		5835BBB1290647C8003409A3 /* FetchLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835BBB0290647C8003409A3 /* FetchLocationViewModel.swift */; };
 		58391CF72906143B00FA4CD6 /* FetchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58391CF62906143B00FA4CD6 /* FetchLocationView.swift */; };
 		58391CFD29061D0300FA4CD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD728FA1F8000B12A4A /* Assets.xcassets */; };
 		58391CFF29061E0700FA4CD6 /* food.json in Resources */ = {isa = PBXBuildFile; fileRef = 5804CF4A28FCE62E00257BE5 /* food.json */; };
@@ -65,6 +66,7 @@
 		583424C328FF4B5A006683D5 /* MapCurrentLocationPinCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCurrentLocationPinCustomization.swift; sourceTree = "<group>"; };
 		58345BA8290311A900FFA8AB /* FailedSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedSearchModel.swift; sourceTree = "<group>"; };
 		5834A938290498760051E4E6 /* MapPinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinsModel.swift; sourceTree = "<group>"; };
+		5835BBB0290647C8003409A3 /* FetchLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationViewModel.swift; sourceTree = "<group>"; };
 		58391CF62906143B00FA4CD6 /* FetchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationView.swift; sourceTree = "<group>"; };
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		589891542901F8CF001744D9 /* FetchLocationDeniedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLocationDeniedModel.swift; sourceTree = "<group>"; };
@@ -123,16 +125,16 @@
 			children = (
 				5820AAE228FA1FC400B12A4A /* Resources */,
 				584CD65E28FB92FA003CC71E /* Media */,
-				5820AB0128FA21A900B12A4A /* ModelController */,
 				5820AAFC28FA217B00B12A4A /* Networking */,
+				5820AB0128FA21A900B12A4A /* ModelController */,
 				58FA8ED428FCC02E00ED2784 /* LocationManager */,
+				58391CF52906127F00FA4CD6 /* FetchLocation */,
 				5820AAE528FA1FF700B12A4A /* TabBar */,
 				584CD65D28FB8599003CC71E /* LoadingScreen */,
 				5820AAEE28FA20B400B12A4A /* SpinWheel */,
 				5820AAF528FA212300B12A4A /* Map */,
 				58B33EB828FE3F4200D8502A /* WebPage */,
 				5820AADC28FA1F8000B12A4A /* Info.plist */,
-				58391CF52906127F00FA4CD6 /* LocationViewController */,
 			);
 			path = YouPick;
 			sourceTree = "<group>";
@@ -224,14 +226,15 @@
 			path = "Wheel Configurations";
 			sourceTree = "<group>";
 		};
-		58391CF52906127F00FA4CD6 /* LocationViewController */ = {
+		58391CF52906127F00FA4CD6 /* FetchLocation */ = {
 			isa = PBXGroup;
 			children = (
 				58C1671829060C8C00D8195E /* FetchLocationViewController.swift */,
 				58391CF62906143B00FA4CD6 /* FetchLocationView.swift */,
+				5835BBB0290647C8003409A3 /* FetchLocationViewModel.swift */,
 				589891542901F8CF001744D9 /* FetchLocationDeniedModel.swift */,
 			);
-			path = LocationViewController;
+			path = FetchLocation;
 			sourceTree = "<group>";
 		};
 		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
@@ -418,6 +421,7 @@
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,
 				5820AAF228FA20C800B12A4A /* MapView.swift in Sources */,
 				5820AAF028FA20C300B12A4A /* MapViewController.swift in Sources */,
+				5835BBB1290647C8003409A3 /* FetchLocationViewModel.swift in Sources */,
 				589891552901F8CF001744D9 /* FetchLocationDeniedModel.swift in Sources */,
 				5820AAF928FA214A00B12A4A /* RestaurantsAPIModel.swift in Sources */,
 				58345BA9290311A900FFA8AB /* FailedSearchModel.swift in Sources */,
