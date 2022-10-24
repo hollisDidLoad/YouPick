@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import MapKit
+import UIKit
 
 class MapViewModel {
     
@@ -98,7 +98,7 @@ class MapViewModel {
     }
     
     
-    func loadAnnotationData(
+    private func loadAnnotationData(
         with mapView: MKMapView,
         and annotation: MKAnnotation,
         completion: @escaping (MKMarkerAnnotationView?) -> Void
@@ -116,5 +116,27 @@ class MapViewModel {
         }
         
         completion(annotationView)
+    }
+    
+    func loadAnnotationView(with mapView: MKMapView,and annotation: MKAnnotation, callOutButton: UIButton) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "my Annotation") as? MKMarkerAnnotationView
+        
+        self.loadAnnotationData(with: mapView, and: annotation, completion: { annotationData in
+            annotationView = annotationData
+            
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = callOutButton
+            
+            if annotationView == nil {
+                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            if let annotation = annotation as? CurrentLocationPinCustomization {
+                annotationView?.markerTintColor = annotation.pinTintColor
+            }
+        })
+        return annotationView
     }
 }

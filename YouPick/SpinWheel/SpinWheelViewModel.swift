@@ -6,18 +6,17 @@
 // 
 
 import Foundation
-import UIKit
 
 class SpinWheelViewModel {
     
     private var domainModel = RestaurantsModelController.shared.domainModel
     
-    func fetchBusinesses(
+    func fetchRestaurantsFromSearchedLocation(
         businessLimit: String = "10",
         with searchResult: String,
         completion: @escaping (Result<[RestaurantModel], Error>) -> Void
     ) {
-        NetworkManager.shared.fetchBusinesses(
+        NetworkManager.shared.fetchRestaurantsAPI(
             limit: businessLimit,
             location: searchResult,
             completion: { fetchResult in

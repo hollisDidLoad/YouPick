@@ -17,23 +17,31 @@ class LocationManager: NSObject {
     
     static let shared = LocationManager()
     
-    var locationName = String()
-    var currentLocation = CLLocation()
-    let locationManager = CLLocationManager()
-    var setCurrentLocation: ((CLLocation) -> Void)?
+    private let locationManager = CLLocationManager()
+    private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
     var delegate: LocationManagerDelegate?
+    var currentLocation = CLLocation()
+    var location = String()
 
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.requestCurrentLocation { [weak self] currentLocation in
             self?.fetchLocation(with: currentLocation, completion: { [weak self] locationName in
                 guard let locationName = locationName else { return }
-                self?.locationName = locationName
+                self?.location = locationName
                 completion()
             })
         }
     }
     
-    func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
+    func requestCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
+        setCurrentLocationCompletion = completion
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+    }
+    
+    private func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
         
         geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { placeMarks, error in
@@ -51,14 +59,6 @@ class LocationManager: NSObject {
             
             completion(locationName)
         }
-    }
-    
-    func requestCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
-        self.setCurrentLocation = completion
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.delegate = self
-        self.locationManager.startUpdatingLocation()
     }
 }
 
@@ -83,7 +83,7 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.first else { return }
         self.currentLocation = currentLocation
-        setCurrentLocation?(self.currentLocation)
+        setCurrentLocationCompletion?(self.currentLocation)
         manager.stopUpdatingLocation()
     }
 }

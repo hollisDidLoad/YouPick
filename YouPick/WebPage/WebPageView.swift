@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import WebKit
+import Lottie
 
 class WebPageView: UIView {
     
@@ -21,6 +21,13 @@ class WebPageView: UIView {
         return web
     }()
     
+    var animationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "forkloading")
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.backgroundColor = .white
+        return animationView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpConstraints()
@@ -32,10 +39,20 @@ class WebPageView: UIView {
     
     private func setUpConstraints() {
         addSubview(webView)
+        addSubview(animationView)
         
         webView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         webView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        
+        animationView.topAnchor.constraint(equalTo: webView.topAnchor).isActive = true
+        animationView.bottomAnchor.constraint(equalTo: webView.bottomAnchor).isActive = true
+        animationView.leadingAnchor.constraint(equalTo: webView.leadingAnchor).isActive = true
+        animationView.trailingAnchor.constraint(equalTo: webView.trailingAnchor).isActive = true
+    }
+    
+    func removeAnimation() {
+        animationView.removeFromSuperview()
     }
 }

@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
+import Lottie
 
 class WebPageViewController: UIViewController, UISheetPresentationControllerDelegate {
     
     private let contentView = WebPageView()
+    private let viewModel = WebPageViewModel()
     private var sheet: UISheetPresentationController? {
         return presentationController as? UISheetPresentationController
     }
@@ -21,10 +23,10 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sheetPresentationSetup()
+        self.sheetConfiguration()
     }
     
-    private func sheetPresentationSetup() {
+    private func sheetConfiguration() {
         sheet?.delegate = self
         sheet?.selectedDetentIdentifier = .medium
         sheet?.prefersGrabberVisible = true
@@ -34,8 +36,18 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         ]
     }
     
+    private func loadAnimation() {
+        contentView.animationView.play()
+        contentView.animationView.loopMode = .loop
+        contentView.animationView.animationSpeed = 0.8
+    }
+    
     func setUpUrl(with url: URL) {
-        guard let url = URL(string: "\(url)") else { return }
-        self.contentView.webView.load(URLRequest(url: url))
+        loadAnimation()
+        viewModel.loadURL(with: self.contentView.webView, and: url, completion: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.contentView.removeAnimation()
+            }
+        })
     }
 }

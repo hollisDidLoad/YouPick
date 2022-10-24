@@ -6,26 +6,25 @@
 //
 
 import Foundation
-import UIKit
 
 class TabBarViewModel {
     
-    private var locationName = String()
+    private var currentLocation = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         LocationManager.shared.fetchCurrentLocation { [weak self] in
-            self?.locationName = LocationManager.shared.locationName
+            self?.currentLocation = LocationManager.shared.location
             DispatchQueue.main.async {
                 completion()
             }
         }
     }
     
-    func fetchBusinesses(
+    func fetchRestaurants(
         completion: @escaping () -> Void) {
-            NetworkManager.shared.fetchBusinesses(
+            NetworkManager.shared.fetchRestaurantsAPI(
                 limit: "10",
-                location: self.locationName,
+                location: self.currentLocation,
                 completion: { fetchResult in
                     switch fetchResult {
                     case .success(let restaurantAPI):

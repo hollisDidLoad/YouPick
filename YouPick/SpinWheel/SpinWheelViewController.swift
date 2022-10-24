@@ -31,38 +31,42 @@ class SpinWheelViewController: UIViewController {
             self,
             action: #selector(spinButtonTapped),
             for: .touchUpInside)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-            view.addGestureRecognizer(tap)
-        }
-
-        @objc func dismissKeyboard() {
-            view.endEditing(true)
-        }
+        contentView.setKeyBoardDismissTapGesture(with: self, completion: { [weak self] tap in
+            self?.view.addGestureRecognizer(tap)
+        })
+    }
+   
     
     @objc
     private func searchButtonTapped() {
-        fetchSearchedLocationBusinesses()
+        fetchRestaurantsFromSearchedLocation()
         self.contentView.searchBar.resignFirstResponder()
     }
     
     @objc
     private func spinButtonTapped() {
         let finalIndex = self.spinIndex
-        setUpSpinButtonTappedConfigurations(winner: finalIndex)
-    }
-    
-    func setUpSpinButtonTappedConfigurations(winner finalIndex: Int) {
-        self.contentView.setUpWheelSpinConfigurations(
-            winner: finalIndex,
-            configure: self.tabBarController,
-            completion: { [weak self] webPageVC in
+        contentView.wheelWillSpinConfigurations(disable: tabBarController)
+        contentView.startWheelSpinRotation(endOn: finalIndex, completion: { [weak self] finalIndexName in
+            self?.contentView.wheelStoppedConfiguration(enable: self?.tabBarController, winner: finalIndexName)
+            self?.contentView.presentWebPage(with: finalIndex, completion: { webPageVC in
                 self?.present(webPageVC, animated: true)
             })
+        })
     }
     
-    private func fetchSearchedLocationBusinesses() {
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+//MARK: - User Search Confirguations
+
+extension SpinWheelViewController {
+    
+    private func fetchRestaurantsFromSearchedLocation() {
         guard let searchResult = contentView.searchResult(), !searchResult.isEmpty else { return }
-        viewModel.fetchBusinesses(
+        viewModel.fetchRestaurantsFromSearchedLocation(
             with: searchResult,
             completion: { [weak self] fetchResults in
                 switch fetchResults {
@@ -77,24 +81,13 @@ class SpinWheelViewController: UIViewController {
                 }
             })
     }
-}
-
-//MARK: - User Search Confirguations
-
-extension SpinWheelViewController {
     
     private func sendErrorAlert() {
         DispatchQueue.main.async {
             guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
-            let alertController = UIAlertController(
-                title: FailedSearchModel().title,
-                message: FailedSearchModel().message(searchResult),
-                preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(
-                title: FailedSearchModel().buttonTitle,
-                style: .cancel
-            ))
-            self.present(alertController, animated: true)
+            self.contentView.sendErrorAlert(searchResult: searchResult, { [weak self] errorAlert in
+                self?.present(errorAlert, animated: true)
+            })
         }
     }
     
@@ -102,7 +95,7 @@ extension SpinWheelViewController {
         self.viewModel.updateSpinWheel(with: restaurantAPI, completion: { [weak self] domainModel in
             self?.contentView.spinWheelModel = domainModel.map { SpinWheelModel($0) }
             DispatchQueue.main.async {
-                self?.contentView.displayUpdatedData()
+                self?.contentView.displayUpdatedWheel()
             }
         })
     }
@@ -112,7 +105,7 @@ extension SpinWheelViewController {
 
 extension SpinWheelViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        fetchSearchedLocationBusinesses()
+        fetchRestaurantsFromSearchedLocation()
         searchBar.resignFirstResponder()
     }
 }

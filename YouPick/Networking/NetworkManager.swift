@@ -16,7 +16,7 @@ class NetworkManager {
     private let endPoint = "businesses/search"
     private let apiKey = API_KEY().key
     
-    func fetchBusinesses(
+    func fetchRestaurantsAPI(
         limit: String,
         location: String,
         attributes: String = "hot_and_new",
@@ -37,10 +37,7 @@ class NetworkManager {
         guard let finalUrl = urlComponent?.url else { return }
         
         var request = URLRequest(url: finalUrl)
-        request.setValue(
-            "Bearer \(apiKey)",
-            forHTTPHeaderField: "Authorization"
-        )
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in

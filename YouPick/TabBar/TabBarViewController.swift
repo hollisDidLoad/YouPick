@@ -17,7 +17,7 @@ final class TabBarViewController: UITabBarController {
         view.backgroundColor = .white
         UITabBar.appearance().barTintColor = .white
         viewModel.fetchCurrentLocation(completion: { [weak self] in
-            self?.fetchBusinesses()
+            self?.fetchRestaurants()
         })
     }
     
@@ -28,7 +28,6 @@ final class TabBarViewController: UITabBarController {
     
     private func setUpTabBarConifgurations() {
         tabBar.clipsToBounds = true
-        UITabBar.appearance().unselectedItemTintColor = .systemGray
         var tabFrame = self.tabBar.frame
         tabFrame.size.height = 90
         tabFrame.origin.y = self.view.frame.size.height - 90
@@ -52,12 +51,12 @@ final class TabBarViewController: UITabBarController {
             self.setViewControllers([spinWheelVC, mapVC], animated: true)
     }
 
-    private func fetchBusinesses() {
+    private func fetchRestaurants() {
         let loadingScreenVC = LoadingScreenViewController()
         loadingScreenVC.modalPresentationStyle = .fullScreen
         self.present(loadingScreenVC, animated: false)
 
-        self.viewModel.fetchBusinesses(completion: { [weak self] in
+        self.viewModel.fetchRestaurants(completion: { [weak self] in
             DispatchQueue.main.async {
                 self?.setUpTabBar()
             }

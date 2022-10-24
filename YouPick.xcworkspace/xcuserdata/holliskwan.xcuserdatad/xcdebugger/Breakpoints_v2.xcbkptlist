@@ -7,33 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0BD40E7B-873D-4F13-8AD0-D79A23CD3D01"
+            uuid = "C2EF2C34-BED9-476B-81B1-20D98392D1AC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YouPick/TabBar/TabBarViewModel.swift"
+            filePath = "YouPick/FetchLocationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "fetchCurrentLocation(completion:)"
-            landmarkType = "7">
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "C2EF2C34-BED9-476B-81B1-20D98392D1AC - 78bc87f135bdfeba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YouPick.FetchLocationViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "YouPick"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/holliskwan/Desktop/YouPick/YouPick/FetchLocationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "C2EF2C34-BED9-476B-81B1-20D98392D1AC - dc3f47244ee8c4b6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in YouPick.FetchLocationViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "YouPick"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/holliskwan/Desktop/YouPick/YouPick/FetchLocationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "90F7609A-AD19-4EE0-BE4D-4BD5B1B16D3E"
+            uuid = "38521B01-79BA-4D78-AB1D-B527FFCD8966"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YouPick/FetchLocation/FetchLocationViewModel.swift"
+            filePath = "YouPick/FetchLocationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "fetchBusinesses()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

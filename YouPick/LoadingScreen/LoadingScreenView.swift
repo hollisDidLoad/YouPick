@@ -11,7 +11,7 @@ import Lottie
 
 class LoadingScreenView: UIView {
     
-    let logoImageView: UIImageView = {
+    private let logoImageView: UIImageView = {
         let logo = UIImageView()
         logo.image = UIImage(named: "youpick")
         logo.contentMode = .scaleAspectFit

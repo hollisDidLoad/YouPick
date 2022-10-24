@@ -10,8 +10,7 @@ import UIKit
 
 class RequestLocationViewController: UIViewController {
     
-    let contentView = RequestLocationView()
-    let viewModel = RequestLocationViewModel()
+    private let contentView = RequestLocationView()
     
     override func loadView() {
         view = contentView
@@ -22,15 +21,14 @@ class RequestLocationViewController: UIViewController {
         LocationManager.shared.delegate = self
         LocationManager.shared.requestCurrentLocation({_ in})
     }
-    
 }
 
 extension RequestLocationViewController: LocationManagerDelegate {
     func didUpdateStatus(_ allowed: Bool) {
         if allowed {
-            let tabBarVC = TabBarViewController()
-            tabBarVC.modalPresentationStyle = .fullScreen
-            self.present(tabBarVC, animated: false)
+            contentView.presentTabBarVC(completion: { [weak self] tabBarVC in
+                self?.present(tabBarVC, animated: false)
+            })
         } else {
             contentView.sendErrorAlert(completion: { [weak self] errorAlert in
                 self?.present(errorAlert, animated: true)
