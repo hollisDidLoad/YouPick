@@ -34,11 +34,10 @@ class SpinWheelViewModel {
             })
     }
     
-    func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([RestaurantsDomainModel]) -> Void) {
+    func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelModel]) -> Void) {
         RestaurantsModelController.shared.setUpModelData(with: restaurantAPI)
-            let domainModel = RestaurantsModelController.shared.domainModel
-            DispatchQueue.main.async {
-                completion(domainModel)
-            }
+        let domainModel = RestaurantsModelController.shared.domainModel
+        let spinWheelModel = domainModel.map { SpinWheelModel($0)}
+        completion(spinWheelModel)
     }
 }

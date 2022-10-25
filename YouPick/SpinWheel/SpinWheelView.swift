@@ -81,7 +81,7 @@ class SpinWheelView: UIView {
         button.layer.borderColor = UIColor.systemGray4.cgColor
         return button
     }()
-    func setKeyBoardDismissTapGesture(with vc: UIViewController, completion: @escaping (UITapGestureRecognizer) -> Void) {
+    func setKeyBoardTapGestureDismissal(with vc: UIViewController, completion: @escaping (UITapGestureRecognizer) -> Void) {
         let tap = UITapGestureRecognizer(target: vc, action: #selector(UIInputViewController.dismissKeyboard))
         completion(tap)
     }

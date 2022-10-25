@@ -16,7 +16,6 @@ protocol LocationManagerDelegate: AnyObject {
 class LocationManager: NSObject {
     
     static let shared = LocationManager()
-    
     private let locationManager = CLLocationManager()
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
     var delegate: LocationManagerDelegate?
@@ -25,9 +24,9 @@ class LocationManager: NSObject {
 
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.requestCurrentLocation { [weak self] currentLocation in
-            self?.fetchLocation(with: currentLocation, completion: { [weak self] locationName in
-                guard let locationName = locationName else { return }
-                self?.location = locationName
+            self?.fetchGeoLocation(with: currentLocation, completion: { [weak self] locationName in
+                guard let location = locationName else { return }
+                self?.location = location
                 completion()
             })
         }
@@ -41,7 +40,7 @@ class LocationManager: NSObject {
         locationManager.startUpdatingLocation()
     }
     
-    private func fetchLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
+    private func fetchGeoLocation(with location: CLLocation, completion: @escaping (String?) -> Void) {
         let geoCoder = CLGeocoder()
         
         geoCoder.reverseGeocodeLocation(location, preferredLocale: .current) { placeMarks, error in
@@ -56,7 +55,6 @@ class LocationManager: NSObject {
             if let location = place.locality {
                 locationName = location
             }
-            
             completion(locationName)
         }
     }

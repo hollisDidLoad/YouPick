@@ -31,11 +31,11 @@ class SpinWheelViewController: UIViewController {
             self,
             action: #selector(spinButtonTapped),
             for: .touchUpInside)
-        contentView.setKeyBoardDismissTapGesture(with: self, completion: { [weak self] tap in
+        contentView.setKeyBoardTapGestureDismissal(with: self, completion: { [weak self] tap in
             self?.view.addGestureRecognizer(tap)
         })
     }
-   
+    
     
     @objc
     private func searchButtonTapped() {
@@ -49,7 +49,7 @@ class SpinWheelViewController: UIViewController {
         contentView.wheelWillSpinConfigurations(disable: tabBarController)
         contentView.startWheelSpinRotation(endOn: finalIndex, completion: { [weak self] finalIndexName in
             self?.contentView.wheelStoppedConfiguration(enable: self?.tabBarController, winner: finalIndexName)
-            self?.contentView.presentWebPage(with: finalIndex, completion: { webPageVC in
+            self?.contentView.presentWebPage(with: finalIndex, completion: { [weak self] webPageVC in
                 self?.present(webPageVC, animated: true)
             })
         })
@@ -72,7 +72,12 @@ extension SpinWheelViewController {
                 switch fetchResults {
                 case .success(let restaurantAPI):
                     if restaurantAPI.count != 0 {
-                        self?.updateSpinWheel(with: restaurantAPI)
+                        self?.viewModel.updateSpinWheel(with: restaurantAPI, completion: { updatedSpinWheelModel in
+                            self?.contentView.spinWheelModel = updatedSpinWheelModel
+                            DispatchQueue.main.async {
+                                self?.contentView.displayUpdatedWheel()
+                            }
+                        })
                     } else {
                         self?.sendErrorAlert()
                     }
@@ -89,15 +94,6 @@ extension SpinWheelViewController {
                 self?.present(errorAlert, animated: true)
             })
         }
-    }
-    
-    private func updateSpinWheel(with restaurantAPI: [RestaurantModel]) {
-        self.viewModel.updateSpinWheel(with: restaurantAPI, completion: { [weak self] domainModel in
-            self?.contentView.spinWheelModel = domainModel.map { SpinWheelModel($0) }
-            DispatchQueue.main.async {
-                self?.contentView.displayUpdatedWheel()
-            }
-        })
     }
 }
 
