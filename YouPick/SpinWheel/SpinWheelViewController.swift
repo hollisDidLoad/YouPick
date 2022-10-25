@@ -12,9 +12,6 @@ class SpinWheelViewController: UIViewController {
     
     private let contentView = SpinWheelView()
     private let viewModel = SpinWheelViewModel()
-    private var spinIndex: Int {
-        return Int.random(in: 0..<contentView.spinWheel.slices.count)
-    }
     
     override func loadView() {
         view = contentView
@@ -31,11 +28,15 @@ class SpinWheelViewController: UIViewController {
             self,
             action: #selector(spinButtonTapped),
             for: .touchUpInside)
-        contentView.setKeyBoardTapGestureDismissal(with: self, completion: { [weak self] tap in
-            self?.view.addGestureRecognizer(tap)
-        })
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     @objc
     private func searchButtonTapped() {
@@ -45,52 +46,35 @@ class SpinWheelViewController: UIViewController {
     
     @objc
     private func spinButtonTapped() {
-        let finalIndex = self.spinIndex
-        contentView.wheelWillSpinConfigurations(disable: tabBarController)
-        contentView.startWheelSpinRotation(endOn: finalIndex, completion: { [weak self] finalIndexName in
-            self?.contentView.wheelStoppedConfiguration(enable: self?.tabBarController, winner: finalIndexName)
-            self?.contentView.presentWebPage(with: finalIndex, completion: { [weak self] webPageVC in
-                self?.present(webPageVC, animated: true)
+        let finalIndex = self.viewModel.spinIndex(count: contentView.spinWheel.slices.count)
+        contentView.wheelStartConfigurations(disable: tabBarController)
+        contentView.startWheelRotation(
+            endOn: finalIndex, completion: { [weak self] finalIndexName in
+                self?.contentView.wheelStoppedConfigurations(enable: self?.tabBarController, winner: finalIndexName)
+                self?.contentView.presentWebPage(of: finalIndex, completion: { [weak self] webPageVC in
+                    self?.present(webPageVC, animated: true)
+                })
             })
-        })
     }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-//MARK: - User Search Confirguations
-
-extension SpinWheelViewController {
     
     private func fetchRestaurantsFromSearchedLocation() {
-        guard let searchResult = contentView.searchResult(), !searchResult.isEmpty else { return }
-        viewModel.fetchRestaurantsFromSearchedLocation(
-            with: searchResult,
-            completion: { [weak self] fetchResults in
-                switch fetchResults {
-                case .success(let restaurantAPI):
-                    if restaurantAPI.count != 0 {
-                        self?.viewModel.updateSpinWheel(with: restaurantAPI, completion: { updatedSpinWheelModel in
-                            self?.contentView.spinWheelModel = updatedSpinWheelModel
-                            DispatchQueue.main.async {
-                                self?.contentView.displayUpdatedWheel()
-                            }
-                        })
-                    } else {
-                        self?.sendErrorAlert()
-                    }
-                case .failure(_):
-                    self?.sendErrorAlert()
-                }
-            })
+        guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
+        viewModel.fetchRestaurantsFromSearchedLocation(with: searchResult, completion: { [weak self] fetchResult in
+            switch fetchResult {
+            case .success(let updatedSpinWheelModel):
+                self?.contentView.spinWheelModel = updatedSpinWheelModel
+                self?.contentView.displayUpdatedWheel()
+            case .failure(_):
+                self?.sendErrorAlert()
+            }
+        }, errorCompletion: { [weak self] in
+            self?.sendErrorAlert()
+        })
     }
     
     private func sendErrorAlert() {
         DispatchQueue.main.async {
-            guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
-            self.contentView.sendErrorAlert(searchResult: searchResult, { [weak self] errorAlert in
+            self.contentView.sendErrorAlert(completion: { [weak self] errorAlert in
                 self?.present(errorAlert, animated: true)
             })
         }

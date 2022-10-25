@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 import SwiftFortuneWheel
 
-public extension SFWConfiguration {
+extension SFWConfiguration {
+    
     static var wheelConfiguration: SFWConfiguration {
         let spin = SFWConfiguration.SpinButtonPreferences(size: CGSize(width: 64, height: 64))
         let sliceColorType = SFWConfiguration.ColorType.customPatternColors(colors: nil, defaultColor: .white)
@@ -37,7 +38,7 @@ public extension SFWConfiguration {
     }
 }
 
-public extension TextPreferences {
+extension TextPreferences {
     static func wheelTextConfiguration(textColor: UIColor) -> TextPreferences {
         let textColorType = SFWConfiguration.ColorType.customPatternColors(colors: nil, defaultColor: textColor)
         var font = UIFont.systemFont(ofSize: 9, weight: .semibold)

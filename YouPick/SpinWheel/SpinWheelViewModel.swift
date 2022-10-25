@@ -9,24 +9,30 @@ import Foundation
 
 class SpinWheelViewModel {
     
-    private var domainModel = RestaurantsModelController.shared.domainModel
+    func spinIndex(count: Int) -> Int {
+        return Int.random(in: 0..<count)
+    }
     
     func fetchRestaurantsFromSearchedLocation(
         businessLimit: String = "10",
         with searchResult: String,
-        completion: @escaping (Result<[RestaurantModel], Error>) -> Void
+        completion: @escaping (Result<[SpinWheelModel], Error>) -> Void,
+        errorCompletion: @escaping () -> Void
     ) {
         NetworkManager.shared.fetchRestaurantsAPI(
             limit: businessLimit,
             location: searchResult,
-            completion: { fetchResult in
+            completion: { [weak self] fetchResult in
                 switch fetchResult {
                 case .success(let restaurantAPI):
-                    RestaurantsModelController.shared.domainModel.removeAll()
-                    RestaurantsModelController.shared.setUpModelData(
-                        with: restaurantAPI)
-                    DispatchQueue.main.async {
-                        completion(.success(restaurantAPI))
+                    if restaurantAPI.count != 0 {
+                        self?.updateSpinWheel(with: restaurantAPI, completion: { updatedSpinWheelModel in
+                            DispatchQueue.main.async {
+                                completion(.success(updatedSpinWheelModel))
+                            }
+                        })
+                    } else {
+                        errorCompletion()
                     }
                 case .failure(let error):
                     completion(.failure(error))
@@ -34,10 +40,11 @@ class SpinWheelViewModel {
             })
     }
     
-    func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelModel]) -> Void) {
+    private func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelModel]) -> Void) {
+        RestaurantsModelController.shared.domainModel.removeAll()
         RestaurantsModelController.shared.setUpModelData(with: restaurantAPI)
         let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelModel = domainModel.map { SpinWheelModel($0)}
+        let spinWheelModel = domainModel.map { SpinWheelModel($0) }
         completion(spinWheelModel)
     }
 }

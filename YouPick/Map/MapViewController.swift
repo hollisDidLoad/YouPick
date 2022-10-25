@@ -28,18 +28,19 @@ class MapViewController: UIViewController {
     
     @objc
     private func currentLocationButtonTapped() {
-        viewModel.currentLocationButtonTriggered(contentView.mapView)
+        contentView.zoomToCurrentLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         contentView.mapView.delegate = self
-        viewModel.setUpCurrentLocationPin(contentView.mapView)
-        viewModel.setUpRestaurantPins(contentView.mapView)
+        contentView.setUpCurrentLocationPin()
+        guard let pinsData = viewModel.setUpRestaurantPinsData(with: contentView.mapView) else { return }
+        contentView.setUpRestaurantsPins(with: pinsData)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.clearPins(contentView.mapView)
+        contentView.clearPins()
     }
 }
 
@@ -54,15 +55,13 @@ extension MapViewController: MKMapViewDelegate {
     ) {
         let pin = view.annotation
         guard let title = pin?.title else { return }
-        viewModel.setUpWebPage(with: title, completion: { [weak self] webVC in
+        contentView.setUpWebPage(with: title, and: viewModel.mapPinsModel ,completion: { [weak self] webVC in
             self?.present(webVC, animated: true)
         })
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        viewModel.loadAnnotationView(
-            with: mapView,
-            and: annotation,
-            callOutButton: self.contentView.webButton)
+        guard let annotationData = viewModel.loadAnnotationData(with: mapView, and: annotation) else { return nil }
+        return contentView.loadAnnotationView(with: annotation, and: annotationData)
     }
 }

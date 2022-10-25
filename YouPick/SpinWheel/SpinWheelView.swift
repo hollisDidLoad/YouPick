@@ -81,16 +81,12 @@ class SpinWheelView: UIView {
         button.layer.borderColor = UIColor.systemGray4.cgColor
         return button
     }()
-    func setKeyBoardTapGestureDismissal(with vc: UIViewController, completion: @escaping (UITapGestureRecognizer) -> Void) {
-        let tap = UITapGestureRecognizer(target: vc, action: #selector(UIInputViewController.dismissKeyboard))
-        completion(tap)
-    }
-    
-    //MARK: - Start Up Slices Setup
+
+    //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
         let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelData = domainModel.map { SpinWheelModel($0 )}
+        let spinWheelData = domainModel.map { SpinWheelModel($0) }
         self.spinWheelModel = spinWheelData
         
         for model in spinWheelModel {
@@ -110,7 +106,7 @@ class SpinWheelView: UIView {
         return spinWheel
     }()
     
-    //MARK: - Updated Slices Setup
+    //MARK: - Updated Wheel Setup
     
     private func setUpUpdatedSlices() {
         slices.removeAll()
@@ -257,7 +253,7 @@ class SpinWheelView: UIView {
         self.winnerLabel.text = "\(text)!"
     }
     
-     func wheelWillSpinConfigurations(disable tabBarController: UITabBarController?) {
+    func wheelStartConfigurations(disable tabBarController: UITabBarController?) {
         self.spinButton.isEnabled = false
         self.spinButton.setTitle("Wheel is spinning!", for: .normal)
         self.spinButton.backgroundColor = .systemGray
@@ -268,14 +264,14 @@ class SpinWheelView: UIView {
         }
     }
     
-    func startWheelSpinRotation(endOn index: Int, completion: @escaping (String) -> Void) {
+    func startWheelRotation(endOn index: Int, completion: @escaping (String) -> Void) {
         spinWheel.startRotationAnimation(finishIndex: index, { [weak self] finishedSpinning in
             guard let finalIndexName = self?.spinWheelModel[index].name else { return }
             completion(finalIndexName)
         })
     }
     
-    func wheelStoppedConfiguration(enable tabBarController: UITabBarController?, winner finalIndexName: String) {
+    func wheelStoppedConfigurations(enable tabBarController: UITabBarController?, winner finalIndexName: String) {
         configureWinnerLabel(with: finalIndexName)
         self.spinButton.isEnabled = true
         self.spinButton.setTitle("Tap to spin again!", for: .normal)
@@ -286,8 +282,8 @@ class SpinWheelView: UIView {
             items[1].isEnabled = true
         }
     }
- 
-    func presentWebPage(with index: Int, completion: @escaping (UIViewController) -> Void) {
+    
+    func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             let webPageVC = WebPageViewController()
             webPageVC.modalPresentationStyle = .formSheet
@@ -297,10 +293,11 @@ class SpinWheelView: UIView {
         }
     }
     
-    func sendErrorAlert(searchResult: String,_ completion: (UIAlertController) -> Void) {
+    func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
+        guard let invalidSearchResult = self.searchBar.text, !invalidSearchResult.isEmpty else { return }
         let alertController = UIAlertController(
             title: FailedSearchModel().title,
-            message: FailedSearchModel().message(searchResult),
+            message: FailedSearchModel().message(invalidSearchResult),
             preferredStyle: .alert)
         alertController.addAction(UIAlertAction(
             title: FailedSearchModel().buttonTitle,

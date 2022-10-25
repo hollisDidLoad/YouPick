@@ -13,16 +13,17 @@ class RestaurantsModelController {
     private init() {}
     
     var domainModel = [RestaurantsDomainModel]()
-    
-    func setUpModelData(with restaurantModel: [RestaurantModel]) {
+    let colorModel = SpinWheelColorModel()
+
+    func setUpModelData(with restaurantAPI: [RestaurantModel]) {
         var modelData = [RestaurantsDomainModel]()
         
-        let wheelBackgroundColors = SpinWheelColorModel.shared.backgroundColors
-        let wheelTextColors = SpinWheelColorModel.shared.textColors
+        let wheelBackgroundColors = colorModel.backgroundColors
+        let wheelTextColors = colorModel.textColors
         
-        for (index, restaurantModelData) in restaurantModel.enumerated() {
+        for (index, restaurantAPIData) in restaurantAPI.enumerated() {
             let data = RestaurantsDomainModel(
-                restaurantModelData,
+                restaurantAPIData,
                 backgroundColor: wheelBackgroundColors[index],
                 textColor: wheelTextColors[index]
             )

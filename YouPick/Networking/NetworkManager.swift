@@ -20,8 +20,7 @@ class NetworkManager {
         limit: String,
         location: String,
         attributes: String = "hot_and_new",
-        completion: @escaping (Result<[RestaurantModel], Error>) -> Void
-    ) {
+        completion: @escaping (Result<[RestaurantModel], Error>) -> Void) {
         guard let url = baseUrl?.appending(path: endPoint) else { return }
         
         let queryItems = [

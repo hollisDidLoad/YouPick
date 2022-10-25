@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct SpinWheelColorModel {
-    static let shared = SpinWheelColorModel()
     
     let backgroundColors: [UIColor] =
     [

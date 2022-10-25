@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class TabBarViewController: UITabBarController {
+class TabBarViewController: UITabBarController {
     
     private let viewModel = TabBarViewModel()
     
@@ -56,7 +56,7 @@ final class TabBarViewController: UITabBarController {
         loadingScreenVC.modalPresentationStyle = .fullScreen
         self.present(loadingScreenVC, animated: false)
 
-        self.viewModel.fetchRestaurants(completion: { [weak self] in
+        self.viewModel.fetchRestaurantsData(completion: { [weak self] in
             DispatchQueue.main.async {
                 self?.setUpTabBar()
             }

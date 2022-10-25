@@ -16,8 +16,8 @@ protocol LocationManagerDelegate: AnyObject {
 class LocationManager: NSObject {
     
     static let shared = LocationManager()
-    private let locationManager = CLLocationManager()
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
+    let locationManager = CLLocationManager()
     var delegate: LocationManagerDelegate?
     var currentLocation = CLLocation()
     var location = String()
@@ -25,8 +25,8 @@ class LocationManager: NSObject {
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.requestCurrentLocation { [weak self] currentLocation in
             self?.fetchGeoLocation(with: currentLocation, completion: { [weak self] locationName in
-                guard let location = locationName else { return }
-                self?.location = location
+                guard let locationName = locationName else { return }
+                self?.location = locationName
                 completion()
             })
         }
@@ -60,7 +60,6 @@ class LocationManager: NSObject {
     }
 }
 
-
 //MARK: - Location Manager Delegate
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -72,7 +71,7 @@ extension LocationManager: CLLocationManagerDelegate {
         case .authorizedAlways, .authorizedWhenInUse:
             delegate?.didUpdateStatus(true)
         case .notDetermined:
-            requestCurrentLocation({_ in})
+            locationManager.requestWhenInUseAuthorization()
         @unknown default:
             delegate?.didUpdateStatus(false)
         }
