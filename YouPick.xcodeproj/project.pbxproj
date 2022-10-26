@@ -28,6 +28,7 @@
 		58391CF72906143B00FA4CD6 /* RequestLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58391CF62906143B00FA4CD6 /* RequestLocationView.swift */; };
 		58391CFD29061D0300FA4CD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5820AAD728FA1F8000B12A4A /* Assets.xcassets */; };
 		58391CFF29061E0700FA4CD6 /* food.json in Resources */ = {isa = PBXBuildFile; fileRef = 5804CF4A28FCE62E00257BE5 /* food.json */; };
+		5847D63B2909744800D0C0F5 /* AppStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5847D63A2909744800D0C0F5 /* AppStoreViewController.swift */; };
 		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
 		584D280029072B1E002F9168 /* forkloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 584D27FF29072B1E002F9168 /* forkloading.json */; };
 		584D280429072C77002F9168 /* WebPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584D280329072C77002F9168 /* WebPageViewModel.swift */; };
@@ -68,6 +69,7 @@
 		58345BA8290311A900FFA8AB /* FailedSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedSearchModel.swift; sourceTree = "<group>"; };
 		5834A938290498760051E4E6 /* MapPinsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinsModel.swift; sourceTree = "<group>"; };
 		58391CF62906143B00FA4CD6 /* RequestLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationView.swift; sourceTree = "<group>"; };
+		5847D63A2909744800D0C0F5 /* AppStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreViewController.swift; sourceTree = "<group>"; };
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		584D27FF29072B1E002F9168 /* forkloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = forkloading.json; sourceTree = "<group>"; };
 		584D280329072C77002F9168 /* WebPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageViewModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				5820AAEE28FA20B400B12A4A /* SpinWheel */,
 				5820AAF528FA212300B12A4A /* Map */,
 				58B33EB828FE3F4200D8502A /* WebPage */,
+				5847D63C29098A2500D0C0F5 /* AppStore */,
 				5820AADC28FA1F8000B12A4A /* Info.plist */,
 			);
 			path = YouPick;
@@ -236,6 +239,14 @@
 				589891542901F8CF001744D9 /* RequestLocationDeniedModel.swift */,
 			);
 			path = RequestLocation;
+			sourceTree = "<group>";
+		};
+		5847D63C29098A2500D0C0F5 /* AppStore */ = {
+			isa = PBXGroup;
+			children = (
+				5847D63A2909744800D0C0F5 /* AppStoreViewController.swift */,
+			);
+			path = AppStore;
 			sourceTree = "<group>";
 		};
 		584CD65D28FB8599003CC71E /* LoadingScreen */ = {
@@ -421,6 +432,7 @@
 				58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */,
 				58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
+				5847D63B2909744800D0C0F5 /* AppStoreViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,
 				5820AAF228FA20C800B12A4A /* MapView.swift in Sources */,

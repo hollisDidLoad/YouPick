@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import Lottie
+import WebKit
+import StoreKit
 
 class WebPageViewController: UIViewController, UISheetPresentationControllerDelegate {
     
@@ -24,6 +26,7 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sheetConfiguration()
+        self.contentView.webView.navigationDelegate = self
     }
     
     private func sheetConfiguration() {
@@ -45,9 +48,23 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     func setUpUrl(with url: URL) {
         loadAnimation()
         viewModel.loadURL(with: self.contentView.webView, and: url, completion: {
+            self.viewModel.currentUrl = url
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                 self.contentView.removeAnimation()
             }
         })
+    }
+}
+
+extension WebPageViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        
+        if (error as NSError).code == 102 {
+            contentView.presentAppStore(completion: { [weak self] appStore in
+                self?.present(appStore, animated: false)
+            })
+            viewModel.reloadUrl(with: contentView.webView)
+        }
     }
 }

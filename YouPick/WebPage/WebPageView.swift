@@ -8,6 +8,7 @@
 import Foundation
 import WebKit
 import Lottie
+import StoreKit
  
 class WebPageView: UIView {
     
@@ -54,5 +55,10 @@ class WebPageView: UIView {
     
     func removeAnimation() {
         animationView.removeFromSuperview()
+    }
+    
+    func presentAppStore(completion: @escaping (SKStoreProductViewController) -> Void) {
+        let appStoreVC = AppStoreViewController()
+        completion(appStoreVC)
     }
 }
