@@ -13,7 +13,7 @@ protocol LocationManagerDelegate: AnyObject {
     func didUpdateStatus(_ allowed: Bool)
 }
 
-class LocationManager: NSObject {
+class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
@@ -62,14 +62,16 @@ class LocationManager: NSObject {
 
 //MARK: - Location Manager Delegate
 
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationManager {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .restricted, .denied:
             delegate?.didUpdateStatus(false)
+            UserDefaults.standard.ifLocationEnabled = false
         case .authorizedAlways, .authorizedWhenInUse:
             delegate?.didUpdateStatus(true)
+            UserDefaults.standard.ifLocationEnabled = true
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         @unknown default:
