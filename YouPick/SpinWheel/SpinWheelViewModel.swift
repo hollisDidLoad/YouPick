@@ -13,7 +13,7 @@ class SpinWheelViewModel {
         return Int.random(in: 0..<count)
     }
     
-    func fetchRestaurantsFromSearchedLocation(
+    func fetchRestaurants(
         businessLimit: String = "10",
         with searchResult: String,
         completion: @escaping (Result<[SpinWheelModel], Error>) -> Void,

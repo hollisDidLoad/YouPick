@@ -59,7 +59,7 @@ class SpinWheelViewController: UIViewController {
     
     private func fetchRestaurantsFromSearchedLocation() {
         guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
-        viewModel.fetchRestaurantsFromSearchedLocation(with: searchResult, completion: { [weak self] fetchResult in
+        viewModel.fetchRestaurants(with: searchResult, completion: { [weak self] fetchResult in
             switch fetchResult {
             case .success(let updatedSpinWheelModel):
                 self?.contentView.spinWheelModel = updatedSpinWheelModel

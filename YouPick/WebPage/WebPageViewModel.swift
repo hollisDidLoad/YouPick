@@ -10,7 +10,7 @@ import WebKit
 
 class WebPageViewModel {
     
-    func loadURL( with webView: WKWebView, and url: URL, completion: @escaping () -> Void) {
+    func loadURL(with webView: WKWebView, and url: URL, completion: @escaping () -> Void) {
         guard let url = URL(string: "\(url)") else { return }
         webView.load(URLRequest(url: url))
         completion()

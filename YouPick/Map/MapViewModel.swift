@@ -5,9 +5,7 @@
 //  Created by Hollis Kwan on 10/14/22.
 //
 
-import Foundation
 import MapKit
-import UIKit
 
 class MapViewModel {
     

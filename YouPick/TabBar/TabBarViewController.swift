@@ -56,7 +56,7 @@ class TabBarViewController: UITabBarController {
         loadingScreenVC.modalPresentationStyle = .fullScreen
         self.present(loadingScreenVC, animated: false)
 
-        self.viewModel.fetchRestaurantsData(completion: { [weak self] in
+        self.viewModel.fetchAPIData(completion: { [weak self] in
             DispatchQueue.main.async {
                 self?.setUpTabBar()
             }
