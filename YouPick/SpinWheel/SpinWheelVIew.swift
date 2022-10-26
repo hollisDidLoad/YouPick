@@ -14,25 +14,6 @@ class SpinWheelView: UIView {
     var slices = [Slice]()
     var spinWheelModel = [SpinWheelModel]()
     
-    let searchBar: UISearchBar = {
-        let bar = UISearchBar()
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.placeholder = "Search City Here..."
-        return bar
-    }()
-    
-    let searchButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Search", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        button.setTitleColor(.systemGray, for: .normal)
-        button.titleLabel?.textAlignment = .center
-        button.layer.borderWidth = 0.4
-        button.layer.borderColor = UIColor.systemGray4.cgColor
-        return button
-    }()
-    
     private let winnerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -82,11 +63,30 @@ class SpinWheelView: UIView {
         return button
     }()
     
-    //MARK: - Start Up Slice Setup
+    let searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.placeholder = "Search City Here..."
+        return bar
+    }()
+    
+    let searchButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Search", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        button.setTitleColor(.systemGray, for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.layer.borderWidth = 0.4
+        button.layer.borderColor = UIColor.systemGray4.cgColor
+        return button
+    }()
+    
+    //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
         let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelData = domainModel.map { SpinWheelModel($0 )}
+        let spinWheelData = domainModel.map { SpinWheelModel($0) }
         self.spinWheelModel = spinWheelData
         
         for model in spinWheelModel {
@@ -106,13 +106,13 @@ class SpinWheelView: UIView {
         return spinWheel
     }()
     
-    //MARK: - Updated Slice Setup
+    //MARK: - Updated Wheel Setup
     
-    func setUpUpdatedSlices() {
+    private func setUpUpdatedSlices() {
         slices.removeAll()
-        let updatedSpinWheelData = spinWheelModel
+        let updatedSpinWheelModel = spinWheelModel
         
-        for model in updatedSpinWheelData {
+        for model in updatedSpinWheelModel {
             guard let name = model.name, let textColor = model.textColor else { return }
             let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.backgroundColor)
@@ -147,6 +147,7 @@ class SpinWheelView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: - Constraints
     
     private func setupConstraints() {
@@ -209,18 +210,6 @@ class SpinWheelView: UIView {
     
     //MARK: - Location Search Configuration
     
-    func displayUpdatedData() {
-        removeSpinWheel()
-        setUpUpdatedSlices()
-        addUpdatedSpinWheel()
-    }
-    
-    func searchResult() -> String? {
-        guard let text = searchBar.text, !text.isEmpty else { return nil }
-        return text
-    }
-    
-    
     private func removeSpinWheel() {
         searchBar.removeFromSuperview()
         searchButton.removeFromSuperview()
@@ -248,23 +237,30 @@ class SpinWheelView: UIView {
         setupConstraints()
     }
     
+    func displayUpdatedWheel() {
+        removeWinnerLabel()
+        removeSpinWheel()
+        setUpUpdatedSlices()
+        addUpdatedSpinWheel()
+    }
+    
+    func searchResult() -> String? {
+        guard let text = searchBar.text, !text.isEmpty else { return nil }
+        return text
+    }
+    
     //MARK: - Spin Button Tapped Configurations
     
     func configureWinnerLabel(with text: String) {
         self.winnerLabel.text = "\(text)!"
     }
     
-    func setUpWheelSpinConfigurations(winner finalIndex: Int, configure tabBarController: UITabBarController?, completion: @escaping (UIViewController) -> Void) {
-        wheelStartConfigurations(disable: tabBarController)
-        startSpinningRotation(endOn: finalIndex, completion: { [weak self] finalIndexName in
-            self?.wheelStoppedConfiguration(enable: tabBarController, finalIndexName: finalIndexName)
-            self?.presentWebPage(with: finalIndex, completion: { webPageVC in
-                completion(webPageVC)
-            })
-        })
+    func removeWinnerLabel() {
+        winnerLabel.text?.removeAll()
     }
     
-    private func wheelStartConfigurations(disable tabBarController: UITabBarController?) {
+    func wheelStartConfigurations(disable tabBarController: UITabBarController?) {
+        self.removeWinnerLabel()
         self.spinButton.isEnabled = false
         self.spinButton.setTitle("Wheel is spinning!", for: .normal)
         self.spinButton.backgroundColor = .systemGray
@@ -275,14 +271,14 @@ class SpinWheelView: UIView {
         }
     }
     
-    private func startSpinningRotation(endOn index: Int, completion: @escaping (String) -> Void) {
+    func startWheelRotation(endOn index: Int, completion: @escaping (String) -> Void) {
         spinWheel.startRotationAnimation(finishIndex: index, { [weak self] finishedSpinning in
             guard let finalIndexName = self?.spinWheelModel[index].name else { return }
             completion(finalIndexName)
         })
     }
     
-    private func wheelStoppedConfiguration(enable tabBarController: UITabBarController?, finalIndexName: String) {
+    func wheelStoppedConfigurations(enable tabBarController: UITabBarController?, winner finalIndexName: String) {
         configureWinnerLabel(with: finalIndexName)
         self.spinButton.isEnabled = true
         self.spinButton.setTitle("Tap to spin again!", for: .normal)
@@ -293,9 +289,8 @@ class SpinWheelView: UIView {
             items[1].isEnabled = true
         }
     }
- 
     
-    private func presentWebPage(with index: Int, completion: @escaping (UIViewController) -> Void) {
+    func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             let webPageVC = WebPageViewController()
             webPageVC.modalPresentationStyle = .formSheet
@@ -303,5 +298,18 @@ class SpinWheelView: UIView {
             webPageVC.setUpUrl(with: url)
             completion(webPageVC)
         }
+    }
+    
+    func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
+        guard let invalidSearchResult = self.searchBar.text, !invalidSearchResult.isEmpty else { return }
+        let alertController = UIAlertController(
+            title: FailedSearchModel().title,
+            message: FailedSearchModel().message(invalidSearchResult),
+            preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(
+            title: FailedSearchModel().buttonTitle,
+            style: .cancel
+        ))
+        completion(alertController)
     }
 }

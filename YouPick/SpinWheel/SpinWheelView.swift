@@ -81,7 +81,7 @@ class SpinWheelView: UIView {
         button.layer.borderColor = UIColor.systemGray4.cgColor
         return button
     }()
-
+    
     //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
@@ -238,6 +238,7 @@ class SpinWheelView: UIView {
     }
     
     func displayUpdatedWheel() {
+        removeWinnerLabel()
         removeSpinWheel()
         setUpUpdatedSlices()
         addUpdatedSpinWheel()
@@ -254,7 +255,12 @@ class SpinWheelView: UIView {
         self.winnerLabel.text = "\(text)!"
     }
     
+    func removeWinnerLabel() {
+        winnerLabel.text?.removeAll()
+    }
+    
     func wheelStartConfigurations(disable tabBarController: UITabBarController?) {
+        self.removeWinnerLabel()
         self.spinButton.isEnabled = false
         self.spinButton.setTitle("Wheel is spinning!", for: .normal)
         self.spinButton.backgroundColor = .systemGray
