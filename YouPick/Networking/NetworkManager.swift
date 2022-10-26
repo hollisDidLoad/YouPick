@@ -21,38 +21,38 @@ class NetworkManager {
         location: String,
         attributes: String = "hot_and_new",
         completion: @escaping (Result<[RestaurantModel], Error>) -> Void) {
-        guard let url = baseUrl?.appending(path: endPoint) else { return }
-        
-        let queryItems = [
-            "limit" : limit,
-            "location" : location,
-            "attributes": attributes
-        ] as [String : Any]
-        
-        var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        urlComponent?.queryItems = queryItems.map {
-            URLQueryItem(name: $0.key, value: $0.value as? String)
-        }
-        guard let finalUrl = urlComponent?.url else { return }
-        
-        var request = URLRequest(url: finalUrl)
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-            if let error = error {
-                print(error)
-                return
-            }
+            guard let url = baseUrl?.appending(path: endPoint) else { return }
             
-            if let data = data {
-                do {
-                    let jsonData = try JSONDecoder().decode(RestaurantsAPIModel.self, from: data).restaurants
-                    completion(.success(jsonData))
-                } catch let jsonError {
-                    completion(.failure(jsonError))
-                }
+            let queryItems = [
+                "limit" : limit,
+                "location" : location,
+                "attributes": attributes
+            ] as [String : Any]
+            
+            var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true)
+            urlComponent?.queryItems = queryItems.map {
+                URLQueryItem(name: $0.key, value: $0.value as? String)
             }
-        }).resume()
-    }
+            guard let finalUrl = urlComponent?.url else { return }
+            
+            var request = URLRequest(url: finalUrl)
+            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "GET"
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                if let data = data {
+                    do {
+                        let jsonData = try JSONDecoder().decode(RestaurantsAPIModel.self, from: data).restaurants
+                        completion(.success(jsonData))
+                    } catch let jsonError {
+                        completion(.failure(jsonError))
+                    }
+                }
+            }).resume()
+        }
 }

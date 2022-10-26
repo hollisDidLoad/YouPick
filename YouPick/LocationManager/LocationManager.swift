@@ -21,7 +21,7 @@ class LocationManager: NSObject {
     var delegate: LocationManagerDelegate?
     var currentLocation = CLLocation()
     var locationName = String()
-
+    
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.requestCurrentLocation { [weak self] currentLocation in
             self?.fetchGeoLocation(with: currentLocation, completion: { [weak self] locationName in
@@ -76,7 +76,7 @@ extension LocationManager: CLLocationManagerDelegate {
             delegate?.didUpdateStatus(false)
         }
     }
-        
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.first else { return }
         self.currentLocation = currentLocation

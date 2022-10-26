@@ -14,7 +14,7 @@ class RestaurantsModelController {
     
     var domainModel = [RestaurantsDomainModel]()
     let colorModel = SpinWheelColorModel()
-
+    
     func setUpModelData(with restaurantAPI: [RestaurantModel]) {
         var modelData = [RestaurantsDomainModel]()
         

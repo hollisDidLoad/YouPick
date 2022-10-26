@@ -39,6 +39,7 @@ extension SFWConfiguration {
 }
 
 extension TextPreferences {
+    
     static func wheelTextConfiguration(textColor: UIColor) -> TextPreferences {
         let textColorType = SFWConfiguration.ColorType.customPatternColors(colors: nil, defaultColor: textColor)
         var font = UIFont.systemFont(ofSize: 9, weight: .semibold)

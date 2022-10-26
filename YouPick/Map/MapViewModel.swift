@@ -56,7 +56,9 @@ class MapViewModel {
     
     func loadAnnotationData(
         with mapView: MKMapView,
-        and annotation: MKAnnotation) -> MKMarkerAnnotationView? {
+        and annotation: MKAnnotation
+    ) -> (MKMarkerAnnotationView?
+    ) {
         var annotationView = mapView.dequeueReusableAnnotationView(
             withIdentifier: "myAnnotation") as? MKMarkerAnnotationView
         
