@@ -8,7 +8,7 @@
 import Foundation
 import WebKit
 import Lottie
-
+ 
 class WebPageView: UIView {
     
     let webView: WKWebView = {
