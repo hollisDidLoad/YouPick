@@ -75,6 +75,7 @@ extension LocationManager {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         @unknown default:
+            UserDefaults.standard.ifLocationEnabled = false
             delegate?.didUpdateStatus(false)
         }
     }
