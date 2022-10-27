@@ -120,15 +120,6 @@ class SpinWheelView: UIView {
         }
     }
     
-    lazy var updatedSpinWheel: SwiftFortuneWheel = {
-        setUpUpdatedSlices()
-        let spinWheel = SwiftFortuneWheel(
-            frame: .zero,
-            slices: slices,
-            configuration: .wheelConfiguration)
-        return spinWheel
-    }()
-    
     private func updateSpinWheel(completion: @escaping (SwiftFortuneWheel) -> Void) {
         setUpUpdatedSlices()
         let updatedSpinWheel = SwiftFortuneWheel(
@@ -250,11 +241,7 @@ class SpinWheelView: UIView {
     }
     
     //MARK: - Spin Button Tapped Configurations
-    
-    func configureWinnerLabel(with text: String) {
-        self.winnerLabel.text = "\(text)!"
-    }
-    
+  
     func removeWinnerLabel() {
         winnerLabel.text?.removeAll()
     }
@@ -288,6 +275,10 @@ class SpinWheelView: UIView {
         if let items = tabBarController?.tabBar.items {
             items[1].isEnabled = true
         }
+    }
+    
+    func configureWinnerLabel(with text: String) {
+        self.winnerLabel.text = "\(text)!"
     }
     
     func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
