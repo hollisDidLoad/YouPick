@@ -63,6 +63,7 @@ class MapView: UIView {
         and mapPinsModel: [MapPinsModel],
         completion: @escaping (UIViewController) -> Void
     ) {
+        // TODO: - Should we be setting up a view controller inside of a View?
         let webVC = WebPageViewController()
         guard let index = mapPinsModel.firstIndex(where: { $0.name == name }) else { return }
         guard let url = mapPinsModel[index].url else { return }
@@ -77,6 +78,7 @@ class MapView: UIView {
         }
     }
     
+    // TODO: - I feel like these non View related code can be inside the view controller instead. That way Views are basic and have no functionalities.
     func zoomToCurrentLocation() {
         let currentLocation = LocationManager.shared.currentLocation
         let center = CLLocationCoordinate2D(

@@ -32,6 +32,7 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // TODO: - So you want to reset the pins everytime the user selects the map tab, but does the delegate have to be reset every time? Maybe set the delegate of mapview inside viewdidload instead
         contentView.mapView.delegate = self
         contentView.setUpCurrentLocationPin()
         guard let pinsData = viewModel.setUpRestaurantPinsData(with: contentView.mapView) else { return }

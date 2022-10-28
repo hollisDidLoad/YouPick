@@ -11,10 +11,10 @@ class RestaurantsModelController {
     
     static let shared = RestaurantsModelController()
     private init() {}
-    
+    // TODO: - rename domainModel -> domainModels
     var domainModel = [RestaurantsDomainModel]()
     let colorModel = SpinWheelColorModel()
-    
+    // TODO: - `restaurantAPI` in the external param naming doesn't make sense. Maybe change it to `restaurantModel` instead
     func setUpModelData(with restaurantAPI: [RestaurantModel]) {
         var modelData = [RestaurantsDomainModel]()
         

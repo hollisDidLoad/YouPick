@@ -19,6 +19,7 @@ class RequestLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.delegate = self
+        // TODO: - If you're not gonna use the completion handler for this method why even create a completion for the function?
         LocationManager.shared.requestCurrentLocation({_ in})
     }
 }

@@ -18,6 +18,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
     let locationManager = CLLocationManager()
+    // TODO: - Does this not need to be weak?
     var delegate: LocationManagerDelegate?
     var currentLocation = CLLocation()
     var locationName = String()

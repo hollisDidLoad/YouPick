@@ -57,6 +57,7 @@ class WebPageView: UIView {
         animationView.removeFromSuperview()
     }
     
+    // TODO: - I don't think we should have view controllers inside of Views
     func presentAppStore(completion: @escaping (SKStoreProductViewController) -> Void) {
         let appStoreVC = AppStoreViewController()
         completion(appStoreVC)

@@ -28,6 +28,7 @@ class TabBarViewController: UITabBarController {
     
     private func setUpTabBarConifgurations() {
         tabBar.clipsToBounds = true
+        // TODO: - Why aren't we using constraints here instead
         var tabFrame = self.tabBar.frame
         tabFrame.size.height = 90
         tabFrame.origin.y = self.view.frame.size.height - 90
