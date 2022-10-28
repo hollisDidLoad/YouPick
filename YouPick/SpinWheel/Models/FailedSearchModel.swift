@@ -8,10 +8,10 @@
 import Foundation
 
 struct FailedSearchModel {
-    let title: String = "Oops!"
-    let buttonTitle: String = "Okay"
+    static let title: String = "Oops!"
+    static let buttonTitle: String = "Okay"
     
-    func message(_ search: String) -> String {
+    static func message(_ search: String) -> String {
         " \nUnable to find results for the location: \(search)\n\n Please try a different location!"
     }
 }

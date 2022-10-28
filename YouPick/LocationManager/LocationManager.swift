@@ -18,13 +18,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
     let locationManager = CLLocationManager()
-    // TODO: - Does this not need to be weak?
-    var delegate: LocationManagerDelegate?
+    weak var delegate: LocationManagerDelegate?
     var currentLocation = CLLocation()
     var locationName = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-        self.requestCurrentLocation { [weak self] currentLocation in
+        self.setCurrentLocation { [weak self] currentLocation in
             self?.fetchGeoLocation(with: currentLocation, completion: { [weak self] locationName in
                 guard let locationName = locationName else { return }
                 self?.locationName = locationName
@@ -33,8 +32,16 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func requestCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
+    private func setCurrentLocation(_ completion: @escaping (CLLocation) -> Void) {
         setCurrentLocationCompletion = completion
+        authorizationSetUp()
+    }
+    
+    func requestUserAuthorization() {
+        authorizationSetUp()
+    }
+    
+    private func authorizationSetUp() {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self

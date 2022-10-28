@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct SpinWheelModel {
+struct SpinWheelDataModel {
     var name: String?
     var url: URL?
     var backgroundColor: UIColor?

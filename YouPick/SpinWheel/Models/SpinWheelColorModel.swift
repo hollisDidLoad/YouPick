@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct SpinWheelColorModel {
-    let backgroundColors: [UIColor] =
+    static let backgroundColors: [UIColor] =
     [
         .systemOrange,
         .systemBlue,
@@ -23,7 +23,7 @@ struct SpinWheelColorModel {
         .systemMint
     ]
     
-    let textColors: [UIColor] =
+    static let textColors: [UIColor] =
     [
         .black,
         .white,

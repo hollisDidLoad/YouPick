@@ -15,7 +15,7 @@ class MapViewModel {
         var locationData = [[String: Any]]()
         var mapPinsModel = [MapPinsModel]()
         var mapRegion: MKCoordinateRegion?
-        let domainModel = RestaurantsModelController.shared.domainModel
+        let domainModel = RestaurantsModelController.shared.domainModels
         mapPinsModel = domainModel.map { MapPinsModel($0) }
         self.mapPinsModel = mapPinsModel
         

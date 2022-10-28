@@ -24,24 +24,54 @@ class MapViewController: UIViewController {
             action: #selector(currentLocationButtonTapped),
             for: .touchUpInside
         )
+        contentView.mapView.delegate = self
     }
     
     @objc
     private func currentLocationButtonTapped() {
-        contentView.zoomToCurrentLocation()
+        zoomToCurrentLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // TODO: - So you want to reset the pins everytime the user selects the map tab, but does the delegate have to be reset every time? Maybe set the delegate of mapview inside viewdidload instead
-        contentView.mapView.delegate = self
         contentView.setUpCurrentLocationPin()
         guard let pinsData = viewModel.setUpRestaurantPinsData(with: contentView.mapView) else { return }
-        contentView.setUpRestaurantsPins(with: pinsData)
+        contentView.setUpRestaurantPins(with: pinsData)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         contentView.clearPins()
+    }
+}
+
+extension MapViewController {
+    
+    private func zoomToCurrentLocation() {
+        let currentLocation = LocationManager.shared.currentLocation
+        let center = CLLocationCoordinate2D(
+            latitude: currentLocation.coordinate.latitude,
+            longitude: currentLocation.coordinate.longitude
+        )
+        let region = MKCoordinateRegion(
+            center: center,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+            ))
+        
+        contentView.mapView.setRegion(region, animated: true)
+    }
+    
+    private func setUpWebPage(
+        with name: String?,
+        and mapPinsModel: [MapPinsModel],
+        completion: @escaping (UIViewController) -> Void
+    ) {
+        let webVC = WebPageViewController()
+        guard let index = mapPinsModel.firstIndex(where: { $0.name == name }) else { return }
+        guard let url = mapPinsModel[index].url else { return }
+        webVC.setUpUrl(with: url)
+        completion(webVC)
     }
 }
 
@@ -56,7 +86,7 @@ extension MapViewController: MKMapViewDelegate {
     ) {
         let pin = view.annotation
         guard let title = pin?.title else { return }
-        contentView.setUpWebPage(with: title, and: viewModel.mapPinsModel ,completion: { [weak self] webVC in
+        self.setUpWebPage(with: title, and: viewModel.mapPinsModel ,completion: { [weak self] webVC in
             self?.present(webVC, animated: true)
         })
     }

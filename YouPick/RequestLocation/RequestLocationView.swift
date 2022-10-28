@@ -21,12 +21,12 @@ class RequestLocationView: UIView {
     
     func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
         let alertController = UIAlertController(
-            title: RequestLocationDeniedModel().title,
-            message: RequestLocationDeniedModel().message,
+            title: RequestLocationDeniedModel.title,
+            message: RequestLocationDeniedModel.message,
             preferredStyle: .alert
         )
         alertController.addAction(UIAlertAction(
-            title: RequestLocationDeniedModel().buttonTitle,
+            title: RequestLocationDeniedModel.buttonTitle,
             style: .cancel,
             handler: { _ in
                 if let bundleId = Bundle.main.bundleIdentifier,

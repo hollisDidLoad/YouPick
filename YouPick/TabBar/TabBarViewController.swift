@@ -15,26 +15,13 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        tabBar.clipsToBounds = true
         UITabBar.appearance().barTintColor = .white
         viewModel.fetchCurrentLocation(completion: { [weak self] in
             self?.fetchRestaurants()
         })
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setUpTabBarConifgurations()
-    }
-    
-    private func setUpTabBarConifgurations() {
-        tabBar.clipsToBounds = true
-        // TODO: - Why aren't we using constraints here instead
-        var tabFrame = self.tabBar.frame
-        tabFrame.size.height = 90
-        tabFrame.origin.y = self.view.frame.size.height - 90
-        self.tabBar.frame = tabFrame
-    }
-    
+
     private func setUpTabBar() {
         let spinWheelVC = SpinWheelViewController()
         let mapVC = MapViewController()

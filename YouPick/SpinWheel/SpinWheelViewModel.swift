@@ -16,7 +16,7 @@ class SpinWheelViewModel {
     func fetchRestaurants(
         businessLimit: String = "10",
         with searchResult: String,
-        completion: @escaping (Result<[SpinWheelModel], Error>) -> Void,
+        completion: @escaping (Result<[SpinWheelDataModel], Error>) -> Void,
         errorCompletion: @escaping () -> Void
     ) {
         NetworkManager.shared.fetchRestaurantsAPI(
@@ -40,11 +40,11 @@ class SpinWheelViewModel {
             })
     }
     
-    private func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelModel]) -> Void) {
-        RestaurantsModelController.shared.domainModel.removeAll()
+    private func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelDataModel]) -> Void) {
+        RestaurantsModelController.shared.domainModels.removeAll()
         RestaurantsModelController.shared.setUpModelData(with: restaurantAPI)
-        let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelModel = domainModel.map { SpinWheelModel($0) }
+        let domainModels = RestaurantsModelController.shared.domainModels
+        let spinWheelModel = domainModels.map { SpinWheelDataModel($0) }
         completion(spinWheelModel)
     }
 }

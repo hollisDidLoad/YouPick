@@ -58,44 +58,14 @@ class MapView: UIView {
         mapView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func setUpWebPage(
-        with name: String?,
-        and mapPinsModel: [MapPinsModel],
-        completion: @escaping (UIViewController) -> Void
-    ) {
-        // TODO: - Should we be setting up a view controller inside of a View?
-        let webVC = WebPageViewController()
-        guard let index = mapPinsModel.firstIndex(where: { $0.name == name }) else { return }
-        guard let url = mapPinsModel[index].url else { return }
-        webVC.setUpUrl(with: url)
-        completion(webVC)
-    }
-    
     func clearPins() {
         let annotations = mapView.annotations
         for annotation in annotations {
             mapView.removeAnnotation(annotation)
         }
     }
-    
-    // TODO: - I feel like these non View related code can be inside the view controller instead. That way Views are basic and have no functionalities.
-    func zoomToCurrentLocation() {
-        let currentLocation = LocationManager.shared.currentLocation
-        let center = CLLocationCoordinate2D(
-            latitude: currentLocation.coordinate.latitude,
-            longitude: currentLocation.coordinate.longitude
-        )
-        let region = MKCoordinateRegion(
-            center: center,
-            span: MKCoordinateSpan(
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01
-            ))
-        
-        mapView.setRegion(region, animated: true)
-    }
-    
-    func setUpRestaurantsPins(with region: MKCoordinateRegion) {
+
+    func setUpRestaurantPins(with region: MKCoordinateRegion) {
         mapView.setRegion(region, animated: true)
     }
     

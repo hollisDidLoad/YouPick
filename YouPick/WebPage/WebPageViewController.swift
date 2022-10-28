@@ -61,10 +61,9 @@ extension WebPageViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         
         if (error as NSError).code == 102 {
-            contentView.presentAppStore(completion: { [weak self] appStore in
-                self?.present(appStore, animated: false)
-            })
-            viewModel.reloadUrl(with: contentView.webView)
+            let appStoreVC = AppStoreViewController()
+            present(appStoreVC, animated: true)
         }
+        viewModel.reloadUrl(with: contentView.webView)
     }
 }

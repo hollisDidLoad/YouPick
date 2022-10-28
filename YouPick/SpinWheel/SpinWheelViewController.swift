@@ -51,18 +51,21 @@ class SpinWheelViewController: UIViewController {
         contentView.startWheelRotation(
             endOn: finalIndex, completion: { [weak self] finalIndexName in
                 self?.contentView.wheelStoppedConfigurations(enable: self?.tabBarController, winner: finalIndexName)
-                self?.contentView.presentWebPage(of: finalIndex, completion: { [weak self] webPageVC in
+                self?.presentWebPage(of: finalIndex, completion: { [weak self] webPageVC in
                     self?.present(webPageVC, animated: true)
                 })
             })
     }
+}
+
+extension SpinWheelViewController {
     
     private func fetchRestaurantsFromSearchedLocation() {
         guard let searchResult = self.contentView.searchResult(), !searchResult.isEmpty else { return }
         viewModel.fetchRestaurants(with: searchResult, completion: { [weak self] fetchResult in
             switch fetchResult {
             case .success(let updatedSpinWheelModel):
-                self?.contentView.spinWheelModel = updatedSpinWheelModel
+                self?.contentView.spinWheelDataModels = updatedSpinWheelModel
                 self?.contentView.displayUpdatedWheel()
             case .failure(_):
                 self?.sendErrorAlert()
@@ -77,6 +80,16 @@ class SpinWheelViewController: UIViewController {
             self.contentView.sendErrorAlert(completion: { [weak self] errorAlert in
                 self?.present(errorAlert, animated: true)
             })
+        }
+    }
+    
+    private func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            let webPageVC = WebPageViewController()
+            webPageVC.modalPresentationStyle = .formSheet
+            guard let url = self.contentView.spinWheelDataModels[index].url else { return }
+            webPageVC.setUpUrl(with: url)
+            completion(webPageVC)
         }
     }
 }

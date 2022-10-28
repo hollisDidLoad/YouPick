@@ -19,17 +19,16 @@ class RequestLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.delegate = self
-        // TODO: - If you're not gonna use the completion handler for this method why even create a completion for the function?
-        LocationManager.shared.requestCurrentLocation({_ in})
+        LocationManager.shared.requestUserAuthorization()
     }
 }
 
 extension RequestLocationViewController: LocationManagerDelegate {
     func didUpdateStatus(_ allowed: Bool) {
         if allowed {
-            contentView.presentTabBarVC(completion: { [weak self] tabBarVC in
-                self?.present(tabBarVC, animated: false)
-            })
+            let tabBarVC = TabBarViewController()
+            tabBarVC.modalPresentationStyle = .fullScreen
+            present(tabBarVC, animated: true)
         } else {
             contentView.sendErrorAlert(completion: { [weak self] errorAlert in
                 self?.present(errorAlert, animated: true)

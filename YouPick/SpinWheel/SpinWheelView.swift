@@ -12,7 +12,7 @@ import SwiftFortuneWheel
 class SpinWheelView: UIView {
     
     var slices = [Slice]()
-    var spinWheelModel = [SpinWheelModel]()
+    var spinWheelDataModels = [SpinWheelDataModel]()
     
     private let winnerLabel: UILabel = {
         let label = UILabel()
@@ -85,11 +85,11 @@ class SpinWheelView: UIView {
     //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
-        let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelData = domainModel.map { SpinWheelModel($0) }
-        self.spinWheelModel = spinWheelData
+        let domainModels = RestaurantsModelController.shared.domainModels
+        let spinWheelData = domainModels.map { SpinWheelDataModel($0) }
+        self.spinWheelDataModels = spinWheelData
         
-        for model in spinWheelModel {
+        for model in spinWheelDataModels {
             guard let name = model.name, let textColor = model.textColor else { return }
             let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.backgroundColor)
@@ -110,24 +110,15 @@ class SpinWheelView: UIView {
     
     private func setUpUpdatedSlices() {
         slices.removeAll()
-        let updatedSpinWheelModel = spinWheelModel
+        let updatedSpinWheelDataModels = spinWheelDataModels
         
-        for model in updatedSpinWheelModel {
+        for model in updatedSpinWheelDataModels {
             guard let name = model.name, let textColor = model.textColor else { return }
             let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.backgroundColor)
             slices.append(sliceSetup)
         }
     }
-    
-    lazy var updatedSpinWheel: SwiftFortuneWheel = {
-        setUpUpdatedSlices()
-        let spinWheel = SwiftFortuneWheel(
-            frame: .zero,
-            slices: slices,
-            configuration: .wheelConfiguration)
-        return spinWheel
-    }()
     
     private func updateSpinWheel(completion: @escaping (SwiftFortuneWheel) -> Void) {
         setUpUpdatedSlices()
@@ -251,10 +242,6 @@ class SpinWheelView: UIView {
     
     //MARK: - Spin Button Tapped Configurations
     
-    func configureWinnerLabel(with text: String) {
-        self.winnerLabel.text = "\(text)!"
-    }
-    
     func removeWinnerLabel() {
         winnerLabel.text?.removeAll()
     }
@@ -273,7 +260,7 @@ class SpinWheelView: UIView {
     
     func startWheelRotation(endOn index: Int, completion: @escaping (String) -> Void) {
         spinWheel.startRotationAnimation(finishIndex: index, { [weak self] finishedSpinning in
-            guard let finalIndexName = self?.spinWheelModel[index].name else { return }
+            guard let finalIndexName = self?.spinWheelDataModels[index].name else { return }
             completion(finalIndexName)
         })
     }
@@ -290,24 +277,18 @@ class SpinWheelView: UIView {
         }
     }
     
-    func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            let webPageVC = WebPageViewController()
-            webPageVC.modalPresentationStyle = .formSheet
-            guard let url = self.spinWheelModel[index].url else { return }
-            webPageVC.setUpUrl(with: url)
-            completion(webPageVC)
-        }
+    func configureWinnerLabel(with text: String) {
+        self.winnerLabel.text = "\(text)!"
     }
     
     func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
         guard let invalidSearchResult = self.searchBar.text, !invalidSearchResult.isEmpty else { return }
         let alertController = UIAlertController(
-            title: FailedSearchModel().title,
-            message: FailedSearchModel().message(invalidSearchResult),
+            title: FailedSearchModel.title,
+            message: FailedSearchModel.message(invalidSearchResult),
             preferredStyle: .alert)
         alertController.addAction(UIAlertAction(
-            title: FailedSearchModel().buttonTitle,
+            title: FailedSearchModel.buttonTitle,
             style: .cancel
         ))
         completion(alertController)

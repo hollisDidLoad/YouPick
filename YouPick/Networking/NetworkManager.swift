@@ -14,7 +14,6 @@ class NetworkManager {
     
     private let baseUrl = URL(string: "https://api.yelp.com/v3")
     private let endPoint = "businesses/search"
-    private let apiKey = API_KEY().key
     
     func fetchRestaurantsAPI(
         limit: String,
@@ -36,7 +35,7 @@ class NetworkManager {
             guard let finalUrl = urlComponent?.url else { return }
             
             var request = URLRequest(url: finalUrl)
-            request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer \(API_KEY.key)", forHTTPHeaderField: "Authorization")
             request.httpMethod = "GET"
             
             URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
