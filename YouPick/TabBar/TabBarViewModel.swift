@@ -9,6 +9,8 @@ import Foundation
 
 class TabBarViewModel {
     
+    var limitCount: Int = 10
+    
     private var currentLocation = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
@@ -22,7 +24,7 @@ class TabBarViewModel {
     
     func fetchAPIData(completion: @escaping () -> Void) {
         NetworkManager.shared.fetchRestaurantsAPI(
-            limit: "10",
+            limit: "\(limitCount)",
             location: self.currentLocation,
             completion: { fetchResult in
                 switch fetchResult {
