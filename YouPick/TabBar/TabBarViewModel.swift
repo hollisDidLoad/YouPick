@@ -9,8 +9,7 @@ import Foundation
 
 class TabBarViewModel {
     
-    var limitCount: Int = 10
-    
+    private var limitCount: Int = 10
     private var currentLocation = String()
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
