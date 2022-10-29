@@ -10,12 +10,17 @@ import MapKit
 class MapViewModel {
     
     var mapPinsModel = [MapPinsModel]()
+    private var modelController: RestaurantsModelController
+    
+    init(modelController: RestaurantsModelController) {
+        self.modelController = modelController
+    }
     
     func setUpRestaurantPinsData(with mapView: MKMapView) -> MKCoordinateRegion? {
         var locationData = [[String: Any]]()
         var mapPinsModel = [MapPinsModel]()
         var mapRegion: MKCoordinateRegion?
-        let domainModel = RestaurantsModelController.shared.domainModels
+        let domainModel = modelController.domainModels
         mapPinsModel = domainModel.map { MapPinsModel($0) }
         self.mapPinsModel = mapPinsModel
         

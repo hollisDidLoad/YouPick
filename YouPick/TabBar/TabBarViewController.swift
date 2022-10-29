@@ -10,7 +10,11 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-    private let viewModel = TabBarViewModel()
+    private let viewModel = TabBarViewModel(
+        modelController: RestaurantsModelController.shared,
+        locationManager: LocationManager.shared,
+        networkManager: NetworkManager.shared
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +25,12 @@ class TabBarViewController: UITabBarController {
             self?.fetchRestaurants()
         })
     }
-
+    
     private func setUpTabBar() {
         let spinWheelVC = SpinWheelViewController()
-        let mapVC = MapViewController()
+        let mapVC = MapViewController(
+            locationManager: LocationManager.shared
+        )
         
         self.tabBar.backgroundColor = .systemGray6
         spinWheelVC.tabBarItem = UITabBarItem(

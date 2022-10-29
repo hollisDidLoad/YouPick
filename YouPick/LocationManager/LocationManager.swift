@@ -16,6 +16,8 @@ protocol LocationManagerDelegate: AnyObject {
 class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
+    private override init() {}
+    
     private var setCurrentLocationCompletion: ((CLLocation) -> Void)?
     let locationManager = CLLocationManager()
     weak var delegate: LocationManagerDelegate?

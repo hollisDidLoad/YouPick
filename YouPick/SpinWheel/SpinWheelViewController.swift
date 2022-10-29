@@ -10,8 +10,14 @@ import UIKit
 
 class SpinWheelViewController: UIViewController {
     
-    private let contentView = SpinWheelView()
-    private let viewModel = SpinWheelViewModel()
+    private let contentView = SpinWheelView(
+        modelController:
+            RestaurantsModelController.shared
+    )
+    private let viewModel = SpinWheelViewModel(
+        modelController: RestaurantsModelController.shared,
+        networkManager: NetworkManager.shared
+    )
     
     override func loadView() {
         view = contentView

@@ -13,6 +13,22 @@ class SpinWheelView: UIView {
     
     var slices = [Slice]()
     var spinWheelDataModels = [SpinWheelDataModel]()
+    private var modelController: RestaurantsModelController
+    
+    //MARK: - Dependency Injection
+    
+    init(modelController: RestaurantsModelController) {
+        self.modelController = modelController
+        super.init(frame: CGRect.zero)
+        backgroundColor = .white
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - UI Setup
     
     private let winnerLabel: UILabel = {
         let label = UILabel()
@@ -85,7 +101,7 @@ class SpinWheelView: UIView {
     //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
-        let domainModels = RestaurantsModelController.shared.domainModels
+        let domainModels = modelController.domainModels
         let spinWheelData = domainModels.map { SpinWheelDataModel($0) }
         self.spinWheelDataModels = spinWheelData
         
@@ -127,16 +143,6 @@ class SpinWheelView: UIView {
             slices: slices,
             configuration: .wheelConfiguration)
         completion(updatedSpinWheel)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Constraints

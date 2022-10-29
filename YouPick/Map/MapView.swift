@@ -12,6 +12,18 @@ import MapKit
 class MapView: UIView {
     
     let webButton = UIButton(type: .infoDark)
+    private var locationManager: LocationManager
+    
+    init(locationManager: LocationManager){
+        self.locationManager = locationManager
+        super.init(frame: CGRect.zero)
+        backgroundColor = .white
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let currentLocationButton: UIButton = {
         let button = UIButton()
@@ -32,16 +44,6 @@ class MapView: UIView {
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private func setupConstraints() {
         addSubview(mapView)
@@ -64,14 +66,14 @@ class MapView: UIView {
             mapView.removeAnnotation(annotation)
         }
     }
-
+    
     func setUpRestaurantPins(with region: MKCoordinateRegion) {
         mapView.setRegion(region, animated: true)
     }
     
     func setUpCurrentLocationPin() {
         let currentLocationPin = CurrentLocationPinCustomization()
-        let currentLocation = LocationManager.shared.currentLocation
+        let currentLocation = locationManager.currentLocation
         currentLocationPin.pinTintColor = .systemTeal
         currentLocationPin.coordinate = currentLocation.coordinate
         currentLocationPin.title = "Current Location"

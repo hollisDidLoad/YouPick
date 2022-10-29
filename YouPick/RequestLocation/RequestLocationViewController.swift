@@ -10,7 +10,17 @@ import UIKit
 
 class RequestLocationViewController: UIViewController {
     
+    private var locationManager: LocationManager
     private let contentView = RequestLocationView()
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = contentView
@@ -18,8 +28,8 @@ class RequestLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        LocationManager.shared.delegate = self
-        LocationManager.shared.requestUserAuthorization()
+        locationManager.delegate = self
+        locationManager.requestUserAuthorization()
     }
 }
 

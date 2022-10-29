@@ -11,10 +11,24 @@ class TabBarViewModel {
     
     private var limitCount: Int = 10
     private var currentLocation = String()
+    private var locationManager: LocationManager
+    private var networkManager: NetworkManager
+    private var modelController: RestaurantsModelController
+    
+    init(
+        modelController: RestaurantsModelController,
+        locationManager: LocationManager,
+        networkManager: NetworkManager
+    ) {
+        self.modelController = modelController
+        self.locationManager = locationManager
+        self.networkManager = networkManager
+    }
     
     func fetchCurrentLocation(completion: @escaping () -> Void) {
-        LocationManager.shared.fetchCurrentLocation { [weak self] in
-            self?.currentLocation = LocationManager.shared.locationName
+        locationManager.fetchCurrentLocation { [weak self] in
+            guard let currentLocation = self?.locationManager.locationName else { return }
+            self?.currentLocation = currentLocation
             DispatchQueue.main.async {
                 completion()
             }
@@ -22,13 +36,13 @@ class TabBarViewModel {
     }
     
     func fetchAPIData(completion: @escaping () -> Void) {
-        NetworkManager.shared.fetchRestaurantsAPI(
+        networkManager.fetchRestaurantsAPI(
             limit: "\(limitCount)",
             location: self.currentLocation,
-            completion: { fetchResult in
+            completion: { [weak self] fetchResult in
                 switch fetchResult {
                 case .success(let restaurantAPI):
-                    RestaurantsModelController.shared.setUpModelData(with: restaurantAPI)
+                    self?.modelController.setUpModelData(with: restaurantAPI)
                     completion()
                 case .failure(_):
                     break

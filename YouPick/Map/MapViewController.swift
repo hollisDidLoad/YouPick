@@ -11,8 +11,20 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    private let contentView = MapView()
-    private let viewModel = MapViewModel()
+    private let contentView = MapView(
+        locationManager: LocationManager.shared
+    )
+    private let viewModel = MapViewModel(modelController: RestaurantsModelController.shared)
+    private var locationManager: LocationManager
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = contentView
@@ -47,7 +59,7 @@ class MapViewController: UIViewController {
 extension MapViewController {
     
     private func zoomToCurrentLocation() {
-        let currentLocation = LocationManager.shared.currentLocation
+        let currentLocation = locationManager.currentLocation
         let center = CLLocationCoordinate2D(
             latitude: currentLocation.coordinate.latitude,
             longitude: currentLocation.coordinate.longitude
