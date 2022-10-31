@@ -578,7 +578,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPick/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow usage of location to run the app properly.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to search for restaurants in your area.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -616,7 +616,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YouPick/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow usage of location to run the app properly.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs your location to search for restaurants in your area.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
