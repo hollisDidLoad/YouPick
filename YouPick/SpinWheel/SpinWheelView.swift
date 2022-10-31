@@ -38,7 +38,6 @@ class SpinWheelView: UIView {
         label.textColor = .systemGreen
         label.layer.masksToBounds = true
         label.numberOfLines = 0
-        label.text = "Hello World"
         return label
     }()
     
