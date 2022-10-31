@@ -47,10 +47,10 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     
     func setUpUrl(with url: URL) {
         loadAnimation()
-        viewModel.loadURL(with: self.contentView.webView, and: url, completion: {
-            self.viewModel.currentUrl = url
+        viewModel.loadURL(with: self.contentView.webView, and: url, completion: { [weak self] in
+            self?.viewModel.currentUrl = url
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.contentView.removeAnimation()
+                self?.contentView.removeAnimation()
             }
         })
     }

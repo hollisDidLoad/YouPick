@@ -21,6 +21,7 @@ class TabBarViewController: UITabBarController {
         view.backgroundColor = .white
         tabBar.clipsToBounds = true
         UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().unselectedItemTintColor = .darkGray
         viewModel.fetchCurrentLocation(completion: { [weak self] in
             self?.fetchRestaurants()
         })
@@ -35,11 +36,11 @@ class TabBarViewController: UITabBarController {
         self.tabBar.backgroundColor = .systemGray6
         spinWheelVC.tabBarItem = UITabBarItem(
             title: "Spinner",
-            image: UIImage(named: "spinner"),
+            image: UIImage(systemName: "line.3.crossed.swirl.circle"),
             tag: 1)
         mapVC.tabBarItem = UITabBarItem(
             title: "Map",
-            image: UIImage(named: "map"),
+            image: UIImage(systemName: "map"),
             tag: 1)
         
         self.setViewControllers([spinWheelVC, mapVC], animated: true)

@@ -38,6 +38,7 @@ class SpinWheelView: UIView {
         label.textColor = .systemGreen
         label.layer.masksToBounds = true
         label.numberOfLines = 0
+        label.text = "Hello World"
         return label
     }()
     
@@ -168,7 +169,7 @@ class SpinWheelView: UIView {
         searchButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         searchButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
         
-        winnerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
+        winnerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10).isActive = true
         winnerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         winnerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         winnerLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
@@ -199,7 +200,7 @@ class SpinWheelView: UIView {
         standImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         standImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        spinButton.topAnchor.constraint(equalTo: standImageView.bottomAnchor,constant: 20).isActive = true
+        spinButton.topAnchor.constraint(equalTo: standImageView.bottomAnchor ,constant: 10).isActive = true
         spinButton.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 50).isActive = true
         spinButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -50).isActive = true
         spinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true

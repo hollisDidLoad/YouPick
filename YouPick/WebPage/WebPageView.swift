@@ -16,6 +16,8 @@ class WebPageView: UIView {
         let preferences = WKWebpagePreferences()
         let webConfiguration = WKWebViewConfiguration()
         let web = WKWebView(frame: .zero, configuration: webConfiguration)
+        web.customUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_1 like Mac OS X) AppleWebKit/602.2.14 (KHTML, like Gecko) Mobile/14B72"
+        preferences.preferredContentMode = .recommended
         preferences.allowsContentJavaScript = true
         webConfiguration.defaultWebpagePreferences = preferences
         web.translatesAutoresizingMaskIntoConstraints = false

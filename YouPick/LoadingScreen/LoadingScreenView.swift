@@ -39,7 +39,7 @@ class LoadingScreenView: UIView {
         addSubview(animationView)
         addSubview(logoImageView)
         
-        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 60).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 10).isActive = true
         logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         logoImageView.heightAnchor.constraint(equalToConstant: 260).isActive = true
@@ -47,6 +47,6 @@ class LoadingScreenView: UIView {
         animationView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         animationView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         animationView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
-        animationView.heightAnchor.constraint(equalToConstant: 600).isActive = true
+        animationView.heightAnchor.constraint(equalToConstant: 500).isActive = true
     }
 }
