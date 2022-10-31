@@ -34,19 +34,18 @@ class LoadingScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+     
     private func setUpConstraints() {
         addSubview(animationView)
         addSubview(logoImageView)
         
-        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 10).isActive = true
+        logoImageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 40).isActive = true
         logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 260).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
+        animationView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: -80).isActive = true
         animationView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         animationView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        animationView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
-        animationView.heightAnchor.constraint(equalToConstant: 500).isActive = true
     }
 }
