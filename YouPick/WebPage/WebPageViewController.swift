@@ -12,7 +12,7 @@ import WebKit
 import StoreKit
 
 class WebPageViewController: UIViewController, UISheetPresentationControllerDelegate {
-
+    
     private let contentView = WebPageView()
     private let viewModel = WebPageViewModel(
         modelController: CoreDataModelController.shared,
@@ -44,17 +44,23 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         super.viewDidLoad()
         self.sheetConfiguration()
         self.contentView.webView.navigationDelegate = self
-        self.contentView.saveRestaurantButton.addTarget(self, action: #selector(didTapSaveRestaurant), for: .touchUpInside)
+        self.contentView.saveRestaurantButton.addTarget(
+            self,
+            action: #selector(didTapSaveRestaurant),
+            for: .touchUpInside)
     }
     
     @objc
     private func didTapSaveRestaurant() {
         contentView.updateSaveButton()
         guard let name = viewModel.webPageSavedModel?.name,
-                let url = viewModel.webPageSavedModel?.url,
-                let location = viewModel.webPageSavedModel?.location
+              let url = viewModel.webPageSavedModel?.url,
+              let location = viewModel.webPageSavedModel?.location
         else { return }
-        coreDataController.createRestaurantData(with: name, url: url, and: location)
+        coreDataController.createRestaurantData(
+            with: name,
+            url,
+            and: location)
         coreDataController.retrieveRestaurants { [weak self] in
             self?.coreDataController.saveData()
         }

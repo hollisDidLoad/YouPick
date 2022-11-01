@@ -26,7 +26,7 @@ class CoreDataModelController {
         }
     }
     
-    func createRestaurantData(with name: String,url: URL, and location: String) {
+    func createRestaurantData(with name: String, _ url: URL, and location: String) {
         let newRestaurantData = SavedRestaurants(context: context)
         newRestaurantData.name = name
         newRestaurantData.location = location
