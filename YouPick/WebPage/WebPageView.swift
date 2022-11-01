@@ -97,4 +97,11 @@ class WebPageView: UIView {
         saveRestaurantButton.setTitle("Saved!", for: .normal)
         saveRestaurantButton.isEnabled = false
     }
+    
+    func restaurantAlreadyExistButtonConfiguration() {
+        saveRestaurantButton.setTitle("Already\nSaved", for: .normal)
+        saveRestaurantButton.setTitleColor(.red, for: .normal)
+        saveRestaurantButton.backgroundColor = .yellow
+        saveRestaurantButton.isEnabled = false
+    }
 }

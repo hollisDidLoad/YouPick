@@ -52,17 +52,22 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     
     @objc
     private func didTapSaveRestaurant() {
+        let indexName = coreDataController.savedRestaurants.map { $0.name }
         contentView.updateSaveButton()
         guard let name = viewModel.webPageSavedModel?.name,
               let url = viewModel.webPageSavedModel?.url,
               let location = viewModel.webPageSavedModel?.location
         else { return }
-        coreDataController.createRestaurantData(
-            with: name,
-            url,
-            and: location)
-        coreDataController.retrieveRestaurants { [weak self] in
-            self?.coreDataController.saveData()
+        if indexName.contains(name) {
+            contentView.restaurantAlreadyExistButtonConfiguration()
+        } else {
+            coreDataController.createRestaurantData(
+                with: name,
+                url,
+                and: location)
+            coreDataController.retrieveRestaurants { [weak self] in
+                self?.coreDataController.saveData()
+            }
         }
     }
     
