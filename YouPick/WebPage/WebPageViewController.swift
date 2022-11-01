@@ -23,9 +23,9 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         return presentationController as? UISheetPresentationController
     }
     private let coreDataController: CoreDataModelController
-    private let savedLocationModelController: SavedLocationsModelController
+    private let savedLocationModelController: SavedLocationModelController
     
-    init(coreDataController: CoreDataModelController, locationManager: LocationManager, savedLocationModelController: SavedLocationsModelController) {
+    init(coreDataController: CoreDataModelController, locationManager: LocationManager, savedLocationModelController: SavedLocationModelController) {
         self.coreDataController = coreDataController
         self.locationManager = locationManager
         self.savedLocationModelController = savedLocationModelController
@@ -52,23 +52,7 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
     
     @objc
     private func didTapSaveRestaurant() {
-        let indexName = coreDataController.savedRestaurants.map { $0.name }
-        contentView.updateSaveButton()
-        guard let name = viewModel.webPageSavedModel?.name,
-              let url = viewModel.webPageSavedModel?.url,
-              let location = viewModel.webPageSavedModel?.location
-        else { return }
-        if indexName.contains(name) {
-            contentView.restaurantAlreadyExistButtonConfiguration()
-        } else {
-            coreDataController.createRestaurantData(
-                with: name,
-                url,
-                and: location)
-            coreDataController.retrieveRestaurants { [weak self] in
-                self?.coreDataController.saveData()
-            }
-        }
+        setUpWebData()
     }
     
     private func sheetConfiguration() {
@@ -85,6 +69,31 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         contentView.animationView.play()
         contentView.animationView.loopMode = .loop
         contentView.animationView.animationSpeed = 0.8
+    }
+}
+
+//MARK: - WebData Setup
+
+extension WebPageViewController {
+    
+    private func setUpWebData() {
+        let indexName = coreDataController.savedRestaurants.map { $0.name }
+        guard let name = viewModel.webPageSavedModel?.name,
+              let url = viewModel.webPageSavedModel?.url,
+              let location = viewModel.webPageSavedModel?.location
+        else { return }
+        if indexName.contains(name) {
+            contentView.restaurantAlreadyExistButtonConfiguration()
+        } else {
+            contentView.updateSaveButton()
+            coreDataController.createRestaurantData(
+                with: name,
+                url,
+                and: location)
+            coreDataController.retrieveRestaurants { [weak self] in
+                self?.coreDataController.saveData()
+            }
+        }
     }
     
     func setUpUrl(with url: URL) {
@@ -108,15 +117,20 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         })
     }
     
-    func setUpSavedLocationData(with domainModel: SavedLocationsDomainModel) {
+    func setUpSavedLocationData(with domainModel: SavedLocationDomainModel) {
         viewModel.setUpSavedData(savedLocationDomainModel: domainModel)
     }
 }
 
+//MARK: - WebNavigation Delegate
+
 extension WebPageViewController: WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        
+    func webView(
+        _ webView: WKWebView,
+        didFailProvisionalNavigation navigation: WKNavigation,
+        withError error: Error
+    ) {
         if (error as NSError).code == 102 {
             let appStoreVC = AppStoreViewController()
             present(appStoreVC, animated: true)

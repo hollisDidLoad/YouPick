@@ -10,8 +10,8 @@ import UIKit
 
 class SavedRestaurantsViewController: UIViewController {
     
-    let contentView = SavedRestaurantsView()
-    let coreDataController: CoreDataModelController
+    private let contentView = SavedRestaurantsView()
+    private let coreDataController: CoreDataModelController
     
     init(coreDataController: CoreDataModelController) {
         self.coreDataController = coreDataController
@@ -36,18 +36,10 @@ class SavedRestaurantsViewController: UIViewController {
         refreshData()
     }
     
-    func refreshData() {
+    private func refreshData() {
         coreDataController.retrieveRestaurants { [weak self] in
             self?.contentView.tableView.reloadData()
         }
-    }
-    
-    private func presentWebPage(with indexPath: IndexPath, completion: @escaping (UIViewController) -> Void) {
-        let webPageVC = WebPageViewController(coreDataController: CoreDataModelController.shared, locationManager: LocationManager.shared, savedLocationModelController: SavedLocationsModelController.shared)
-        webPageVC.modalPresentationStyle = .formSheet
-        let url = coreDataController.savedRestaurants[indexPath.row].url
-        webPageVC.setUpSavedUrlPage(with: url)
-        completion(webPageVC)
     }
 }
 
@@ -66,7 +58,7 @@ extension SavedRestaurantsViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
-        presentWebPage(with: indexPath, completion: { [weak self] webPageVC in
+        contentView.presentWebPage(with: indexPath, and: coreDataController, completion: { [weak self] webPageVC in
             self?.present(webPageVC, animated: true)
         })
     }

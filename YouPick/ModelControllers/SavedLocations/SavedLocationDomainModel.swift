@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SavedLocationsDomainModel {
+struct SavedLocationDomainModel {
     var name: String?
     var url: URL?
     var location: String?

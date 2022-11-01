@@ -28,9 +28,16 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setUpTabBar() {
-        let spinWheelVC = SpinWheelViewController(coreDataController: CoreDataModelController.shared, savedLocationsModelController: SavedLocationsModelController.shared)
-        let mapVC = MapViewController(locationManager: LocationManager.shared, coreDataController: CoreDataModelController.shared, savedLocationsModelController: SavedLocationsModelController.shared)
-        let savedRestaurantsVC = SavedRestaurantsViewController(coreDataController: CoreDataModelController.shared)
+        let spinWheelVC = SpinWheelViewController(
+            coreDataController: CoreDataModelController.shared
+        )
+        let mapVC = MapViewController(
+            locationManager: LocationManager.shared,
+            coreDataController: CoreDataModelController.shared
+        )
+        let savedRestaurantsVC = SavedRestaurantsViewController(
+            coreDataController: CoreDataModelController.shared
+        )
         
         self.tabBar.backgroundColor = .systemGray6
         spinWheelVC.tabBarItem = UITabBarItem(

@@ -16,14 +16,13 @@ class SpinWheelViewController: UIViewController {
     )
     private let viewModel = SpinWheelViewModel(
         modelController: RestaurantsModelController.shared,
-        networkManager: NetworkManager.shared
+        networkManager: NetworkManager.shared,
+        savedLocationModelController: SavedLocationModelController.shared
     )
     private let coreDataController: CoreDataModelController
-    private let savedLocationsModelController: SavedLocationsModelController
     
-    init(coreDataController: CoreDataModelController, savedLocationsModelController: SavedLocationsModelController) {
+    init(coreDataController: CoreDataModelController) {
         self.coreDataController = coreDataController
-        self.savedLocationsModelController = savedLocationsModelController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -105,12 +104,11 @@ extension SpinWheelViewController {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             let webPageVC = WebPageViewController(
                 coreDataController: CoreDataModelController.shared,
-                locationManager: LocationManager.shared, savedLocationModelController: SavedLocationsModelController.shared
+                locationManager: LocationManager.shared,
+                savedLocationModelController: SavedLocationModelController.shared
             )
-            webPageVC.modalPresentationStyle = .formSheet
             guard let url = self.contentView.spinWheelDataModels[index].url else { return }
-            self.savedLocationsModelController.fetchSpinWheelSavedData(with: self.contentView.spinWheelDataModels[index], completion: { [weak self] in
-                guard let model = self?.savedLocationsModelController.domainModel else { return }
+            self.viewModel.setUpSavedLocationSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
                 webPageVC.setUpSavedLocationData(with: model)
             })
             webPageVC.setUpUrl(with: url)

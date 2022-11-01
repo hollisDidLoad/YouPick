@@ -14,15 +14,19 @@ class MapViewController: UIViewController {
     private let contentView = MapView(
         locationManager: LocationManager.shared
     )
-    private let viewModel = MapViewModel(modelController: RestaurantsModelController.shared)
+    private let viewModel = MapViewModel(
+        modelController: RestaurantsModelController.shared,
+        savedLocationModelController: SavedLocationModelController.shared
+    )
     private var locationManager: LocationManager
     private var coreDataController: CoreDataModelController
-    private let savedLocationsModelController: SavedLocationsModelController
     
-    init(locationManager: LocationManager, coreDataController: CoreDataModelController, savedLocationsModelController: SavedLocationsModelController) {
+    init(
+        locationManager: LocationManager,
+        coreDataController: CoreDataModelController
+    ) {
         self.locationManager = locationManager
         self.coreDataController = coreDataController
-        self.savedLocationsModelController = savedLocationsModelController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,9 +53,10 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        contentView.setUpCurrentLocationPin()
         guard let pinsData = viewModel.setUpRestaurantPinsData(with: contentView.mapView) else { return }
         contentView.setUpRestaurantPins(with: pinsData)
+        contentView.showAllRestaurantPins()
+        contentView.setUpCurrentLocationPin()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,17 +90,14 @@ extension MapViewController {
     ) {
         let webVC = WebPageViewController(
             coreDataController: CoreDataModelController.shared,
-            locationManager: LocationManager.shared, savedLocationModelController: SavedLocationsModelController.shared
+            locationManager: LocationManager.shared,
+            savedLocationModelController: SavedLocationModelController.shared
         )
-        guard let index = mapPinsModel.firstIndex(where: { $0.name == name }),
-              let url = mapPinsModel[index].url
-        else { return }
-        self.savedLocationsModelController.fetchMapPinSavedData(with: mapPinsModel[index])
-        if let model = self.savedLocationsModelController.domainModel {
+        viewModel.setUpWebData(with: name, and: mapPinsModel, completion: { model, url in
             webVC.setUpSavedLocationData(with: model)
             webVC.setUpUrl(with: url)
             completion(webVC)
-        }
+        })
     }
 }
 

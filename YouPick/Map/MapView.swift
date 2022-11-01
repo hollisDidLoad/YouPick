@@ -80,6 +80,10 @@ class MapView: UIView {
         mapView.addAnnotation(currentLocationPin)
     }
     
+    func showAllRestaurantPins() {
+        self.mapView.showAnnotations(mapView.annotations, animated: true)
+    }
+    
     func loadAnnotationView(
         with annotation: MKAnnotation,
         and annotationData: MKMarkerAnnotationView
@@ -89,6 +93,7 @@ class MapView: UIView {
         
         annotationView = annotationData
         annotationView?.canShowCallout = true
+        annotationView?.displayPriority = .required
         annotationView?.rightCalloutAccessoryView = webButton
         
         if annotationView == nil {

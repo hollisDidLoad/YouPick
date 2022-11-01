@@ -7,18 +7,18 @@
 
 import Foundation
 
-class SavedLocationsModelController {
-    static let shared = SavedLocationsModelController()
+class SavedLocationModelController {
+    static let shared = SavedLocationModelController()
     private init() {}
     
-    var domainModel: SavedLocationsDomainModel?
+    var domainModel: SavedLocationDomainModel?
     
     func fetchSpinWheelSavedData(with spinWheelModel: SpinWheelDataModel, completion: @escaping () -> Void) {
-        self.domainModel = SavedLocationsDomainModel(spinWheelModel)
+        self.domainModel = SavedLocationDomainModel(spinWheelModel)
         completion()
     }
     
     func fetchMapPinSavedData(with mapPinsModel: MapPinsModel) {
-        self.domainModel = SavedLocationsDomainModel(mapPinsModel)
+        self.domainModel = SavedLocationDomainModel(mapPinsModel)
     }
 }
