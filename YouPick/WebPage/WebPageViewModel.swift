@@ -11,6 +11,17 @@ import WebKit
 class WebPageViewModel {
     
     var currentUrl: URL? = nil
+    private let modelController: CoreDataModelController
+    private let domainModel: [RestaurantsDomainModel]
+    var webPageSavedModel: WebPageSavedLocationModel?
+    
+    init(
+        modelController: CoreDataModelController,
+        domainModel: [RestaurantsDomainModel]
+    ) {
+        self.modelController = modelController
+        self.domainModel = domainModel
+    }
     
     func loadURL(with webView: WKWebView, and url: URL, completion: @escaping () -> Void) {
         guard let url = URL(string: "\(url)") else { return }
@@ -21,5 +32,9 @@ class WebPageViewModel {
     func reloadUrl(with webView: WKWebView) {
         guard let url = currentUrl else { return }
         webView.load(URLRequest(url: url))
+    }
+    
+    func setUpSavedData(savedLocationDomainModel: SavedLocationsDomainModel) {
+        self.webPageSavedModel = WebPageSavedLocationModel(data: savedLocationDomainModel)
     }
 }

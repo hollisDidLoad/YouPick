@@ -15,6 +15,7 @@ struct RestaurantsDomainModel {
     let textColor: UIColor?
     let longitude: Double?
     let latitude: Double?
+    let location: String?
     
     init(_ restaurantModel: RestaurantModel, backgroundColor: UIColor?, textColor: UIColor?) {
         self.name = restaurantModel.name
@@ -23,5 +24,6 @@ struct RestaurantsDomainModel {
         self.textColor = textColor
         self.longitude = restaurantModel.coordinates?.longitude
         self.latitude = restaurantModel.coordinates?.latitude
+        self.location = restaurantModel.location?.city
     }
 }

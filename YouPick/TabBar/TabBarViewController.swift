@@ -28,22 +28,25 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setUpTabBar() {
-        let spinWheelVC = SpinWheelViewController()
-        let mapVC = MapViewController(
-            locationManager: LocationManager.shared
-        )
+        let spinWheelVC = SpinWheelViewController(coreDataController: CoreDataModelController.shared, savedLocationsModelController: SavedLocationsModelController.shared)
+        let mapVC = MapViewController(locationManager: LocationManager.shared, coreDataController: CoreDataModelController.shared, savedLocationsModelController: SavedLocationsModelController.shared)
+        let savedRestaurantsVC = SavedRestaurantsViewController(coreDataController: CoreDataModelController.shared)
         
         self.tabBar.backgroundColor = .systemGray6
         spinWheelVC.tabBarItem = UITabBarItem(
             title: "Spinner",
             image: UIImage(systemName: "line.3.crossed.swirl.circle"),
             tag: 1)
+        savedRestaurantsVC.tabBarItem = UITabBarItem(
+            title: "Saved",
+            image: UIImage(systemName: "heart"),
+            tag: 1)
         mapVC.tabBarItem = UITabBarItem(
             title: "Map",
             image: UIImage(systemName: "map"),
             tag: 1)
         
-        self.setViewControllers([spinWheelVC, mapVC], animated: true)
+        self.setViewControllers([spinWheelVC, savedRestaurantsVC, mapVC], animated: true)
     }
     
     private func fetchRestaurants() {

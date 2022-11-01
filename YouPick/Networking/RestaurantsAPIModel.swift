@@ -18,9 +18,14 @@ struct RestaurantModel: Codable {
     var name: String?
     var url: URL?
     var coordinates: Coordinates?
+    var location: Location?
 }
 
 struct Coordinates: Codable {
     var longitude: Double?
     var latitude: Double?
+}
+
+struct Location: Codable {
+    let city: String
 }

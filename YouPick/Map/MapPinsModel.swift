@@ -12,11 +12,13 @@ struct MapPinsModel {
     let longitude: Double?
     let latitude: Double?
     let url: URL?
+    let location: String?
     
     init(_ domainModel: RestaurantsDomainModel) {
         self.name = domainModel.name
         self.longitude = domainModel.longitude
         self.latitude = domainModel.latitude
         self.url = domainModel.url
+        self.location = domainModel.location
     }
 }

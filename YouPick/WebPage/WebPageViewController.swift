@@ -12,11 +12,28 @@ import WebKit
 import StoreKit
 
 class WebPageViewController: UIViewController, UISheetPresentationControllerDelegate {
-    
+
     private let contentView = WebPageView()
-    private let viewModel = WebPageViewModel()
+    private let viewModel = WebPageViewModel(
+        modelController: CoreDataModelController.shared,
+        domainModel: RestaurantsModelController.shared.domainModels
+    )
+    private let locationManager: LocationManager
     private var sheet: UISheetPresentationController? {
         return presentationController as? UISheetPresentationController
+    }
+    private let coreDataController: CoreDataModelController
+    private let savedLocationModelController: SavedLocationsModelController
+    
+    init(coreDataController: CoreDataModelController, locationManager: LocationManager, savedLocationModelController: SavedLocationsModelController) {
+        self.coreDataController = coreDataController
+        self.locationManager = locationManager
+        self.savedLocationModelController = savedLocationModelController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -27,6 +44,20 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         super.viewDidLoad()
         self.sheetConfiguration()
         self.contentView.webView.navigationDelegate = self
+        self.contentView.saveRestaurantButton.addTarget(self, action: #selector(didTapSaveRestaurant), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapSaveRestaurant() {
+        contentView.updateSaveButton()
+        guard let name = viewModel.webPageSavedModel?.name,
+                let url = viewModel.webPageSavedModel?.url,
+                let location = viewModel.webPageSavedModel?.location
+        else { return }
+        coreDataController.createRestaurantData(with: name, url: url, and: location)
+        coreDataController.retrieveRestaurants { [weak self] in
+            self?.coreDataController.saveData()
+        }
     }
     
     private func sheetConfiguration() {
@@ -53,6 +84,21 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
                 self?.contentView.removeAnimation()
             }
         })
+    }
+    
+    func setUpSavedUrlPage(with url: URL) {
+        loadAnimation()
+        self.contentView.saveRestaurantButton.removeFromSuperview()
+        viewModel.loadURL(with: self.contentView.webView, and: url, completion: { [weak self] in
+            self?.viewModel.currentUrl = url
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self?.contentView.removeAnimation()
+            }
+        })
+    }
+    
+    func setUpSavedLocationData(with domainModel: SavedLocationsDomainModel) {
+        viewModel.setUpSavedData(savedLocationDomainModel: domainModel)
     }
 }
 

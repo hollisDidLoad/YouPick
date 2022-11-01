@@ -18,6 +18,18 @@ class SpinWheelViewController: UIViewController {
         modelController: RestaurantsModelController.shared,
         networkManager: NetworkManager.shared
     )
+    private let coreDataController: CoreDataModelController
+    private let savedLocationsModelController: SavedLocationsModelController
+    
+    init(coreDataController: CoreDataModelController, savedLocationsModelController: SavedLocationsModelController) {
+        self.coreDataController = coreDataController
+        self.savedLocationsModelController = savedLocationsModelController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = contentView
@@ -91,9 +103,16 @@ extension SpinWheelViewController {
     
     private func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            let webPageVC = WebPageViewController()
+            let webPageVC = WebPageViewController(
+                coreDataController: CoreDataModelController.shared,
+                locationManager: LocationManager.shared, savedLocationModelController: SavedLocationsModelController.shared
+            )
             webPageVC.modalPresentationStyle = .formSheet
             guard let url = self.contentView.spinWheelDataModels[index].url else { return }
+            self.savedLocationsModelController.fetchSpinWheelSavedData(with: self.contentView.spinWheelDataModels[index], completion: { [weak self] in
+                guard let model = self?.savedLocationsModelController.domainModel else { return }
+                webPageVC.setUpSavedLocationData(with: model)
+            })
             webPageVC.setUpUrl(with: url)
             completion(webPageVC)
         }

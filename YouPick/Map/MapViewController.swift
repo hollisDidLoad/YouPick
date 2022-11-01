@@ -16,9 +16,13 @@ class MapViewController: UIViewController {
     )
     private let viewModel = MapViewModel(modelController: RestaurantsModelController.shared)
     private var locationManager: LocationManager
+    private var coreDataController: CoreDataModelController
+    private let savedLocationsModelController: SavedLocationsModelController
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager, coreDataController: CoreDataModelController, savedLocationsModelController: SavedLocationsModelController) {
         self.locationManager = locationManager
+        self.coreDataController = coreDataController
+        self.savedLocationsModelController = savedLocationsModelController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -79,11 +83,19 @@ extension MapViewController {
         and mapPinsModel: [MapPinsModel],
         completion: @escaping (UIViewController) -> Void
     ) {
-        let webVC = WebPageViewController()
-        guard let index = mapPinsModel.firstIndex(where: { $0.name == name }) else { return }
-        guard let url = mapPinsModel[index].url else { return }
-        webVC.setUpUrl(with: url)
-        completion(webVC)
+        let webVC = WebPageViewController(
+            coreDataController: CoreDataModelController.shared,
+            locationManager: LocationManager.shared, savedLocationModelController: SavedLocationsModelController.shared
+        )
+        guard let index = mapPinsModel.firstIndex(where: { $0.name == name }),
+              let url = mapPinsModel[index].url
+        else { return }
+        self.savedLocationsModelController.fetchMapPinSavedData(with: mapPinsModel[index])
+        if let model = self.savedLocationsModelController.domainModel {
+            webVC.setUpSavedLocationData(with: model)
+            webVC.setUpUrl(with: url)
+            completion(webVC)
+        }
     }
 }
 

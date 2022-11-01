@@ -13,11 +13,13 @@ struct SpinWheelDataModel {
     var url: URL?
     var backgroundColor: UIColor?
     var textColor: UIColor?
+    var location: String?
     
     init(_ domainModel: RestaurantsDomainModel) {
         self.name = domainModel.name
         self.url = domainModel.url
         self.backgroundColor = domainModel.backgroundColor
         self.textColor = domainModel.textColor
+        self.location = domainModel.location
     }
 }

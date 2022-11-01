@@ -261,6 +261,7 @@ class SpinWheelView: UIView {
         self.searchButton.isEnabled = false
         if let items = tabBarController?.tabBar.items {
             items[1].isEnabled = false
+            items[2].isEnabled = false
         }
     }
     
@@ -280,6 +281,7 @@ class SpinWheelView: UIView {
         self.searchButton.isEnabled = true
         if let items = tabBarController?.tabBar.items {
             items[1].isEnabled = true
+            items[2].isEnabled = true
         }
     }
     

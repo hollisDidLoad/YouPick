@@ -12,6 +12,27 @@ import StoreKit
  
 class WebPageView: UIView {
     
+    let navBarView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(red: 205/255, green: 46/255, blue: 32/255, alpha: 1.0)
+        return view
+    }()
+    
+    let saveRestaurantButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Save\nRestaurant", for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        button.titleLabel?.numberOfLines = 0
+        button.layer.borderWidth = 0.5
+        button.layer.cornerRadius = 4.0
+        button.layer.borderColor = UIColor.white.cgColor
+        return button
+    }()
+    
     let webView: WKWebView = {
         let preferences = WKWebpagePreferences()
         let webConfiguration = WKWebViewConfiguration()
@@ -43,8 +64,21 @@ class WebPageView: UIView {
     private func setUpConstraints() {
         addSubview(webView)
         addSubview(animationView)
+        addSubview(navBarView)
+        addSubview(saveRestaurantButton)
         
-        webView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
+        navBarView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
+        navBarView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        navBarView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        navBarView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        saveRestaurantButton.leadingAnchor.constraint(equalTo: navBarView.leadingAnchor, constant: 10).isActive = true
+        saveRestaurantButton.topAnchor.constraint(equalTo: navBarView.topAnchor, constant: 10).isActive = true
+        saveRestaurantButton.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -10).isActive = true
+        saveRestaurantButton.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        
+        
+        webView.topAnchor.constraint(equalTo: navBarView.bottomAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         webView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -57,5 +91,10 @@ class WebPageView: UIView {
     
     func removeAnimation() {
         animationView.removeFromSuperview()
+    }
+    
+    func updateSaveButton() {
+        saveRestaurantButton.setTitle("Saved!", for: .normal)
+        saveRestaurantButton.isEnabled = false
     }
 }
