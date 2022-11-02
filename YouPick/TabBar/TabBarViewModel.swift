@@ -8,7 +8,7 @@
 import Foundation
 
 class TabBarViewModel {
-    
+
     private var limitCount: Int = 10
     private var currentLocation = String()
     private var locationManager: LocationManager
