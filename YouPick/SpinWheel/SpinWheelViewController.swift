@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AppTrackingTransparency
 
 class SpinWheelViewController: UIViewController {
     
@@ -51,6 +52,11 @@ class SpinWheelViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        requestAppTrackingTransparency()
+    }
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -115,6 +121,24 @@ extension SpinWheelViewController {
             completion(webPageVC)
         }
     }
+    
+    private func requestAppTrackingTransparency() {
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+            switch status {
+            case .restricted:
+                break
+            case .denied:
+                break
+            case .notDetermined:
+                break
+            case .authorized:
+                break
+            @unknown default:
+                break
+            }
+        })
+    }
+    
 }
 
 //MARK: - Search Bar Delegate

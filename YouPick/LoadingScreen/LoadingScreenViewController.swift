@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Lottie
+import AppTrackingTransparency
 
 class LoadingScreenViewController: UIViewController {
     
