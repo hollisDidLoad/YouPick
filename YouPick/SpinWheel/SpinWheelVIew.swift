@@ -16,7 +16,7 @@ class SpinWheelView: UIView {
     private var modelController: RestaurantsModelController
     
     //MARK: - Dependency Injection
-    //This is just a comment
+    
     init(modelController: RestaurantsModelController) {
         self.modelController = modelController
         super.init(frame: CGRect.zero)
