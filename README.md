@@ -13,6 +13,13 @@ SpinWheel:
   -Once the wheel is done spinning, more information regarding the restaurant will show up.
 
 -----------------------------------------------------------------------------------------
+Saved Restaurants:
+
+  -Allows for you to save your favorite locations.
+  
+  -When you tap on a location that you have favorited, it will show you web information regarding the restaurant
+  
+-----------------------------------------------------------------------------------------
 
 Map:
 
@@ -21,6 +28,8 @@ Map:
   -The map will update as well when you type in a new location.
 
   -You can tap the pin of your liking and more information regarding the restaurant will show up.
+
+-----------------------------------------------------------------------------------------
 
 If you have any questions regarding the application or need any support, feel free to contact me at:
 
