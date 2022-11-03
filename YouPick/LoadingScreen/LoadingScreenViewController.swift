@@ -24,7 +24,6 @@ class LoadingScreenViewController: UIViewController {
     
     private func animateLoadingScreen() {
         contentView.animationView.play()
-        contentView.animationView.loopMode = .loop
         contentView.animationView.animationSpeed = 0.8
     }
 }
