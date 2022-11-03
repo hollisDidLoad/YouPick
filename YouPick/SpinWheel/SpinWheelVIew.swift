@@ -12,7 +12,23 @@ import SwiftFortuneWheel
 class SpinWheelView: UIView {
     
     var slices = [Slice]()
-    var spinWheelModel = [SpinWheelModel]()
+    var spinWheelDataModels = [SpinWheelDataModel]()
+    private var modelController: RestaurantsModelController
+    
+    //MARK: - Dependency Injection
+    
+    init(modelController: RestaurantsModelController) {
+        self.modelController = modelController
+        super.init(frame: CGRect.zero)
+        backgroundColor = .white
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - UI Setup
     
     private let winnerLabel: UILabel = {
         let label = UILabel()
@@ -85,11 +101,11 @@ class SpinWheelView: UIView {
     //MARK: - Start Up Wheel Setup
     
     private func setUpSlices() {
-        let domainModel = RestaurantsModelController.shared.domainModel
-        let spinWheelData = domainModel.map { SpinWheelModel($0) }
-        self.spinWheelModel = spinWheelData
+        let domainModels = modelController.domainModels
+        let spinWheelData = domainModels.map { SpinWheelDataModel($0) }
+        self.spinWheelDataModels = spinWheelData
         
-        for model in spinWheelModel {
+        for model in spinWheelDataModels {
             guard let name = model.name, let textColor = model.textColor else { return }
             let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.backgroundColor)
@@ -110,9 +126,9 @@ class SpinWheelView: UIView {
     
     private func setUpUpdatedSlices() {
         slices.removeAll()
-        let updatedSpinWheelModel = spinWheelModel
+        let updatedSpinWheelDataModels = spinWheelDataModels
         
-        for model in updatedSpinWheelModel {
+        for model in updatedSpinWheelDataModels {
             guard let name = model.name, let textColor = model.textColor else { return }
             let sliceContent = [Slice.ContentType.text(text: name, preferences: .wheelTextConfiguration(textColor: textColor))]
             let sliceSetup = Slice(contents: sliceContent, backgroundColor: model.backgroundColor)
@@ -127,16 +143,6 @@ class SpinWheelView: UIView {
             slices: slices,
             configuration: .wheelConfiguration)
         completion(updatedSpinWheel)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Constraints
@@ -162,7 +168,7 @@ class SpinWheelView: UIView {
         searchButton.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         searchButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
         
-        winnerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
+        winnerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10).isActive = true
         winnerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         winnerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         winnerLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
@@ -193,7 +199,7 @@ class SpinWheelView: UIView {
         standImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         standImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        spinButton.topAnchor.constraint(equalTo: standImageView.bottomAnchor,constant: 20).isActive = true
+        spinButton.topAnchor.constraint(equalTo: standImageView.bottomAnchor ,constant: 10).isActive = true
         spinButton.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 50).isActive = true
         spinButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -50).isActive = true
         spinButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -241,7 +247,7 @@ class SpinWheelView: UIView {
     }
     
     //MARK: - Spin Button Tapped Configurations
-  
+    
     func removeWinnerLabel() {
         winnerLabel.text?.removeAll()
     }
@@ -255,12 +261,13 @@ class SpinWheelView: UIView {
         self.searchButton.isEnabled = false
         if let items = tabBarController?.tabBar.items {
             items[1].isEnabled = false
+            items[2].isEnabled = false
         }
     }
     
     func startWheelRotation(endOn index: Int, completion: @escaping (String) -> Void) {
         spinWheel.startRotationAnimation(finishIndex: index, { [weak self] finishedSpinning in
-            guard let finalIndexName = self?.spinWheelModel[index].name else { return }
+            guard let finalIndexName = self?.spinWheelDataModels[index].name else { return }
             completion(finalIndexName)
         })
     }
@@ -274,6 +281,7 @@ class SpinWheelView: UIView {
         self.searchButton.isEnabled = true
         if let items = tabBarController?.tabBar.items {
             items[1].isEnabled = true
+            items[2].isEnabled = true
         }
     }
     
@@ -281,24 +289,14 @@ class SpinWheelView: UIView {
         self.winnerLabel.text = "\(text)!"
     }
     
-    func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            let webPageVC = WebPageViewController()
-            webPageVC.modalPresentationStyle = .formSheet
-            guard let url = self.spinWheelModel[index].url else { return }
-            webPageVC.setUpUrl(with: url)
-            completion(webPageVC)
-        }
-    }
-    
     func sendErrorAlert(completion: @escaping (UIAlertController) -> Void) {
         guard let invalidSearchResult = self.searchBar.text, !invalidSearchResult.isEmpty else { return }
         let alertController = UIAlertController(
-            title: FailedSearchModel().title,
-            message: FailedSearchModel().message(invalidSearchResult),
+            title: FailedSearchModel.title,
+            message: FailedSearchModel.message(invalidSearchResult),
             preferredStyle: .alert)
         alertController.addAction(UIAlertAction(
-            title: FailedSearchModel().buttonTitle,
+            title: FailedSearchModel.buttonTitle,
             style: .cancel
         ))
         completion(alertController)
