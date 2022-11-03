@@ -51,14 +51,8 @@ class SavedRestaurantsView: UIView {
         tableView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func presentWebPage(with indexPath: IndexPath,and modelController: CoreDataModelController, completion: @escaping (UIViewController) -> Void) {
-        let webPageVC = WebPageViewController(
-            coreDataController: CoreDataModelController.shared,
-            locationManager: LocationManager.shared,
-            savedLocationModelController: SavedLocationModelController.shared
-        )
-        let url = modelController.savedRestaurants[indexPath.row].url
-        webPageVC.setUpSavedUrlPage(with: url)
-        completion(webPageVC)
+    func configureCell(with cell: UITableViewCell, and data: SavedRestaurants) {
+        cell.textLabel?.text = data.name
+        cell.detailTextLabel?.text = data.location
     }
 }

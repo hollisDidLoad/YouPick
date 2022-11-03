@@ -41,6 +41,16 @@ class SavedRestaurantsViewController: UIViewController {
             self?.contentView.tableView.reloadData()
         }
     }
+    
+    private func presentWebPage(with indexPath: IndexPath, and url: URL, completion: @escaping (UIViewController) -> Void) {
+        let webPageVC = WebPageViewController(
+            coreDataController: CoreDataModelController.shared,
+            locationManager: LocationManager.shared,
+            savedLocationModelController: SavedLocationModelController.shared
+        )
+        webPageVC.setUpSavedUrlPage(with: url)
+        completion(webPageVC)
+    }
 }
 
 extension SavedRestaurantsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -50,15 +60,15 @@ extension SavedRestaurantsViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = contentView.tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as? CustomCell else { return UITableViewCell() }
-        let data = coreDataController.savedRestaurants[indexPath.row]
-        cell.textLabel?.text = data.name
-        cell.detailTextLabel?.text = data.location
+        let cellData = coreDataController.savedRestaurants[indexPath.row]
+        contentView.configureCell(with: cell, and: cellData)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
-        contentView.presentWebPage(with: indexPath, and: coreDataController, completion: { [weak self] webPageVC in
+        let url = coreDataController.savedRestaurants[indexPath.row].url
+        presentWebPage(with: indexPath, and: url, completion: { [weak self] webPageVC in
             self?.present(webPageVC, animated: true)
         })
     }
