@@ -55,4 +55,13 @@ class SavedRestaurantsView: UIView {
         cell.textLabel?.text = data.name
         cell.detailTextLabel?.text = data.location
     }
+    
+    func presentTrackingDeniedAlert(completion: @escaping (UIAlertController) -> Void) {
+        let notAuthorizedTracking = UserDefaults.standard.ifAuthorizedTracking == false
+        if notAuthorizedTracking {
+            let alertController = UIAlertController(title: "Sorry\n", message: "Since app tracking has been denied, we are unable to process our own\nin-app web.\n\nTo save your favorite restaurants, please enable app tracking to\naccess our saving feature.\n\nPreviously saved restaurants \nwill still be available.\n\n Thank you.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Okay", style: .cancel))
+            completion(alertController)
+        }
+    }
 }

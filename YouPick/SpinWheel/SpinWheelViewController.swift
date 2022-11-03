@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 import AppTrackingTransparency
 
 class SpinWheelViewController: UIViewController {
@@ -56,7 +57,7 @@ class SpinWheelViewController: UIViewController {
         super.viewDidAppear(animated)
         requestAppTrackingTransparency()
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -74,8 +75,8 @@ class SpinWheelViewController: UIViewController {
         contentView.startWheelRotation(
             endOn: finalIndex, completion: { [weak self] finalIndexName in
                 self?.contentView.wheelStoppedConfigurations(enable: self?.tabBarController, winner: finalIndexName)
-                self?.presentWebPage(of: finalIndex, completion: { [weak self] webPageVC in
-                    self?.present(webPageVC, animated: true)
+                self?.presentWebPage(of: finalIndex, completion: { [weak self] webPage in
+                    self?.present(webPage, animated: true)
                 })
             })
     }
@@ -108,6 +109,7 @@ extension SpinWheelViewController {
     
     private func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            let authorizedTracking = UserDefaults.standard.ifAuthorizedTracking
             let webPageVC = WebPageViewController(
                 coreDataController: CoreDataModelController.shared,
                 locationManager: LocationManager.shared,
@@ -117,28 +119,28 @@ extension SpinWheelViewController {
             self.viewModel.setUpSavedLocationSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
                 webPageVC.setUpSavedLocationData(with: model)
             })
-            webPageVC.setUpUrl(with: url)
-            completion(webPageVC)
+            if authorizedTracking {
+                webPageVC.setUpUrl(with: url)
+                completion(webPageVC)
+            } else {
+                let safariVC = SFSafariViewController(url: url)
+                completion(safariVC)
+            }
         }
     }
     
     private func requestAppTrackingTransparency() {
         ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
             switch status {
-            case .restricted:
-                break
-            case .denied:
-                break
-            case .notDetermined:
-                break
+            case .restricted, .denied, .notDetermined:
+                UserDefaults.standard.ifAuthorizedTracking = false
             case .authorized:
-                break
+                UserDefaults.standard.ifAuthorizedTracking = true
             @unknown default:
-                break
+                UserDefaults.standard.ifAuthorizedTracking = false
             }
         })
     }
-    
 }
 
 //MARK: - Search Bar Delegate

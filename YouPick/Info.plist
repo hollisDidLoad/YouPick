@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>This app needs your permission for the web linked to the restaurants information to collect cookies</string>
+	<string>This app needs your permission for collecting cookies in our in-app web linked to the restaurants information</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

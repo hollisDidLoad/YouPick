@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 class SavedRestaurantsViewController: UIViewController {
     
@@ -30,6 +31,9 @@ class SavedRestaurantsViewController: UIViewController {
         super.viewDidLoad()
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
+        contentView.presentTrackingDeniedAlert(completion: { [weak self] alert in
+            self?.present(alert, animated: true)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,9 +72,14 @@ extension SavedRestaurantsViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
         let url = coreDataController.savedRestaurants[indexPath.row].url
-        presentWebPage(with: indexPath, and: url, completion: { [weak self] webPageVC in
-            self?.present(webPageVC, animated: true)
-        })
+        if UserDefaults.standard.ifAuthorizedTracking == true {
+            presentWebPage(with: indexPath, and: url, completion: { [weak self] webPageVC in
+                self?.present(webPageVC, animated: true)
+            })
+        } else {
+            let safariVC = SFSafariViewController(url: url)
+            self.present(safariVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

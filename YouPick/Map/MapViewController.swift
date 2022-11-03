@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MapKit
+import SafariServices
 
 class MapViewController: UIViewController {
     
@@ -88,15 +89,21 @@ extension MapViewController {
         and mapPinsModel: [MapPinsModel],
         completion: @escaping (UIViewController) -> Void
     ) {
+        let authorizedTracking = UserDefaults.standard.ifAuthorizedTracking
         let webVC = WebPageViewController(
             coreDataController: CoreDataModelController.shared,
             locationManager: LocationManager.shared,
             savedLocationModelController: SavedLocationModelController.shared
         )
         viewModel.setUpWebData(with: name, and: mapPinsModel, completion: { model, url in
-            webVC.setUpSavedLocationData(with: model)
-            webVC.setUpUrl(with: url)
-            completion(webVC)
+            if authorizedTracking {
+                webVC.setUpSavedLocationData(with: model)
+                webVC.setUpUrl(with: url)
+                completion(webVC)
+            } else {
+                let safariVC = SFSafariViewController(url: url)
+                self.present(safariVC, animated: true)
+            }
         })
     }
 }
