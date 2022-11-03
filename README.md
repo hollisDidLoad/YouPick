@@ -1,3 +1,6 @@
+![1](https://user-images.githubusercontent.com/112967435/199847651-5a093a2f-7254-43ac-852d-4f695a06fa79.png)
+
+
 YouPick is an app that makes food decisions fun and easy! Just spin the wheel to get one of the top 10 hot and new restaurants in your city! Find what to eat quick!
 
 It's always difficult to decide on what to eat. Should I go here? or here? Well, we're here to help! The YouPick app is here the solve the universal problem of not knowing where to eat!
