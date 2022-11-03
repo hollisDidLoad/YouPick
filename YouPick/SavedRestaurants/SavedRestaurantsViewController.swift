@@ -70,9 +70,10 @@ extension SavedRestaurantsViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let authorizedTracking = UserDefaults.standard.ifAuthorizedTracking
         contentView.tableView.deselectRow(at: indexPath, animated: true)
         let url = coreDataController.savedRestaurants[indexPath.row].url
-        if UserDefaults.standard.ifAuthorizedTracking == true {
+        if authorizedTracking {
             presentWebPage(with: indexPath, and: url, completion: { [weak self] webPageVC in
                 self?.present(webPageVC, animated: true)
             })
