@@ -41,6 +41,38 @@ It's always difficult to decide on what to eat. Should I go here? or here? Well,
 
 -----------------------------------------------------------------------------------------
 
+## Project Design, Frameworks and Tools
+
+**Project Design**
+
+-100 Programatic UI (No Storyboard)
+
+-MVVM Design Pattern
+
+**Frameworks**
+
+-UIKit
+
+-CoreData
+
+-CoreLocation
+
+-Lottie (Loading animation cocoapod)
+
+-SwiftFortunateWheel (Spin Wheel SDK)
+
+-AppTrackingTransparency
+
+-SafariServices
+
+-MapKit
+
+-WebKit
+
+-StoreKit
+
+## Contact or support
+
 If you have any questions regarding the application or need any support, feel free to contact me at:
 
 Holliskwan.ios@gmail.com
