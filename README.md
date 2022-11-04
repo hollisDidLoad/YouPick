@@ -41,11 +41,11 @@ It's always difficult to decide on what to eat. Should I go here? or here? Well,
 
 -----------------------------------------------------------------------------------------
 
-## Project Design, Frameworks and Tools
+## Project Design and Frameworks
 
 **Project Design**
 
--100 Programatic UI (No Storyboard)
+-100% Programatic UI (No Storyboard)
 
 -MVVM Design Pattern
 
