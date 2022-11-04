@@ -57,9 +57,9 @@ It's always difficult to decide on what to eat. Should I go here? or here? Well,
 
 -CoreLocation
 
--Lottie (Loading animation cocoapod)
+-Lottie (Loading animation cocoapod) -- (https://lottiefiles.com)
 
--SwiftFortunateWheel (Spin Wheel SDK)
+-SwiftFortunateWheel (Spin Wheel SDK) -- (https://github.com/abhisheknaiidu/spin-wheel)
 
 -AppTrackingTransparency
 
