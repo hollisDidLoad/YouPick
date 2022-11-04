@@ -2,23 +2,19 @@
 
 **Screen Shots**
 
-
 <img src="https://user-images.githubusercontent.com/112967435/199878914-b2e734ef-d26e-48e7-b7af-b6bc27759ea3.png" width="180" height="400" /> <img src="https://user-images.githubusercontent.com/112967435/199879375-d855f915-b9a5-4577-9874-ceea94da96aa.png" width="180" height="400" /> <img src="https://user-images.githubusercontent.com/112967435/199879459-04dfa2ca-26f6-4ed1-ab9e-66b3ccfb3f8f.png" width="180" height="400" />                    
 <img src="https://user-images.githubusercontent.com/112967435/199880942-27c00d9e-62a3-4a76-aec7-20d5fee0ebe3.mp4" width="180" height="400" /> 
 <img src="https://user-images.githubusercontent.com/112967435/199882136-3dac52c1-1843-4b29-9e2d-4d42e5e6a74d.mp4" width="180" height="400" /> 
 
-
-
-
-
+## Description
 
 YouPick is an app that makes food decisions fun and easy! Just spin the wheel to get one of the top 10 hot and new restaurants in your city! Find what to eat quick!
 
 It's always difficult to decide on what to eat. Should I go here? or here? Well, we're here to help! The YouPick app is here the solve the universal problem of not knowing where to eat!
 
-Features:
+## Features
 
-SpinWheel:
+**SpinWheel**
 
   -Spin Wheel that populates 10 hot and new restaurants in your city.
 
@@ -27,7 +23,7 @@ SpinWheel:
   -Once the wheel is done spinning, more information regarding the restaurant will show up.
 
 -----------------------------------------------------------------------------------------
-Saved Restaurants:
+**Saved Restaurants**
 
   -Allows for you to save your favorite locations.
   
@@ -35,7 +31,7 @@ Saved Restaurants:
   
 -----------------------------------------------------------------------------------------
 
-Map:
+**Map**
 
   -All the populated restaurants on the spin wheel will be shown on the map.
 
