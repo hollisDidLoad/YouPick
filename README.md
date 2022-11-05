@@ -78,4 +78,5 @@ https://apps.apple.com/us/app/youpick-app/id6444070328
 
 If you have any questions regarding the application or need any support, feel free to contact me at:
 
-Holliskwan.ios@gmail.com
+Holliskwan.ios@gmail.com<br />
+https://www.linkedin.com/in/holliskwan
