@@ -50,7 +50,7 @@ class SavedRestaurantsViewController: UIViewController {
         let webPageVC = WebPageViewController(
             coreDataController: CoreDataModelController.shared,
             locationManager: LocationManager.shared,
-            savedLocationModelController: SavedLocationModelController.shared
+            savedRestaurantsModelController: SavedRestaurantsModelController.shared
         )
         webPageVC.setUpSavedUrlPage(with: url)
         completion(webPageVC)

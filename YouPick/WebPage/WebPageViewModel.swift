@@ -13,7 +13,7 @@ class WebPageViewModel {
     var currentUrl: URL? = nil
     private let coreDataController: CoreDataModelController
     private let domainModel: [RestaurantsDomainModel]
-    var webPageSavedModel: WebPageSavedLocationModel?
+    var webPageSavedModel: WebPageSavedRestaurantsModel?
     
     init(
         modelController: CoreDataModelController,
@@ -34,7 +34,7 @@ class WebPageViewModel {
         webView.load(URLRequest(url: url))
     }
     
-    func setUpSavedData(savedLocationDomainModel: SavedLocationDomainModel) {
-        self.webPageSavedModel = WebPageSavedLocationModel(data: savedLocationDomainModel)
+    func setUpSavedData(savedRestaurantsDomainModel: SavedRestaurantDomainModel) {
+        self.webPageSavedModel = WebPageSavedRestaurantsModel(data: savedRestaurantsDomainModel)
     }
 }

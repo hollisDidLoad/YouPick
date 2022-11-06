@@ -47,10 +47,10 @@
 		58F417042910E03F00D21A4B /* SavedRestaurants+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F417032910E03F00D21A4B /* SavedRestaurants+CoreData.swift */; };
 		58F417062910E04800D21A4B /* CoreDataModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F417052910E04800D21A4B /* CoreDataModelController.swift */; };
 		58F417092910E05300D21A4B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 58F417072910E05300D21A4B /* CoreData.xcdatamodeld */; };
-		58F4170C2911469300D21A4B /* WebPageSavedLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4170B2911469300D21A4B /* WebPageSavedLocationModel.swift */; };
+		58F4170C2911469300D21A4B /* WebPageSavedRestaurantsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4170B2911469300D21A4B /* WebPageSavedRestaurantsModel.swift */; };
 		58F4170E29114EA200D21A4B /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4170D29114EA200D21A4B /* CustomCell.swift */; };
-		58F4171129115B0C00D21A4B /* SavedLocationDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4171029115B0C00D21A4B /* SavedLocationDomainModel.swift */; };
-		58F4171429115B3F00D21A4B /* SavedLocationModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4171329115B3F00D21A4B /* SavedLocationModelController.swift */; };
+		58F4171129115B0C00D21A4B /* SavedRestaurantDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4171029115B0C00D21A4B /* SavedRestaurantDomainModel.swift */; };
+		58F4171429115B3F00D21A4B /* SavedRestaurantsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4171329115B3F00D21A4B /* SavedRestaurantsModelController.swift */; };
 		58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */; };
 		58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */; };
 		ED8B355510FD60477A1F6CFF /* Pods_YouPick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */; };
@@ -100,10 +100,10 @@
 		58F417032910E03F00D21A4B /* SavedRestaurants+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedRestaurants+CoreData.swift"; sourceTree = "<group>"; };
 		58F417052910E04800D21A4B /* CoreDataModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelController.swift; sourceTree = "<group>"; };
 		58F417082910E05300D21A4B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		58F4170B2911469300D21A4B /* WebPageSavedLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageSavedLocationModel.swift; sourceTree = "<group>"; };
+		58F4170B2911469300D21A4B /* WebPageSavedRestaurantsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageSavedRestaurantsModel.swift; sourceTree = "<group>"; };
 		58F4170D29114EA200D21A4B /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		58F4171029115B0C00D21A4B /* SavedLocationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationDomainModel.swift; sourceTree = "<group>"; };
-		58F4171329115B3F00D21A4B /* SavedLocationModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationModelController.swift; sourceTree = "<group>"; };
+		58F4171029115B0C00D21A4B /* SavedRestaurantDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRestaurantDomainModel.swift; sourceTree = "<group>"; };
+		58F4171329115B3F00D21A4B /* SavedRestaurantsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRestaurantsModelController.swift; sourceTree = "<group>"; };
 		58FA8ECE28FBD2B200ED2784 /* LoadingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenView.swift; sourceTree = "<group>"; };
 		58FA8ED228FCA1DD00ED2784 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		ADB72269E9521D11FDC3BA81 /* Pods-YouPick.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouPick.release.xcconfig"; path = "Target Support Files/Pods-YouPick/Pods-YouPick.release.xcconfig"; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 			children = (
 				58F4171529116D4700D21A4B /* CoreData */,
 				58F4170F29115AF600D21A4B /* Restaurants */,
-				58F4171229115B0F00D21A4B /* SavedLocations */,
+				58F4171229115B0F00D21A4B /* SavedRestaurants */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 			children = (
 				58B33EB428FE2E4A00D8502A /* WebPageViewController.swift */,
 				584D280329072C77002F9168 /* WebPageViewModel.swift */,
-				58F4170B2911469300D21A4B /* WebPageSavedLocationModel.swift */,
+				58F4170B2911469300D21A4B /* WebPageSavedRestaurantsModel.swift */,
 				58B33EB628FE2E8900D8502A /* WebPageView.swift */,
 			);
 			path = WebPage;
@@ -345,13 +345,13 @@
 			path = Restaurants;
 			sourceTree = "<group>";
 		};
-		58F4171229115B0F00D21A4B /* SavedLocations */ = {
+		58F4171229115B0F00D21A4B /* SavedRestaurants */ = {
 			isa = PBXGroup;
 			children = (
-				58F4171029115B0C00D21A4B /* SavedLocationDomainModel.swift */,
-				58F4171329115B3F00D21A4B /* SavedLocationModelController.swift */,
+				58F4171029115B0C00D21A4B /* SavedRestaurantDomainModel.swift */,
+				58F4171329115B3F00D21A4B /* SavedRestaurantsModelController.swift */,
 			);
-			path = SavedLocations;
+			path = SavedRestaurants;
 			sourceTree = "<group>";
 		};
 		58F4171529116D4700D21A4B /* CoreData */ = {
@@ -496,13 +496,13 @@
 			files = (
 				5820AAFB28FA216C00B12A4A /* API_KEY.swift in Sources */,
 				5820AAF428FA20CF00B12A4A /* MapViewModel.swift in Sources */,
-				58F4170C2911469300D21A4B /* WebPageSavedLocationModel.swift in Sources */,
+				58F4170C2911469300D21A4B /* WebPageSavedRestaurantsModel.swift in Sources */,
 				58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */,
 				58F417022910E03300D21A4B /* CoreDataStack.swift in Sources */,
 				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
 				5820AB0328FA21E500B12A4A /* SpinWheelDataModel.swift in Sources */,
-				58F4171429115B3F00D21A4B /* SavedLocationModelController.swift in Sources */,
+				58F4171429115B3F00D21A4B /* SavedRestaurantsModelController.swift in Sources */,
 				5834A939290498760051E4E6 /* MapPinsModel.swift in Sources */,
 				58391CF72906143B00FA4CD6 /* RequestLocationView.swift in Sources */,
 				58FA8ECF28FBD2B200ED2784 /* LoadingScreenView.swift in Sources */,
@@ -524,7 +524,7 @@
 				58FA8ED328FCA1DD00ED2784 /* LocationManager.swift in Sources */,
 				58F4170E29114EA200D21A4B /* CustomCell.swift in Sources */,
 				5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */,
-				58F4171129115B0C00D21A4B /* SavedLocationDomainModel.swift in Sources */,
+				58F4171129115B0C00D21A4B /* SavedRestaurantDomainModel.swift in Sources */,
 				5847D63B2909744800D0C0F5 /* AppStoreViewController.swift in Sources */,
 				5820AAE728FA201700B12A4A /* SpinWheelViewController.swift in Sources */,
 				5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */,

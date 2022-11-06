@@ -11,11 +11,11 @@ class MapViewModel {
     
     var mapPinsModel = [MapPinsModel]()
     private var modelController: RestaurantsModelController
-    private let savedLocationModelController: SavedLocationModelController
+    private let savedRestaurantsModelController: SavedRestaurantsModelController
     
-    init(modelController: RestaurantsModelController, savedLocationModelController: SavedLocationModelController) {
+    init(modelController: RestaurantsModelController, savedRestaurantsModelController: SavedRestaurantsModelController) {
         self.modelController = modelController
-        self.savedLocationModelController = savedLocationModelController
+        self.savedRestaurantsModelController = savedRestaurantsModelController
     }
     
     func setUpRestaurantPinsData(with mapView: MKMapView) -> MKCoordinateRegion? {
@@ -83,14 +83,14 @@ class MapViewModel {
     func setUpWebData(
         with name: String?,
         and mapPinsModel: [MapPinsModel],
-        completion: @escaping (SavedLocationDomainModel, URL) -> Void
+        completion: @escaping (SavedRestaurantDomainModel, URL) -> Void
     ) {
         guard let index = mapPinsModel.firstIndex(where: { $0.name == name }),
               let url = mapPinsModel[index].url
         else { return }
         
-        self.savedLocationModelController.fetchMapPinSavedData(with: mapPinsModel[index])
-        if let model = self.savedLocationModelController.domainModel {
+        self.savedRestaurantsModelController.fetchMapPinSavedData(with: mapPinsModel[index])
+        if let model = self.savedRestaurantsModelController.domainModel {
             completion(model, url)
         }
     }

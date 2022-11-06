@@ -11,15 +11,15 @@ class SpinWheelViewModel {
     
     private var networkManager: NetworkManager
     private var modelControleller: RestaurantsModelController
-    private var savedLocationModelController: SavedLocationModelController
+    private var savedRestaurantsModelController: SavedRestaurantsModelController
     func spinIndex(count: Int) -> Int {
         return Int.random(in: 0..<count)
     }
     
-    init(modelController: RestaurantsModelController, networkManager: NetworkManager, savedLocationModelController: SavedLocationModelController) {
+    init(modelController: RestaurantsModelController, networkManager: NetworkManager, savedRestaurantsModelController: SavedRestaurantsModelController) {
         self.networkManager = networkManager
         self.modelControleller = modelController
-        self.savedLocationModelController = savedLocationModelController
+        self.savedRestaurantsModelController = savedRestaurantsModelController
     }
     
     
@@ -58,9 +58,9 @@ class SpinWheelViewModel {
         completion(spinWheelModel)
     }
     
-    func setUpSavedLocationSpinWheelData(with spinWheelModel: SpinWheelDataModel, completion: @escaping (SavedLocationDomainModel) -> Void) {
-        self.savedLocationModelController.fetchSpinWheelSavedData(with: spinWheelModel, completion: { [weak self] in
-            guard let model = self?.savedLocationModelController.domainModel else { return }
+    func setUpSavedRestaurantsSpinWheelData(with spinWheelModel: SpinWheelDataModel, completion: @escaping (SavedRestaurantDomainModel) -> Void) {
+        self.savedRestaurantsModelController.fetchSpinWheelSavedData(with: spinWheelModel, completion: { [weak self] in
+            guard let model = self?.savedRestaurantsModelController.domainModel else { return }
             completion(model)
         })
     }

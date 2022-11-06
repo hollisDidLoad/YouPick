@@ -1,5 +1,5 @@
 //
-//  SavedLocationsDomainModel.swift
+//  SavedRestaurantDomainModel.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 11/1/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SavedLocationDomainModel {
+struct SavedRestaurantDomainModel {
     var name: String?
     var url: URL?
     var location: String?

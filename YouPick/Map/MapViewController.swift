@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     )
     private let viewModel = MapViewModel(
         modelController: RestaurantsModelController.shared,
-        savedLocationModelController: SavedLocationModelController.shared
+        savedRestaurantsModelController: SavedRestaurantsModelController.shared
     )
     private var locationManager: LocationManager
     private var coreDataController: CoreDataModelController
@@ -93,11 +93,11 @@ extension MapViewController {
         let webVC = WebPageViewController(
             coreDataController: CoreDataModelController.shared,
             locationManager: LocationManager.shared,
-            savedLocationModelController: SavedLocationModelController.shared
+            savedRestaurantsModelController: SavedRestaurantsModelController.shared
         )
         viewModel.setUpWebData(with: name, and: mapPinsModel, completion: { model, url in
             if authorizedTracking {
-                webVC.setUpSavedLocationData(with: model)
+                webVC.setUpSavedRestaurantData(with: model)
                 webVC.setUpUrl(with: url)
                 completion(webVC)
             } else {

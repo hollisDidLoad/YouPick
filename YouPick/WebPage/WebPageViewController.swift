@@ -23,12 +23,12 @@ class WebPageViewController: UIViewController, UISheetPresentationControllerDele
         return presentationController as? UISheetPresentationController
     }
     private let coreDataController: CoreDataModelController
-    private let savedLocationModelController: SavedLocationModelController
+    private let savedRestaurantsModelController: SavedRestaurantsModelController
     
-    init(coreDataController: CoreDataModelController, locationManager: LocationManager, savedLocationModelController: SavedLocationModelController) {
+    init(coreDataController: CoreDataModelController, locationManager: LocationManager, savedRestaurantsModelController: SavedRestaurantsModelController) {
         self.coreDataController = coreDataController
         self.locationManager = locationManager
-        self.savedLocationModelController = savedLocationModelController
+        self.savedRestaurantsModelController = savedRestaurantsModelController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -117,8 +117,8 @@ extension WebPageViewController {
         })
     }
     
-    func setUpSavedLocationData(with domainModel: SavedLocationDomainModel) {
-        viewModel.setUpSavedData(savedLocationDomainModel: domainModel)
+    func setUpSavedRestaurantData(with domainModel: SavedRestaurantDomainModel) {
+        viewModel.setUpSavedData(savedRestaurantsDomainModel: domainModel)
     }
 }
 

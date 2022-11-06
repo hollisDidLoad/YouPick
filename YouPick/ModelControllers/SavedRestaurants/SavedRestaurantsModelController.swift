@@ -1,5 +1,5 @@
 //
-//  SavedLocationsModelController.swift
+//  SavedRestaurantsModelController.swift
 //  YouPick
 //
 //  Created by Hollis Kwan on 11/1/22.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-class SavedLocationModelController {
-    static let shared = SavedLocationModelController()
+class SavedRestaurantsModelController {
+    static let shared = SavedRestaurantsModelController()
     private init() {}
     
-    var domainModel: SavedLocationDomainModel?
+    var domainModel: SavedRestaurantDomainModel?
     
     func fetchSpinWheelSavedData(with spinWheelModel: SpinWheelDataModel, completion: @escaping () -> Void) {
-        self.domainModel = SavedLocationDomainModel(spinWheelModel)
+        self.domainModel = SavedRestaurantDomainModel(spinWheelModel)
         completion()
     }
     
     func fetchMapPinSavedData(with mapPinsModel: MapPinsModel) {
-        self.domainModel = SavedLocationDomainModel(mapPinsModel)
+        self.domainModel = SavedRestaurantDomainModel(mapPinsModel)
     }
 }

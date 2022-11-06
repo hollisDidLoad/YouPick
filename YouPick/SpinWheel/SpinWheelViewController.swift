@@ -19,7 +19,7 @@ class SpinWheelViewController: UIViewController {
     private let viewModel = SpinWheelViewModel(
         modelController: RestaurantsModelController.shared,
         networkManager: NetworkManager.shared,
-        savedLocationModelController: SavedLocationModelController.shared
+        savedRestaurantsModelController: SavedRestaurantsModelController.shared
     )
     private let coreDataController: CoreDataModelController
     
@@ -113,11 +113,11 @@ extension SpinWheelViewController {
             let webPageVC = WebPageViewController(
                 coreDataController: CoreDataModelController.shared,
                 locationManager: LocationManager.shared,
-                savedLocationModelController: SavedLocationModelController.shared
+                savedRestaurantsModelController: SavedRestaurantsModelController.shared
             )
             guard let url = self.contentView.spinWheelDataModels[index].url else { return }
-            self.viewModel.setUpSavedLocationSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
-                webPageVC.setUpSavedLocationData(with: model)
+            self.viewModel.setUpSavedRestaurantsSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
+                webPageVC.setUpSavedRestaurantData(with: model)
             })
             if authorizedTracking {
                 webPageVC.setUpUrl(with: url)
