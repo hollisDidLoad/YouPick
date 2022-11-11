@@ -1,6 +1,6 @@
 # YouPick
 
-#You will require your own Yelp API key to fully use the open source code.
+#Will require your own Yelp API key to fully use the open source code.
 
 **Screen Shots**
 
