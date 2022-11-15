@@ -100,10 +100,10 @@ extension WebPageViewController {
         loadAnimation()
         viewModel.loadURL(with: self.contentView.webView, and: url, completion: { [weak self] in
             self?.viewModel.currentUrl = url
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self?.contentView.removeAnimation()
-            }
         })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            self.contentView.removeAnimation()
+        }
     }
     
     func setUpSavedUrlPage(with url: URL) {

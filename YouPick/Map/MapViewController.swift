@@ -21,13 +21,16 @@ class MapViewController: UIViewController {
     )
     private var locationManager: LocationManager
     private var coreDataController: CoreDataModelController
+    private let internetManager: InternetManager
     
     init(
         locationManager: LocationManager,
-        coreDataController: CoreDataModelController
+        coreDataController: CoreDataModelController,
+        internetManager: InternetManager
     ) {
         self.locationManager = locationManager
         self.coreDataController = coreDataController
+        self.internetManager = internetManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -90,21 +93,28 @@ extension MapViewController {
         completion: @escaping (UIViewController) -> Void
     ) {
         let authorizedTracking = UserDefaults.standard.ifAuthorizedTracking
-        let webVC = WebPageViewController(
-            coreDataController: CoreDataModelController.shared,
-            locationManager: LocationManager.shared,
-            savedRestaurantsModelController: SavedRestaurantsModelController.shared
-        )
-        viewModel.setUpWebData(with: name, and: mapPinsModel, completion: { model, url in
-            if authorizedTracking {
-                webVC.setUpSavedRestaurantData(with: model)
-                webVC.setUpUrl(with: url)
-                completion(webVC)
-            } else {
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true)
-            }
-        })
+        if internetManager.isConnected {
+            let webVC = WebPageViewController(
+                coreDataController: CoreDataModelController.shared,
+                locationManager: LocationManager.shared,
+                savedRestaurantsModelController: SavedRestaurantsModelController.shared
+            )
+            viewModel.setUpWebData(with: name, and: mapPinsModel, completion: { model, url in
+                if authorizedTracking {
+                    webVC.setUpSavedRestaurantData(with: model)
+                    webVC.setUpUrl(with: url)
+                    completion(webVC)
+                } else {
+                    let safariVC = SFSafariViewController(url: url)
+                    self.present(safariVC, animated: true)
+                }
+            })
+        } else {
+            let noInternetVC = NoInternetConnectionViewController(
+                internetManager: InternetManager.shared
+            )
+            present(noInternetVC, animated: true)
+        }
     }
 }
 

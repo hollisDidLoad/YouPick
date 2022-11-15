@@ -12,9 +12,11 @@ class RequestLocationViewController: UIViewController {
     
     private var locationManager: LocationManager
     private let contentView = RequestLocationView()
+    private let internetManager: InternetManager
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager, internetManager: InternetManager) {
         self.locationManager = locationManager
+        self.internetManager = internetManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,10 +28,20 @@ class RequestLocationViewController: UIViewController {
         view = contentView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.requestUserAuthorization()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if internetManager.isConnected {
+            locationManager.delegate = self
+            locationManager.requestUserAuthorization()
+        } else {
+            let noInternetVC = NoInternetConnectionViewController(
+                internetManager: InternetManager.shared
+            )
+            noInternetVC.modalPresentationStyle = .fullScreen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.present(noInternetVC, animated: false)
+            }
+        }
     }
 }
 

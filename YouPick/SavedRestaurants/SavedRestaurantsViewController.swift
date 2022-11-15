@@ -13,9 +13,11 @@ class SavedRestaurantsViewController: UIViewController {
     
     private let contentView = SavedRestaurantsView()
     private let coreDataController: CoreDataModelController
+    private let internetManager: InternetManager
     
-    init(coreDataController: CoreDataModelController) {
+    init(coreDataController: CoreDataModelController, internetManager: InternetManager) {
         self.coreDataController = coreDataController
+        self.internetManager = internetManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,13 +49,20 @@ class SavedRestaurantsViewController: UIViewController {
     }
     
     private func presentWebPage(with indexPath: IndexPath, and url: URL, completion: @escaping (UIViewController) -> Void) {
-        let webPageVC = WebPageViewController(
-            coreDataController: CoreDataModelController.shared,
-            locationManager: LocationManager.shared,
-            savedRestaurantsModelController: SavedRestaurantsModelController.shared
-        )
-        webPageVC.setUpSavedUrlPage(with: url)
-        completion(webPageVC)
+        if internetManager.isConnected {
+            let webPageVC = WebPageViewController(
+                coreDataController: CoreDataModelController.shared,
+                locationManager: LocationManager.shared,
+                savedRestaurantsModelController: SavedRestaurantsModelController.shared
+            )
+            webPageVC.setUpSavedUrlPage(with: url)
+            completion(webPageVC)
+        } else {
+            let noInternetVC = NoInternetConnectionViewController(
+                internetManager: InternetManager.shared
+            )
+            present(noInternetVC, animated: true)
+        }
     }
 }
 

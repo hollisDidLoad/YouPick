@@ -12,6 +12,8 @@ import AppTrackingTransparency
 
 class SpinWheelViewController: UIViewController {
     
+    private let coreDataController: CoreDataModelController
+    private let internetManager: InternetManager
     private let contentView = SpinWheelView(
         modelController:
             RestaurantsModelController.shared
@@ -21,10 +23,13 @@ class SpinWheelViewController: UIViewController {
         networkManager: NetworkManager.shared,
         savedRestaurantsModelController: SavedRestaurantsModelController.shared
     )
-    private let coreDataController: CoreDataModelController
     
-    init(coreDataController: CoreDataModelController) {
+    init(
+        coreDataController: CoreDataModelController,
+        internetManager: InternetManager
+    ) {
         self.coreDataController = coreDataController
+        self.internetManager = internetManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -110,21 +115,28 @@ extension SpinWheelViewController {
     private func presentWebPage(of index: Int, completion: @escaping (UIViewController) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             let authorizedTracking = UserDefaults.standard.ifAuthorizedTracking
-            let webPageVC = WebPageViewController(
-                coreDataController: CoreDataModelController.shared,
-                locationManager: LocationManager.shared,
-                savedRestaurantsModelController: SavedRestaurantsModelController.shared
-            )
-            guard let url = self.contentView.spinWheelDataModels[index].url else { return }
-            self.viewModel.setUpSavedRestaurantsSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
-                webPageVC.setUpSavedRestaurantData(with: model)
-            })
-            if authorizedTracking {
-                webPageVC.setUpUrl(with: url)
-                completion(webPageVC)
+            if self.internetManager.isConnected {
+                let webPageVC = WebPageViewController(
+                    coreDataController: CoreDataModelController.shared,
+                    locationManager: LocationManager.shared,
+                    savedRestaurantsModelController: SavedRestaurantsModelController.shared
+                )
+                guard let url = self.contentView.spinWheelDataModels[index].url else { return }
+                self.viewModel.setUpSavedRestaurantsSpinWheelData(with: self.contentView.spinWheelDataModels[index], completion: { model in
+                    webPageVC.setUpSavedRestaurantData(with: model)
+                })
+                if authorizedTracking {
+                    webPageVC.setUpUrl(with: url)
+                    completion(webPageVC)
+                } else {
+                    let safariVC = SFSafariViewController(url: url)
+                    completion(safariVC)
+                }
             } else {
-                let safariVC = SFSafariViewController(url: url)
-                completion(safariVC)
+                let noInternetVC = NoInternetConnectionViewController(
+                    internetManager: InternetManager.shared
+                )
+                self.present(noInternetVC, animated: true)
             }
         }
     }
