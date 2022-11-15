@@ -17,8 +17,7 @@ class InternetManager {
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
     
-//    public private(set) var isConnected: Bool = false
-    var isConnected: Bool = false
+    public private(set) var isConnected: Bool = false
     
     enum ConnectionType {
         case wifi
