@@ -33,7 +33,7 @@
 		584CD65C28FB8596003CC71E /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */; };
 		584D280029072B1E002F9168 /* forkloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 584D27FF29072B1E002F9168 /* forkloading.json */; };
 		584D280429072C77002F9168 /* WebPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584D280329072C77002F9168 /* WebPageViewModel.swift */; };
-		58971D122923315C0087108C /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58971D112923315C0087108C /* API_KEY.swift */; };
+		5854047D2928012600A8B803 /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5854047C2928012600A8B803 /* API_KEY.swift */; };
 		58971D14292334630087108C /* NoInternetConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58971D13292334630087108C /* NoInternetConnectionViewController.swift */; };
 		58971D162923346F0087108C /* NoInternetConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58971D152923346F0087108C /* NoInternetConnectionView.swift */; };
 		58971D18292334760087108C /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58971D17292334760087108C /* InternetManager.swift */; };
@@ -89,7 +89,7 @@
 		584CD65B28FB8596003CC71E /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		584D27FF29072B1E002F9168 /* forkloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = forkloading.json; sourceTree = "<group>"; };
 		584D280329072C77002F9168 /* WebPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageViewModel.swift; sourceTree = "<group>"; };
-		58971D112923315C0087108C /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
+		5854047C2928012600A8B803 /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		58971D13292334630087108C /* NoInternetConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionViewController.swift; sourceTree = "<group>"; };
 		58971D152923346F0087108C /* NoInternetConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionView.swift; sourceTree = "<group>"; };
 		58971D17292334760087108C /* InternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 			children = (
 				5820AAF628FA213000B12A4A /* NetworkManager.swift */,
 				5820AAF828FA214A00B12A4A /* RestaurantsAPIModel.swift */,
-				58971D112923315C0087108C /* API_KEY.swift */,
+				5854047C2928012600A8B803 /* API_KEY.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -523,6 +523,7 @@
 				58F4170C2911469300D21A4B /* WebPageSavedRestaurantsModel.swift in Sources */,
 				58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */,
 				58F417022910E03300D21A4B /* CoreDataStack.swift in Sources */,
+				5854047D2928012600A8B803 /* API_KEY.swift in Sources */,
 				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
 				58971D162923346F0087108C /* NoInternetConnectionView.swift in Sources */,
@@ -535,7 +536,6 @@
 				58F417092910E05300D21A4B /* CoreData.xcdatamodeld in Sources */,
 				58B33EB328FE24B700D8502A /* SpinWheelColorModel.swift in Sources */,
 				58F417042910E03F00D21A4B /* SavedRestaurants+CoreData.swift in Sources */,
-				58971D122923315C0087108C /* API_KEY.swift in Sources */,
 				5820AAF728FA213000B12A4A /* NetworkManager.swift in Sources */,
 				58B33EB528FE2E4A00D8502A /* WebPageViewController.swift in Sources */,
 				58B33EB728FE2E8900D8502A /* WebPageView.swift in Sources */,
