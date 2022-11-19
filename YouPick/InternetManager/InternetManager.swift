@@ -15,7 +15,7 @@ class InternetManager {
     }
     
     private let queue = DispatchQueue.global()
-    private let monitor: NWPathMonitor   
+    private let monitor: NWPathMonitor
     
     public private(set) var isConnected: Bool = false
     
