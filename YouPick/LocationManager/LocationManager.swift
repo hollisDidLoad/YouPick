@@ -12,7 +12,7 @@ import UIKit
 protocol LocationManagerDelegate: AnyObject {
     func didUpdateStatus(_ allowed: Bool)
 }
-
+ 
 class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
