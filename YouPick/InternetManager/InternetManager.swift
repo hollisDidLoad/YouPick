@@ -11,11 +11,11 @@ import Network
 class InternetManager {
     static let shared = InternetManager()
     private init () {
-        monitor = NWPathMonitor()
+        pathMonth = NWPathMonitor()
     }
     
     private let queue = DispatchQueue.global()
-    private let monitor: NWPathMonitor
+    private let pathMonth: NWPathMonitor
     
     public private(set) var isConnected: Bool = false
     
@@ -29,15 +29,15 @@ class InternetManager {
     public private(set) var connectionType: ConnectionType = .unknown
     
     public func startMonitoring() {
-        monitor.start(queue: queue)
-        monitor.pathUpdateHandler = { [weak self] path in
+        pathMonth.start(queue: queue)
+        pathMonth.pathUpdateHandler = { [weak self] path in
             self?.isConnected = path.status == .satisfied
             self?.getConnectionType(path)
         }
     }
     
     public func stopMonitoring() {
-        monitor.cancel()
+        pathMonth.cancel()
     }
     
     private func getConnectionType(_ path: NWPath) {
