@@ -27,5 +27,5 @@ struct Coordinates: Codable {
 }
 
 struct Location: Codable {
-    let city: String
+    var city: String?
 }
