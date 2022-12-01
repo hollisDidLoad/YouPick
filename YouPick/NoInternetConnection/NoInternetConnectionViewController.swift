@@ -51,7 +51,10 @@ class NoInternetConnectionViewController: UIViewController, UISheetPresentationC
         if internetManager.isConnected {
             dismiss(animated: true)
         } else {
-            let alert = UIAlertController(title: "Oops!", message: "No internet connection found.\nPlease try again.", preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "Oops!",
+                message: "No internet connection found.\nPlease try again.",
+                preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel))
             present(alert, animated: true)
         }

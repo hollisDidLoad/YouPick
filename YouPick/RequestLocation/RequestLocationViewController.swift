@@ -31,8 +31,8 @@ class RequestLocationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if internetManager.isConnected {
-            locationManager.delegate = self
             locationManager.requestUserAuthorization()
+            locationManager.delegate = self
         } else {
             let noInternetVC = NoInternetConnectionViewController(
                 internetManager: InternetManager.shared
