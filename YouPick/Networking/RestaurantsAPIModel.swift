@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+ 
 struct RestaurantsAPIModel: Codable {
     enum CodingKeys: String, CodingKey {
         case restaurants = "businesses"
