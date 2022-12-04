@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 import UIKit
- 
+
 protocol LocationManagerDelegate: AnyObject {
     func didUpdateStatus(_ allowed: Bool)
 }
