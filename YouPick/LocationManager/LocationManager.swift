@@ -23,7 +23,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     weak var delegate: LocationManagerDelegate?
     var currentLocation = CLLocation()
     var locationName = String()
-    
+        
     func fetchCurrentLocation(completion: @escaping () -> Void) {
         self.setCurrentLocation { [weak self] currentLocation in
             self?.fetchGeoLocation(with: currentLocation, completion: { [weak self] locationName in
