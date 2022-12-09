@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5814FACB2943F66600D640CE /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814FACA2943F66600D640CE /* API_KEY.swift */; };
 		5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */; };
 		5820AAD128FA1F7E00B12A4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */; };
 		5820AAE428FA1FD700B12A4A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5820AAE328FA1FD700B12A4A /* TabBarViewController.swift */; };
@@ -42,7 +43,6 @@
 		58B33EB728FE2E8900D8502A /* WebPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB628FE2E8900D8502A /* WebPageView.swift */; };
 		58B33EBA28FE406F00D8502A /* SpinWheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */; };
 		58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */; };
-		58BE28DE294167ED00FB3C1F /* API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE28DD294167ED00FB3C1F /* API_KEY.swift */; };
 		58C1671929060C8D00D8195E /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1671829060C8C00D8195E /* RequestLocationViewController.swift */; };
 		58F416FB2910DDC800D21A4B /* SavedRestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F416FA2910DDC800D21A4B /* SavedRestaurantsViewController.swift */; };
 		58F416FD2910DDCF00D21A4B /* SavedRestaurantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F416FC2910DDCF00D21A4B /* SavedRestaurantsView.swift */; };
@@ -62,6 +62,7 @@
 /* Begin PBXFileReference section */
 		39C9B3F3C89D06ADD2F19E7C /* Pods_YouPick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouPick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5804CF4A28FCE62E00257BE5 /* food.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = food.json; sourceTree = "<group>"; };
+		5814FACA2943F66600D640CE /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		5820AACB28FA1F7E00B12A4A /* YouPick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5820AACE28FA1F7E00B12A4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5820AAD028FA1F7E00B12A4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		58B33EB628FE2E8900D8502A /* WebPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageView.swift; sourceTree = "<group>"; };
 		58B33EB928FE406F00D8502A /* SpinWheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelViewModel.swift; sourceTree = "<group>"; };
 		58B33EBD28FEDDAF00D8502A /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
-		58BE28DD294167ED00FB3C1F /* API_KEY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_KEY.swift; sourceTree = "<group>"; };
 		58C1671829060C8C00D8195E /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		58F416FA2910DDC800D21A4B /* SavedRestaurantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRestaurantsViewController.swift; sourceTree = "<group>"; };
 		58F416FC2910DDCF00D21A4B /* SavedRestaurantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRestaurantsView.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 			children = (
 				5820AAF628FA213000B12A4A /* NetworkManager.swift */,
 				5820AAF828FA214A00B12A4A /* RestaurantsAPIModel.swift */,
-				58BE28DD294167ED00FB3C1F /* API_KEY.swift */,
+				5814FACA2943F66600D640CE /* API_KEY.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -523,7 +523,7 @@
 				58F4170C2911469300D21A4B /* WebPageSavedRestaurantsModel.swift in Sources */,
 				58B33EBE28FEDDAF00D8502A /* TabBarViewModel.swift in Sources */,
 				58F417022910E03300D21A4B /* CoreDataStack.swift in Sources */,
-				58BE28DE294167ED00FB3C1F /* API_KEY.swift in Sources */,
+				5814FACB2943F66600D640CE /* API_KEY.swift in Sources */,
 				5820AAE928FA201E00B12A4A /* SpinWheelView.swift in Sources */,
 				5820AACF28FA1F7E00B12A4A /* AppDelegate.swift in Sources */,
 				58971D162923346F0087108C /* NoInternetConnectionView.swift in Sources */,
