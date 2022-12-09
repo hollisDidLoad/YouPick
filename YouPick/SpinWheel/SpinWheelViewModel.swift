@@ -12,16 +12,20 @@ class SpinWheelViewModel {
     private var networkManager: NetworkManager
     private var modelControleller: RestaurantsModelController
     private var savedRestaurantsModelController: SavedRestaurantsModelController
-    func spinIndex(count: Int) -> Int {
-        return Int.random(in: 0..<count)
-    }
     
-    init(modelController: RestaurantsModelController, networkManager: NetworkManager, savedRestaurantsModelController: SavedRestaurantsModelController) {
+    
+    init(modelController: RestaurantsModelController,
+         networkManager: NetworkManager,
+         savedRestaurantsModelController: SavedRestaurantsModelController
+    ) {
         self.networkManager = networkManager
         self.modelControleller = modelController
         self.savedRestaurantsModelController = savedRestaurantsModelController
     }
     
+    func spinIndex(count: Int) -> Int {
+        return Int.random(in: 0..<count)
+    }
     
     func fetchRestaurants(
         businessLimit: String = "10",
@@ -50,7 +54,10 @@ class SpinWheelViewModel {
             })
     }
     
-    private func updateSpinWheel(with restaurantAPI: [RestaurantModel], completion: @escaping ([SpinWheelDataModel]) -> Void) {
+    private func updateSpinWheel(
+        with restaurantAPI: [RestaurantModel],
+        completion: @escaping ([SpinWheelDataModel]) -> Void
+    ) {
         modelControleller.domainModels.removeAll()
         modelControleller.setUpModelData(with: restaurantAPI)
         let domainModels = modelControleller.domainModels
@@ -58,7 +65,10 @@ class SpinWheelViewModel {
         completion(spinWheelModel)
     }
     
-    func setUpSavedRestaurantsSpinWheelData(with spinWheelModel: SpinWheelDataModel, completion: @escaping (SavedRestaurantDomainModel) -> Void) {
+    func setUpSavedRestaurantsSpinWheelData(
+        with spinWheelModel: SpinWheelDataModel,
+        completion: @escaping (SavedRestaurantDomainModel) -> Void
+    ) {
         self.savedRestaurantsModelController.fetchSpinWheelSavedData(with: spinWheelModel, completion: { [weak self] in
             guard let model = self?.savedRestaurantsModelController.domainModel else { return }
             completion(model)
