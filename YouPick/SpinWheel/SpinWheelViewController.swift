@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SafariServices
 import AppTrackingTransparency
-
+        
 class SpinWheelViewController: UIViewController {
     
     private let coreDataController: CoreDataModelController
