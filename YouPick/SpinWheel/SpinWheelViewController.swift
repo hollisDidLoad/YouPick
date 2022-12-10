@@ -60,7 +60,7 @@ class SpinWheelViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        contentView.removeText()
+        contentView.removeWinnerLabel()
         requestAppTrackingTransparency()
     }
     
