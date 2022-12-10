@@ -11,7 +11,7 @@ import SafariServices
 import AppTrackingTransparency
 
 class SpinWheelViewController: UIViewController {
-
+ 
     private let coreDataController: CoreDataModelController
     private let internetManager: InternetManager
     private let contentView = SpinWheelView(
