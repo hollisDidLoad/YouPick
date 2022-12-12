@@ -1,7 +1,5 @@
 # YouPick
 
-#Will require your own Yelp API key to fully use the open source code.
-
 **Screen Shots**
 
 <img src="https://user-images.githubusercontent.com/112967435/199878914-b2e734ef-d26e-48e7-b7af-b6bc27759ea3.png" width="180" height="400" /> <img src="https://user-images.githubusercontent.com/112967435/199879375-d855f915-b9a5-4577-9874-ceea94da96aa.png" width="180" height="400" /> <img src="https://user-images.githubusercontent.com/112967435/199879459-04dfa2ca-26f6-4ed1-ab9e-66b3ccfb3f8f.png" width="180" height="400" />                    
