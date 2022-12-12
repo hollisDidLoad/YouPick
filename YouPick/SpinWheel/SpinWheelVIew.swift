@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 import SwiftFortuneWheel
-
+ 
 class SpinWheelView: UIView {
 
     var slices = [Slice]()
     var spinWheelDataModels = [SpinWheelDataModel]()
     private var modelController: RestaurantsModelController
     
-    //MARK: - Dependency Injection
+    //MARK: - Dependency Injection  
     
     init(modelController: RestaurantsModelController) {
         self.modelController = modelController
