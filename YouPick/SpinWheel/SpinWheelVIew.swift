@@ -10,7 +10,7 @@ import UIKit
 import SwiftFortuneWheel
 
 class SpinWheelView: UIView {
-    
+
     var slices = [Slice]()
     var spinWheelDataModels = [SpinWheelDataModel]()
     private var modelController: RestaurantsModelController
