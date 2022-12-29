@@ -10,7 +10,7 @@ import Foundation
 class SpinWheelViewModel {
     
     private var networkManager: NetworkManager
-    private var modelControleller: RestaurantsModelController
+    private var modelController: RestaurantsModelController
     private var savedRestaurantsModelController: SavedRestaurantsModelController
     
     
@@ -19,7 +19,7 @@ class SpinWheelViewModel {
          savedRestaurantsModelController: SavedRestaurantsModelController
     ) {
         self.networkManager = networkManager
-        self.modelControleller = modelController
+        self.modelController = modelController
         self.savedRestaurantsModelController = savedRestaurantsModelController
     }
     
@@ -58,9 +58,9 @@ class SpinWheelViewModel {
         with restaurantAPI: [RestaurantModel],
         completion: @escaping ([SpinWheelDataModel]) -> Void
     ) {
-        modelControleller.domainModels.removeAll()
-        modelControleller.setUpModelData(with: restaurantAPI)
-        let domainModels = modelControleller.domainModels
+        modelController.domainModels.removeAll()
+        modelController.setUpModelData(with: restaurantAPI)
+        let domainModels = modelController.domainModels
         let spinWheelModel = domainModels.map { SpinWheelDataModel($0) }
         completion(spinWheelModel)
     }
